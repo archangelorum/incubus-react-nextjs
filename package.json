@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} src/seed.ts"
+  },
   "packageManager": "npm@10.5.2",
   "overrides": {
     "react": "$react",
@@ -30,6 +33,7 @@
     "postcss": "^8",
     "prisma": "^6.0.1",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
