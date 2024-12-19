@@ -3,18 +3,30 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "../prisma/prisma"
 import Google from "next-auth/providers/google"
 import GitHub from "next-auth/providers/github"
+import Discord from "next-auth/providers/discord"
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
       profile(profile){
-        console.log(profile);
         return {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
+          roleId: 1
+        }
+      }
+    }),
+    Discord({
+      profile(profile){
+        console.log(profile);
+        return {
+          id: profile.id,
+          name: profile.username,
+          email: profile.email,
+          image: profile.avatar,
           roleId: 1
         }
       }
@@ -31,6 +43,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           roleId: roleId
         };
       }
-    })
+    }),
   ],
 })
