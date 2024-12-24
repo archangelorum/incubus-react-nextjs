@@ -27,7 +27,7 @@ const Navbar = async () => {
                                     Logout
                                 </button>
                             </form>
-                            <Link href={`/user`}>
+                            <Link href={session.user.roleId == 2 ? "/admin" : "/user"}>
                                 <span>{session.user.name} {session.user.roleId}</span>
                             </Link>
                         </>
