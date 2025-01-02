@@ -9,23 +9,23 @@ async function main() {
         name: "user",
     },
   })
-  const admin = await prisma.role.upsert({
-    where: { name: "admin" },
-    update: {},
-    create: {
-        id: 2,
-        name: "admin"
-    }
-  })
   const contentCreator = await prisma.role.upsert({
     where: { name: "content_creator" },
     update: {},
     create: {
-        id: 3,
+        id: 2,
         name: "content_creator"
     }
   })
-  console.log({user, admin, contentCreator});
+  const admin = await prisma.role.upsert({
+    where: { name: "admin" },
+    update: {},
+    create: {
+        id: 3,
+        name: "admin"
+    }
+  })
+  console.log({user, contentCreator, admin});
 }
 main()
   .then(async () => {

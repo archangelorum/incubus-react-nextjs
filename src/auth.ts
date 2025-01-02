@@ -4,9 +4,13 @@ import { prisma } from "../prisma/prisma"
 import Google from "next-auth/providers/google"
 import GitHub from "next-auth/providers/github"
 import Discord from "next-auth/providers/discord"
+import { Adapter } from "next-auth/adapters"
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
+  session: {
+    strategy: "database"
+  },
   providers: [
     Google({
       profile(profile){
@@ -33,7 +37,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
     GitHub({
       profile(profile){
-        const roleId = profile.login === "archangelorum" ? 2 : 1; //isAdmin
+        const roleId = profile.login === "archangelorum" ? 3 : 1; //isAdmin
 
         return {
           id: profile.id.toString(),
