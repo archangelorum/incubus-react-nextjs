@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} src/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "packageManager": "npm@10.5.2",
   "overrides": {
