@@ -1,71 +1,70 @@
-import { prisma } from "../../prisma/prisma";
+'use client';
 
-interface User {
-    id: string;
-    name: string;
-    email: string;
-    roleId: number;
-}
+import React, { useState } from 'react';
+import { IUser } from '@/interfaces';
+import SearchBar from './SearchBar';
 
-// Fetch users from API or database
-async function fetchUsers(): Promise<User[]> {
-    const response = await fetch('http://localhost:3000/api/users', {
-        credentials: "include",
-    });
-    if (!response.ok) {
-        throw new Error('Failed to fetch users');
-    }
-    return await response.json();
-}
+// Client Component: Handles user actions (rank up, rank down, delete)
+const UsersTable = ({ initialUsers }: { initialUsers: IUser[] }) => {
+    const [filteredUsers, setFilteredUsers] = useState<IUser[]>(initialUsers);
 
-const handleDelete = async (id: string) => {
-    try {
-        await prisma.user.delete({
-            where: { id },
-        });
-
-        console.log(`User with id ${id} deleted successfully.`);
-    } catch (error) {
-        console.error("Error deleting user:", error);
-    }
-};
-
-const handleRoleChange = async (id: string, action: "rankUp" | "rankDown") => {
-    try {
-        const user = await prisma.user.findUnique({ where: { id } });
-        
-        if (!user) throw new Error("User not found");
-
-        let newRoleId = user.roleId;
-
-        // Rank up (increment roleId) or Rank down (decrement roleId)
-        if (action === "rankUp" && newRoleId < 3) {
-            newRoleId += 1;
-        } else if (action === "rankDown" && newRoleId > 1) {
-            newRoleId -= 1;
+    const handleDelete = async (id: string) => {
+        try {
+            await fetch(`/api/users`, { 
+                method: 'DELETE',
+                body: JSON.stringify({
+                    id: id
+                })
+            });
+            // Update the state to remove the deleted user
+            setFilteredUsers((prevUsers) => prevUsers.filter(user => user.id !== id));
+        } catch (error) {
+            console.error("Error deleting user:", error);
         }
+    };
 
-        await prisma.user.update({
-            where: { id },
-            data: { roleId: newRoleId },
-        });
+    const handleRoleChange = async (id: string, action: "rankUp" | "rankDown") => {
+        try {
+            const response = await fetch(`/api/users`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    id: id,
+                    action: action
+                })
+            });
+            const updatedUser = await response.json();
 
-        console.log(`User's role updated successfully.`);
-    } catch (error) {
-        console.error("Error updating user's role:", error);
+            setFilteredUsers((prevUsers) =>
+                prevUsers.map(user =>
+                    user.id === updatedUser.id ? updatedUser : user
+                )
+            );
+        } catch (error) {
+            console.error("Error updating user's role:", error);
+        }
+    };
+
+    const handleSearchChange = async (searchQuery: string) => {
+        setFilteredUsers(
+            initialUsers.filter(user =>
+                user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                user.email.includes(searchQuery.toLowerCase())
+            )
+        );
     }
-};
 
-const UsersTable = async () => {
-    const allUsers = await fetchUsers();
-
-    const users = allUsers.filter(user => user.roleId === 1);
-    const contentCreators = allUsers.filter(user => user.roleId === 2);
-    const admins = allUsers.filter(user => user.roleId === 3);
+    // Categorize users based on their roleId
+    const usersByRole = {
+        admins: filteredUsers.filter(user => user.roleId === 3),
+        contentCreators: filteredUsers.filter(user => user.roleId === 2),
+        users: filteredUsers.filter(user => user.roleId === 1),
+    };
 
     return (
         <div className="container mx-auto p-6">
             <h1 className="text-3xl font-bold mb-4">Admin User Management</h1>
+
+            <SearchBar onChangeEvent={handleSearchChange} />
 
             <div className="flex flex-col lg:flex-row gap-6 mb-6">
                 {/* Admins Table */}
@@ -80,24 +79,17 @@ const UsersTable = async () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {admins.map(user => (
+                            {usersByRole.admins.map(user => (
                                 <tr key={user.id}>
                                     <td className="py-2 px-4 border-b">{user.name}</td>
                                     <td className="py-2 px-4 border-b">{user.email}</td>
-                                    <td className="py-2 px-4 border-b">
-                                        <div className="flex gap-4">
-                                            <form action={async () => {
-                                                "use server";
-                                                await handleRoleChange(user.id, "rankDown");
-                                            }}>
-                                                <button
-                                                    type="submit"
-                                                    className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
-                                                >
-                                                    ↓ Rank Down
-                                                </button>
-                                            </form>
-                                        </div>
+                                    <td className="py-2 px-4 border-b flex justify-evenly">
+                                        <button
+                                            onClick={() => handleRoleChange(user.id, 'rankDown')}
+                                            className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
+                                        >
+                                            ↓ Rank Down
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -118,45 +110,31 @@ const UsersTable = async () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {contentCreators.map(user => (
+                            {usersByRole.contentCreators.map(user => (
                                 <tr key={user.id}>
                                     <td className="py-2 px-4 border-b">{user.name}</td>
                                     <td className="py-2 px-4 border-b">{user.email}</td>
-                                    <td className="py-2 px-4 border-b">
-                                        <div className="flex gap-4">
-                                            <form action={async () => {
-                                            "use server";
-                                            await handleRoleChange(user.id, "rankUp");
-                                        }}>
-                                            <button
-                                                type="submit"
-                                                className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
-                                            >
-                                                ↑ Rank Up
-                                            </button>
-                                            </form>
-                                            <form action={async () => {
-                                            "use server";
-                                            await handleRoleChange(user.id, "rankDown");
-                                        }}>
-                                            <button
-                                                type="submit"
-                                                className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
-                                            >
-                                                ↓ Rank Down
-                                            </button>
-                                            </form>
-                                        </div>
+                                    <td className="py-2 px-4 border-b text-center space-y-2">
+                                        <button
+                                            onClick={() => handleRoleChange(user.id, 'rankUp')}
+                                            className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
+                                        >
+                                            ↑ Rank Up
+                                        </button>
+                                        <button
+                                            onClick={() => handleRoleChange(user.id, 'rankDown')}
+                                            className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
+                                        >
+                                            ↓ Rank Down
+                                        </button>
                                     </td>
-                                    <td className="py-2 px-4 border-b">
-                                        <form action={async () => {
-                                            "use server";
-                                            await handleDelete(user.id);
-                                        }}>
-                                            <button type="submit" className="mt-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
-                                                Delete
-                                            </button>
-                                        </form>
+                                    <td className="py-2 px-4 border-b text-center">
+                                        <button
+                                            onClick={() => handleDelete(user.id)}
+                                            className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -178,34 +156,25 @@ const UsersTable = async () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user => (
+                        {usersByRole.users.map(user => (
                             <tr key={user.id}>
                                 <td className="py-2 px-4 border-b">{user.name}</td>
                                 <td className="py-2 px-4 border-b">{user.email}</td>
-                                <td className="py-2 px-4 border-b">
-                                    <div className="flex gap-4">
-                                        <form action={async () => {
-                                            "use server";
-                                            await handleRoleChange(user.id, "rankUp");
-                                        }}>
-                                            <button
-                                                type="submit"
-                                                className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
-                                            >
-                                                ↑ Rank Up
-                                            </button>
-                                        </form>
-                                    </div>
+                                <td className="py-2 px-4 border-b text-center">
+                                    <button
+                                        onClick={() => handleRoleChange(user.id, 'rankUp')}
+                                        className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600 align-middle"
+                                    >
+                                        ↑ Rank Up
+                                    </button>
                                 </td>
-                                <td className="py-2 px-4 border-b">
-                                    <form action={async () => {
-                                        "use server";
-                                        await handleDelete(user.id);
-                                    }}>
-                                        <button type="submit" className="mt-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
-                                            Delete
-                                        </button>
-                                    </form>
+                                <td className="py-2 px-4 border-b text-center">
+                                    <button
+                                        onClick={() => handleDelete(user.id)}
+                                        className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}
