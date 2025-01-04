@@ -61,7 +61,7 @@ const UsersTable = ({ initialUsers }: { initialUsers: IUser[] }) => {
     };
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-6 text-white">
             <h1 className="text-3xl font-bold mb-4">Admin User Management</h1>
 
             <SearchBar onChangeEvent={handleSearchChange} />
@@ -70,23 +70,23 @@ const UsersTable = ({ initialUsers }: { initialUsers: IUser[] }) => {
                 {/* Admins Table */}
                 <div className="flex-1 min-w-[300px]">
                     <h2 className="text-2xl font-semibold mb-4">Admins</h2>
-                    <table className="min-w-full bg-white border border-gray-200">
+                    <table className="min-w-full bg-gray-800 border border-gray-600">
                         <thead>
                             <tr>
-                                <th className="py-2 px-4 border-b">Name</th>
-                                <th className="py-2 px-4 border-b">Email</th>
-                                <th className="py-2 px-4 border-b">Role Management</th>
+                                <th className="py-2 px-4 border-b text-gray-300">Name</th>
+                                <th className="py-2 px-4 border-b text-gray-300">Email</th>
+                                <th className="py-2 px-4 border-b text-gray-300">Role Management</th>
                             </tr>
                         </thead>
                         <tbody>
                             {usersByRole.admins.map(user => (
                                 <tr key={user.id}>
-                                    <td className="py-2 px-4 border-b">{user.name}</td>
-                                    <td className="py-2 px-4 border-b">{user.email}</td>
+                                    <td className="py-2 px-4 border-b text-gray-200">{user.name}</td>
+                                    <td className="py-2 px-4 border-b text-gray-200">{user.email}</td>
                                     <td className="py-2 px-4 border-b flex justify-evenly">
                                         <button
                                             onClick={() => handleRoleChange(user.id, 'rankDown')}
-                                            className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
+                                            className="rounded bg-yellow-500 px-4 py-2 text-black hover:bg-yellow-600"
                                         >
                                             ↓ Rank Down
                                         </button>
@@ -100,30 +100,30 @@ const UsersTable = ({ initialUsers }: { initialUsers: IUser[] }) => {
                 {/* Content Creators Table */}
                 <div className="flex-1 min-w-[300px]">
                     <h2 className="text-2xl font-semibold mb-4">Content Creators</h2>
-                    <table className="min-w-full bg-white border border-gray-200">
+                    <table className="min-w-full bg-gray-800 border border-gray-600">
                         <thead>
                             <tr>
-                                <th className="py-2 px-4 border-b">Name</th>
-                                <th className="py-2 px-4 border-b">Email</th>
-                                <th className="py-2 px-4 border-b">Role Management</th>
-                                <th className="py-2 px-4 border-b">Actions</th>
+                                <th className="py-2 px-4 border-b text-gray-300">Name</th>
+                                <th className="py-2 px-4 border-b text-gray-300">Email</th>
+                                <th className="py-2 px-4 border-b text-gray-300">Role Management</th>
+                                <th className="py-2 px-4 border-b text-gray-300">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {usersByRole.contentCreators.map(user => (
                                 <tr key={user.id}>
-                                    <td className="py-2 px-4 border-b">{user.name}</td>
-                                    <td className="py-2 px-4 border-b">{user.email}</td>
+                                    <td className="py-2 px-4 border-b text-gray-200">{user.name}</td>
+                                    <td className="py-2 px-4 border-b text-gray-200">{user.email}</td>
                                     <td className="py-2 px-4 border-b text-center space-y-2">
                                         <button
                                             onClick={() => handleRoleChange(user.id, 'rankUp')}
-                                            className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
+                                            className="rounded bg-yellow-500 px-4 py-2 text-black hover:bg-yellow-600"
                                         >
                                             ↑ Rank Up
                                         </button>
                                         <button
                                             onClick={() => handleRoleChange(user.id, 'rankDown')}
-                                            className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
+                                            className="rounded bg-yellow-500 px-4 py-2 text-black hover:bg-yellow-600"
                                         >
                                             ↓ Rank Down
                                         </button>
@@ -146,24 +146,24 @@ const UsersTable = ({ initialUsers }: { initialUsers: IUser[] }) => {
             {/* Users Table */}
             <div className="mb-6">
                 <h2 className="text-2xl font-semibold mb-4">Users</h2>
-                <table className="min-w-full bg-white border border-gray-200">
+                <table className="min-w-full bg-gray-800 border border-gray-600">
                     <thead>
                         <tr>
-                            <th className="py-2 px-4 border-b">Name</th>
-                            <th className="py-2 px-4 border-b">Email</th>
-                            <th className="py-2 px-4 border-b">Role Management</th>
-                            <th className="py-2 px-4 border-b">Actions</th>
+                            <th className="py-2 px-4 border-b text-gray-300">Name</th>
+                            <th className="py-2 px-4 border-b text-gray-300">Email</th>
+                            <th className="py-2 px-4 border-b text-gray-300">Role Management</th>
+                            <th className="py-2 px-4 border-b text-gray-300">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {usersByRole.users.map(user => (
                             <tr key={user.id}>
-                                <td className="py-2 px-4 border-b">{user.name}</td>
-                                <td className="py-2 px-4 border-b">{user.email}</td>
+                                <td className="py-2 px-4 border-b text-gray-200">{user.name}</td>
+                                <td className="py-2 px-4 border-b text-gray-200">{user.email}</td>
                                 <td className="py-2 px-4 border-b text-center">
                                     <button
                                         onClick={() => handleRoleChange(user.id, 'rankUp')}
-                                        className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600 align-middle"
+                                        className="rounded bg-yellow-500 px-4 py-2 text-black hover:bg-yellow-600 align-middle"
                                     >
                                         ↑ Rank Up
                                     </button>
