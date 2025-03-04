@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IUser } from '@/interfaces';
-import SearchBar from './SearchBar';
+import { UserWithRole } from '@/types/interfaces/player';
+import SearchBar from '@/components/common/SearchBar';
 
 // Client Component: Handles user actions (rank up, rank down, delete)
-const UsersTable = ({ initialUsers }: { initialUsers: IUser[] }) => {
-    const [filteredUsers, setFilteredUsers] = useState<IUser[]>(initialUsers);
+const UsersTable = ({ initialUsers }: { initialUsers: UserWithRole[] }) => {
+    const [filteredUsers, setFilteredUsers] = useState<UserWithRole[]>(initialUsers);
 
     const handleDelete = async (id: string) => {
         try {
@@ -47,7 +47,7 @@ const UsersTable = ({ initialUsers }: { initialUsers: IUser[] }) => {
     const handleSearchChange = async (searchQuery: string) => {
         setFilteredUsers(
             initialUsers.filter(user =>
-                user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 user.email.includes(searchQuery.toLowerCase())
             )
         );
@@ -64,7 +64,7 @@ const UsersTable = ({ initialUsers }: { initialUsers: IUser[] }) => {
         <div className="container mx-auto p-6 text-white">
             <h1 className="text-3xl font-bold mb-4">Admin User Management</h1>
 
-            <SearchBar onChangeEvent={handleSearchChange} />
+            <SearchBar onSearch={handleSearchChange} />
 
             <div className="flex flex-col lg:flex-row gap-6 mb-6">
                 {/* Admins Table */}
