@@ -1,0 +1,30 @@
+model Publisher {
+    id          Int     @id @default(autoincrement()) @map("publisher_id")
+    name        String  @unique
+    contactInfo String? @map("contact_info")
+
+    games           Game[]
+    PublisherStaff PublisherStaff[]
+
+    @@map("publishers")
+}
+
+model PublisherStaff {
+    userId      String             @id @map("user_id")
+    publisherId Int                @map("publisher_id")
+    role        PublisherStaffRole
+
+    user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    publisher Publisher @relation(fields: [publisherId], references: [id], onDelete: Cascade)
+
+    @@map("publishers_staff")
+}
+
+enum PublisherStaffRole {
+    Publisher
+    Developer
+    Artist
+    Tester
+    QA
+    Marketing
+}

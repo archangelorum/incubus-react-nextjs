@@ -1,0 +1,15 @@
+model PlatformStaff {
+    userId String @id @map("user_id")
+
+    role PlatformStaffRole
+    user User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("platform_staff")
+}
+
+enum PlatformStaffRole {
+    Owner
+    Admin
+    Moderator
+    Support
+}
