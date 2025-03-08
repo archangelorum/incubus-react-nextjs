@@ -1,6 +1,5 @@
 import { prisma } from "@/prisma";
 import { PlatformStaffRole } from "@prisma/client";
-import { NextResponse } from "next/server";
 import { createSuccessResponse, createErrorResponse, checkRole } from "../types";
 import { auth } from "@/auth";
 
@@ -13,7 +12,7 @@ const validRoles: PlatformStaffRole[] = [
 export const PATCH = auth(async function PATCH(request) {
     try {
         // Check role
-        await checkRole(request, validRoles);
+        await checkRole(request as any, validRoles);
 
         const body = await request.json();
         const { userId, newType } = body;

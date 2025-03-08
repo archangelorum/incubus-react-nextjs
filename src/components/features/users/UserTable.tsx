@@ -7,7 +7,7 @@ import { useState, useMemo } from "react";
 import { updatePlayer } from "@/utils/update/client/player";
 import { deletePlayer } from "@/utils/delete/client/player";
 import SearchBar from "../../common/SearchBar";
-import Toast from "../../common/Toast";
+import { toast } from "sonner";
 
 interface UserTableProps {
     initialUsers: UserWithDetails[];
@@ -17,62 +17,39 @@ interface UserTableProps {
     showModify?: boolean;
 }
 
-interface ToastState {
-    show: boolean;
-    message: string;
-    type: 'success' | 'error' | 'info';
-}
-
 const getTableHeaders = (userType: "Player" | "PlatformStaff" | "PublisherStaff") => {
     switch (userType) {
         case "Player":
             return (
                 <>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Type</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Actions</th>
                 </>
             );
         case "PlatformStaff":
             return (
                 <>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Role</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Actions</th>
                 </>
             );
         case "PublisherStaff":
             return (
                 <>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Publisher</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Publisher</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Role</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider table-header">Actions</th>
                 </>
             );
-    }
-};
-
-const getOptions = (userType: "Player" | "PlatformStaff" | "PublisherStaff") => {
-    switch (userType) {
-        case "Player":
-            return Object.keys(PlayerType).map((key) => <option key={key}>{key}</option>);
-        case "PlatformStaff":
-        case "PublisherStaff":
-            return (
-                <>
-                    <option key="admin">Admin</option>
-                    <option key="moderator">Moderator</option>
-                </>
-            );
-        default:
-            return null;
     }
 };
 
@@ -83,7 +60,6 @@ const handleUpdateUserFormSubmit = async (
     setLoading: React.Dispatch<React.SetStateAction<{ isLoading: boolean; operation: string | null }>>,
     setUsers: React.Dispatch<React.SetStateAction<UserWithDetails[]>>,
     currentUsers: UserWithDetails[],
-    setToast: React.Dispatch<React.SetStateAction<ToastState>>
 ) => {
     e.preventDefault();
     setLoading({ isLoading: true, operation: "updating" });
@@ -104,22 +80,14 @@ const handleUpdateUserFormSubmit = async (
                         ? { ...user, type: selectedValue as PlayerType }
                         : user
                 ));
-                setToast({
-                    show: true,
-                    message: "User updated successfully",
-                    type: "success"
-                });
+                toast.success("User updated successfully");
                 break;
             default:
-                throw new Error("Unsupported user type for update");
+                toast.error("Unsupported user type for update");
         }
     } catch (error) {
         console.error("Error updating user:", error);
-        setToast({
-            show: true,
-            message: error instanceof Error ? error.message : "Error updating user",
-            type: "error"
-        });
+        toast.error("Failed to update user");
     } finally {
         setLoading({ isLoading: false, operation: null });
     }
@@ -132,7 +100,6 @@ const handleDeleteUserFormSubmit = async (
     setLoading: React.Dispatch<React.SetStateAction<{ isLoading: boolean; operation: string | null }>>,
     setUsers: React.Dispatch<React.SetStateAction<UserWithDetails[]>>,
     currentUsers: UserWithDetails[],
-    setToast: React.Dispatch<React.SetStateAction<ToastState>>
 ) => {
     e.preventDefault();
     setLoading({ isLoading: true, operation: "deleting" });
@@ -142,22 +109,14 @@ const handleDeleteUserFormSubmit = async (
             case "Player":
                 await deletePlayer(userId);
                 setUsers(currentUsers.filter(user => user.user.id !== userId));
-                setToast({
-                    show: true,
-                    message: "User deleted successfully",
-                    type: "success"
-                });
+                toast.success("User deleted successfully");
                 break;
             default:
                 throw new Error("Unsupported user type for deletion");
         }
     } catch (error) {
         console.error("Error deleting user:", error);
-        setToast({
-            show: true,
-            message: error instanceof Error ? error.message : "Error deleting user",
-            type: "error"
-        });
+        toast.error("Failed to delete user");
     } finally {
         setLoading({ isLoading: false, operation: null });
     }
@@ -167,7 +126,6 @@ const UserTable = ({ initialUsers, totalUsers, userType, showDelete = true, show
     const [users, setUsers] = useState<UserWithDetails[]>(initialUsers);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [toast, setToast] = useState<ToastState>({ show: false, message: "", type: "info" });
 
     const filteredUsers = useMemo(() => {
         return users.filter(user => 
@@ -180,9 +138,9 @@ const UserTable = ({ initialUsers, totalUsers, userType, showDelete = true, show
         try {
             await deletePlayer(userId);
             setUsers(users.filter(user => user.user.id !== userId));
-            setToast({ show: true, message: "User deleted successfully", type: "success" });
+            toast.success("User deleted successfully");
         } catch (error) {
-            setToast({ show: true, message: "Failed to delete user", type: "error" });
+            toast.error("Failed to delete user");
         }
     };
 
@@ -194,9 +152,9 @@ const UserTable = ({ initialUsers, totalUsers, userType, showDelete = true, show
             }
             const updatedUser = await updatePlayer(userId, user.type);
             setUsers(users.map(u => u.user.id === userId ? updatedUser : u));
-            setToast({ show: true, message: "User updated successfully", type: "success" });
+            toast.success("User updated successfully");
         } catch (error) {
-            setToast({ show: true, message: "Failed to update user", type: "error" });
+            toast.error("Failed to update user");
         }
     };
 
@@ -204,34 +162,34 @@ const UserTable = ({ initialUsers, totalUsers, userType, showDelete = true, show
         <div className="flex flex-col space-y-4">
             <SearchBar onSearch={setSearchTerm} />
             <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-foreground/10">
+                    <thead className="bg-background">
                         <tr>
                             {getTableHeaders(userType)}
                         </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-background divide-y divide-foreground/10">
                         {filteredUsers.map((user) => (
-                            <tr key={user.user.id}>
-                                <td className="px-6 py-4 whitespace-nowrap">{user.user.name}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{user.user.email}</td>
+                            <tr key={user.user.id} className="table-row">
+                                <td className="px-6 py-4 whitespace-nowrap text-foreground">{user.user.name}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-foreground">{user.user.email}</td>
                                 {userType === "Player" && 'type' in user && (
                                     <>
-                                        <td className="px-6 py-4 whitespace-nowrap">{user.type}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">Active</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-foreground">{user.type}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-foreground">Active</td>
                                     </>
                                 )}
                                 {userType === "PlatformStaff" && 'role' in user && (
                                     <>
-                                        <td className="px-6 py-4 whitespace-nowrap">{user.role}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">Active</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-foreground">{user.role}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-foreground">Active</td>
                                     </>
                                 )}
                                 {userType === "PublisherStaff" && 'role' in user && (
                                     <>
-                                        <td className="px-6 py-4 whitespace-nowrap">Publisher Name</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">{user.role}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">Active</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-foreground">Publisher Name</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-foreground">{user.role}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-foreground">Active</td>
                                     </>
                                 )}
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -239,7 +197,7 @@ const UserTable = ({ initialUsers, totalUsers, userType, showDelete = true, show
                                         {showModify && (
                                             <button
                                                 onClick={() => handleModify(user.user.id, {})}
-                                                className="text-indigo-600 hover:text-indigo-900"
+                                                className="action-button px-3 py-1 rounded-md text-sm"
                                             >
                                                 Deactivate
                                             </button>
@@ -247,7 +205,7 @@ const UserTable = ({ initialUsers, totalUsers, userType, showDelete = true, show
                                         {showDelete && (
                                             <button
                                                 onClick={() => handleDelete(user.user.id)}
-                                                className="text-red-600 hover:text-red-900"
+                                                className="destructive-button px-3 py-1 rounded-md text-sm"
                                             >
                                                 Delete
                                             </button>
@@ -263,12 +221,6 @@ const UserTable = ({ initialUsers, totalUsers, userType, showDelete = true, show
                 currentPage={currentPage}
                 totalPages={Math.ceil(totalUsers / 10)}
                 onPageChange={setCurrentPage}
-            />
-            <Toast
-                show={toast.show}
-                message={toast.message}
-                type={toast.type}
-                onClose={() => setToast({ ...toast, show: false })}
             />
         </div>
     );

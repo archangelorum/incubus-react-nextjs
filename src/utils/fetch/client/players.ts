@@ -1,15 +1,25 @@
-import { PlayerResponse } from "@/types/interfaces/player";
+import { UserResponse } from "@/types/interfaces/player";
+import api from "@/utils/axios";
+
+interface PlayersResponse {
+    players: UserResponse['users'];
+    totalPlayers: number;
+    page: number;
+    limit: number;
+}
 
 // utils/fetchPlayers.ts
 export const fetchPlayersClient = async (
     page: number,
     limit: number
-): Promise<PlayerResponse> => {
-    const response = await fetch(`http://localhost:3000/api/players?page=${page}&limit=${limit}`);
-
-    if (!response.ok) {
-        throw new Error('Failed to fetch players ' + response.status);
+): Promise<PlayersResponse> => {
+    const response = await api.get<PlayersResponse>(`/api/players`, {
+        params: { page, limit }
+    });
+    
+    if (!response.data?.data) {
+        throw new Error('No data received from API');
     }
-
-    return response.json();
+    
+    return response.data.data;
 };

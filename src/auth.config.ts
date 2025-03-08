@@ -43,19 +43,6 @@ export default {
     ],
     callbacks: {
         async session({session, user, token}) {
-            const existingPlayer = await prisma.player.findUnique({
-                where: { userId: user.id },
-            });
-
-            if (!existingPlayer) {
-                await prisma.player.create({
-                    data: {
-                        userId: user.id,
-                        type: PlayerType.Standard,
-                    },
-                });
-            }
-
             // Enrich the session with user data
             return {
                 ...session,

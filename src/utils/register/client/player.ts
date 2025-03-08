@@ -1,24 +1,21 @@
 import api from "@/utils/axios";
 import { UserResponse } from "@/types/interfaces/player";
 
-interface UpdatePlayerResponse {
+interface RegisterPlayerResponse {
     success: boolean;
     data?: UserResponse['users'][0];
     error?: string;
 }
 
-export const updatePlayer = async (userId: string, newType: string): Promise<UpdatePlayerResponse> => {
+export const registerPlayer = async (): Promise<RegisterPlayerResponse> => {
     try {
-        const response = await api.patch<UpdatePlayerResponse>('/api/player', {
-            userId,
-            newType
-        });
+        const response = await api.post<RegisterPlayerResponse>('/api/player/register');
         if (!response.data) {
             throw new Error('No data received from API');
         }
         return response.data;
     } catch (error) {
-        console.error("Error updating player:", error);
+        console.error("Error registering player:", error);
         throw error;
     }
-};
+}; 

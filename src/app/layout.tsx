@@ -1,9 +1,10 @@
-"use client";
-
 import { Inter } from 'next/font/google';
-import { SessionProvider } from 'next-auth/react';
+import SessionProvider from '@/components/providers/SessionProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import MainContent from '@/components/layout/MainContent';
+import { Toaster } from 'sonner';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -14,17 +15,18 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body className={inter.className}>
-                <SessionProvider>
-                    <div className="min-h-screen bg-gray-900 flex flex-col">
+                <ThemeProvider>
+                    <SessionProvider>
                         <Header />
-                        <main className="flex-grow">
+                        <MainContent>
                             {children}
-                        </main>
+                        </MainContent>
                         <Footer />
-                    </div>
-                </SessionProvider>
+                        <Toaster />
+                    </SessionProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

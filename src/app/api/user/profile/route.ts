@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/prisma';
 import { auth } from '@/auth';
 import { z } from 'zod';
+import { createSuccessResponse, createErrorResponse } from '../../types';
 
 const updateProfileSchema = z.object({
     name: z.string().min(2).max(50).optional(),
@@ -11,7 +12,7 @@ const updateProfileSchema = z.object({
 export const GET = auth(async function GET(request) {
     try {
         if (!request.auth?.user?.id) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            return createErrorResponse('Unauthorized', 401);
         }
 
         const user = await prisma.user.findUnique({
@@ -34,20 +35,20 @@ export const GET = auth(async function GET(request) {
         });
 
         if (!user) {
-            return NextResponse.json({ error: 'User not found' }, { status: 404 });
+            return createErrorResponse('User not found', 404);
         }
 
-        return NextResponse.json(user);
+        return createSuccessResponse(user);
     } catch (error) {
         console.error('Profile GET error:', error);
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+        return createErrorResponse('Internal server error', 500);
     }
 });
 
 export const PATCH = auth(async function PATCH(request) {
     try {
         if (!request.auth?.user?.id) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            return createErrorResponse('Unauthorized', 401);
         }
 
         const body = await request.json();
@@ -73,12 +74,12 @@ export const PATCH = auth(async function PATCH(request) {
             }
         });
 
-        return NextResponse.json(user);
+        return createSuccessResponse(user);
     } catch (error) {
         console.error('Profile PATCH error:', error);
         if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
+            return createErrorResponse('Invalid data', 400);
         }
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+        return createErrorResponse('Internal server error', 500);
     }
 }); 

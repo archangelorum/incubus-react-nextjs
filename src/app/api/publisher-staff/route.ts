@@ -2,17 +2,17 @@ import { auth } from "@/auth";
 import logger from "@/logger";
 import { prisma } from "@/prisma";
 import { PublisherStaffRole } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { createSuccessResponse, createErrorResponse } from "../types";
 
 const validRoles: PublisherStaffRole[] = [
-    PublisherStaffRole.Owner,
-    PublisherStaffRole.Admin,
-    PublisherStaffRole.Moderator
+    PublisherStaffRole.Publisher,
+    PublisherStaffRole.Developer,
+    PublisherStaffRole.QA
 ];
 
 export const GET = auth(async function GET(request) {
     if (!(await request.auth)) {
-        return NextResponse.json({ success: false, error: 'Unauthorized access' }, { status: 401 });
+        return createErrorResponse('Unauthorized access', 401);
     }
 
     const publisherStaff = await prisma.publisherStaff.findUnique({
@@ -25,7 +25,7 @@ export const GET = auth(async function GET(request) {
         !publisherStaff ||
         !validRoles.includes(publisherStaff.role)
     ) {
-        return NextResponse.json({ success: false, error: 'Unauthorized access' }, { status: 403 });
+        return createErrorResponse('Unauthorized access', 403);
     }
 
     const page = Number(request.nextUrl.searchParams.get('page')) || 1;
@@ -50,16 +50,16 @@ export const GET = auth(async function GET(request) {
 
         const totalStaff = await prisma.publisherStaff.count();
 
-        return NextResponse.json({ success: true, staff, totalStaff, page, limit });
+        return createSuccessResponse({ staff, totalStaff, page, limit });
     } catch (error) {
         logger.error(`Error fetching publisher staff: ${(error as Error).message}`);
-        return NextResponse.json({ success: false, error: 'Error fetching publisher staff' }, { status: 500 });
+        return createErrorResponse('Error fetching publisher staff', 500);
     }
 });
 
 export const POST = auth(async function POST(request) {
     if (!(await request.auth)) {
-        return NextResponse.json({ success: false, error: 'Unauthorized access' }, { status: 401 });
+        return createErrorResponse('Unauthorized access', 401);
     }
 
     const publisherStaff = await prisma.publisherStaff.findUnique({
@@ -72,14 +72,14 @@ export const POST = auth(async function POST(request) {
         !publisherStaff ||
         !validRoles.includes(publisherStaff.role)
     ) {
-        return NextResponse.json({ success: false, error: 'Unauthorized access' }, { status: 403 });
+        return createErrorResponse('Unauthorized access', 403);
     }
 
     try {
         const { email, name, role } = await request.json();
 
         if (!email || !name || !role) {
-            return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
+            return createErrorResponse('Missing required fields', 400);
         }
 
         // Create user first
@@ -95,7 +95,8 @@ export const POST = auth(async function POST(request) {
         const newStaff = await prisma.publisherStaff.create({
             data: {
                 userId: user.id,
-                role: role as PublisherStaffRole
+                role: role as PublisherStaffRole,
+                publisherId: publisherStaff.publisherId
             },
             select: {
                 role: true,
@@ -110,16 +111,16 @@ export const POST = auth(async function POST(request) {
             }
         });
 
-        return NextResponse.json({ success: true, staff: newStaff });
+        return createSuccessResponse({ staff: newStaff });
     } catch (error) {
         logger.error(`Error creating publisher staff: ${(error as Error).message}`);
-        return NextResponse.json({ success: false, error: 'Error creating publisher staff' }, { status: 500 });
+        return createErrorResponse('Error creating publisher staff', 500);
     }
 });
 
 export const DELETE = auth(async function DELETE(request) {
     if (!(await request.auth)) {
-        return NextResponse.json({ success: false, error: 'Unauthorized access' }, { status: 401 });
+        return createErrorResponse('Unauthorized access', 401);
     }
 
     const publisherStaff = await prisma.publisherStaff.findUnique({
@@ -132,14 +133,14 @@ export const DELETE = auth(async function DELETE(request) {
         !publisherStaff ||
         !validRoles.includes(publisherStaff.role)
     ) {
-        return NextResponse.json({ success: false, error: 'Unauthorized access' }, { status: 403 });
+        return createErrorResponse('Unauthorized access', 403);
     }
 
     try {
         const { userId } = await request.json();
 
         if (!userId) {
-            return NextResponse.json({ success: false, error: 'User ID is required' }, { status: 400 });
+            return createErrorResponse('User ID is required', 400);
         }
 
         // Delete publisher staff first (due to foreign key constraint)
@@ -152,9 +153,9 @@ export const DELETE = auth(async function DELETE(request) {
             where: { id: userId }
         });
 
-        return NextResponse.json({ success: true });
+        return createSuccessResponse({ success: true });
     } catch (error) {
         logger.error(`Error deleting publisher staff: ${(error as Error).message}`);
-        return NextResponse.json({ success: false, error: 'Error deleting publisher staff' }, { status: 500 });
+        return createErrorResponse('Error deleting publisher staff', 500);
     }
 }); 

@@ -1,22 +1,20 @@
-export const deletePlayer = async (userId: string) => {
+import api from "@/utils/axios";
+
+interface DeletePlayerResponse {
+    success: boolean;
+    message?: string;
+    error?: string;
+}
+
+export const deletePlayer = async (userId: string): Promise<DeletePlayerResponse> => {
     try {
-        const response = await fetch('/api/player', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                userId: userId
-            }),
+        const response = await api.delete<DeletePlayerResponse>('/api/player', {
+            data: { userId }
         });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || 'Error deleting player');
+        if (!response.data) {
+            throw new Error('No data received from API');
         }
-
-        return data;
+        return response.data;
     } catch (error) {
         console.error("Error deleting player:", error);
         throw error;

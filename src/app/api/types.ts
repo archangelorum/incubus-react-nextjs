@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { PlatformStaffRole, PublisherStaffRole } from "@prisma/client";
 import { prisma } from "@/prisma";
+import { NextRequest } from "next/server";
 
 export type Role = PlatformStaffRole | PublisherStaffRole;
 
@@ -40,13 +41,17 @@ export const handleApiError = (error: unknown): NextResponse<ApiError> => {
     );
 };
 
-export const checkRole = async (request: Request, allowedRoles: Role[]) => {
+export const checkRole = async (request: NextRequest & { auth?: { user?: { id: string } } }, allowedRoles: Role[]) => {
+    if (!request.auth?.user?.id) {
+        throw new Error('Unauthorized access');
+    }
+
     const platformStaff = await prisma.platformStaff.findUnique({
-        where: { userId: request.auth?.user.id }
+        where: { userId: request.auth.user.id }
     });
 
     const publisherStaff = await prisma.publisherStaff.findUnique({
-        where: { userId: request.auth?.user.id }
+        where: { userId: request.auth.user.id }
     });
 
     const userRoles: Role[] = [];

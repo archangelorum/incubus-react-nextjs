@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { prisma } from '@/prisma';
 import { auth } from '@/auth';
 import { PlatformStaffRole } from '@prisma/client';
@@ -31,6 +30,12 @@ export const GET = auth(async function GET(request) {
             }
         });
     } catch (error) {
+        console.error('Admin API Error:', {
+            error,
+            message: error instanceof Error ? error.message : 'Unknown error',
+            stack: error instanceof Error ? error.stack : undefined
+        });
+        
         if (error instanceof Error) {
             if (error.message === 'Insufficient permissions') {
                 return createErrorResponse('Insufficient permissions', 403);
