@@ -41,7 +41,9 @@ export const handleApiError = (error: unknown): NextResponse<ApiError> => {
     );
 };
 
-export const checkRole = async (request: NextRequest & { auth?: { user?: { id: string } } }, allowedRoles: Role[]) => {
+export type NextRequestWithAuth = NextRequest & { auth?: { user?: { id: string } } };
+
+export const checkRole = async (request: NextRequestWithAuth, allowedRoles: Role[]) => {
     if (!request.auth?.user?.id) {
         throw new Error('Unauthorized access');
     }

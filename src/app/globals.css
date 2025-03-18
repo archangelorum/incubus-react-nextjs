@@ -83,4 +83,17 @@
   .destructive-button {
     @apply bg-gradient-to-r from-destructive to-destructive/80 text-destructive-foreground hover:from-destructive/90 hover:to-destructive/70 transition-all duration-300;
   }
+  
+  /* Dropdown menu with hover bridge */
+  .dropdown-container {
+    @apply relative;
+  }
+  
+  .dropdown-bridge {
+    @apply absolute h-2 w-full bottom-0 left-0 translate-y-full;
+  }
+  
+  .dropdown-menu {
+    @apply pt-2; /* Add padding to create space for the bridge */
+  }
 }

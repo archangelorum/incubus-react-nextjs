@@ -1,10 +1,8 @@
 import { prisma } from '../src/prisma'
-import seedUsers from './seeds/users';
+import seedAll from './seeds/index';
 
 async function main() {
-  await seedUsers();
-
-  console.log('Seeding completed!');
+  await seedAll();
 }
 
 main()
