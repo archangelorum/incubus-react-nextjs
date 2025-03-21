@@ -1,0 +1,984 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+model User {
+  id            String       @id
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  role          String?
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+  sessions      Session[]
+  accounts      Account[]
+  passkeys      Passkey[]
+  members       Member[]
+  invitations   Invitation[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id                   String   @id
+  expiresAt            DateTime
+  token                String
+  createdAt            DateTime
+  updatedAt            DateTime
+  ipAddress            String?
+  userAgent            String?
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy       String?
+  activeOrganizationId String?
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model Passkey {
+  id           String    @id
+  name         String?
+  publicKey    String
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credentialID String
+  counter      Int
+  deviceType   String
+  backedUp     Boolean
+  transports   String?
+  createdAt    DateTime?
+
+  @@map("passkey")
+}
+
+model Organization {
+  id          String       @id
+  name        String
+  slug        String?
+  logo        String?
+  createdAt   DateTime
+  metadata    String?
+  members     Member[]
+  invitations Invitation[]
+
+  @@unique([slug])
+  @@map("organization")
+}
+
+model Member {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role           String
+  createdAt      DateTime
+
+  @@map("member")
+}
+
+model Invitation {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  role           String?
+  status         String
+  expiresAt      DateTime
+  inviterId      String
+  user           User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
+
+  @@map("invitation")
+}
+
+model Blockchain {
+  id                String            @id @default(uuid())
+  name              String // e.g., "Solana", "Ethereum", "Polygon"
+  chainId           String // Chain identifier
+  rpcUrl            String // RPC endpoint URL
+  explorerUrl       String // Block explorer URL
+  isActive          Boolean           @default(true)
+  isDefault         Boolean           @default(false)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  wallets           Wallet[]
+  smartContracts    SmartContract[]
+  transactions      Transaction[]
+  nftCollections    NFTCollection[]
+  publisherWallets  PublisherWallet[]
+  blockchainIndices BlockchainIndex[]
+
+  @@map("blockchain")
+}
+
+model Wallet {
+  id                   String          @id @default(uuid())
+  userId               String // Reference to User from auth.prisma
+  blockchainId         String
+  blockchain           Blockchain      @relation(fields: [blockchainId], references: [id])
+  address              String // Public wallet address
+  isDefault            Boolean         @default(false)
+  label                String? // User-defined label for the wallet
+  balance              Decimal         @default(0)
+  lastSynced           DateTime? // Last time the balance was synced
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  transactions         Transaction[]   @relation("WalletTransactions")
+  ownedLicenses        GameLicense[]
+  ownedItems           ItemOwnership[]
+  escrowsAsDepositor   Escrow[]        @relation("DepositorWallet")
+  escrowsAsBeneficiary Escrow[]        @relation("BeneficiaryWallet")
+
+  @@unique([userId, blockchainId, address])
+  @@map("wallet")
+}
+
+model SmartContract {
+  id           String        @id @default(uuid())
+  blockchainId String
+  blockchain   Blockchain    @relation(fields: [blockchainId], references: [id])
+  address      String // Contract address on the blockchain
+  name         String // Human-readable name
+  type         String // e.g., "GameLicense", "Marketplace", "ItemNFT", "Governance"
+  abi          Json // Contract ABI (Application Binary Interface)
+  bytecode     String? // Contract bytecode (optional)
+  deployedAt   DateTime      @default(now())
+  isVerified   Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[]
+
+  @@unique([blockchainId, address])
+  @@map("smart_contract")
+}
+
+model Transaction {
+  id                      String                   @id @default(uuid())
+  hash                    String // Transaction hash
+  blockchainId            String
+  blockchain              Blockchain               @relation(fields: [blockchainId], references: [id])
+  walletId                String
+  wallet                  Wallet                   @relation("WalletTransactions", fields: [walletId], references: [id])
+  smartContractId         String?
+  smartContract           SmartContract?           @relation(fields: [smartContractId], references: [id])
+  type                    TransactionType
+  status                  TransactionStatus        @default(PENDING)
+  amount                  Decimal                  @default(0)
+  fee                     Decimal                  @default(0)
+  data                    Json? // Additional transaction data
+  blockNumber             Int? // Block number where transaction was included
+  timestamp               DateTime                 @default(now())
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  gameLicenseTransactions GameLicenseTransaction[]
+  itemTransactions        ItemTransaction[]
+  escrowTransactions      EscrowTransaction[]
+
+  @@unique([blockchainId, hash])
+  @@map("transaction")
+}
+
+enum TransactionType {
+  GAME_PURCHASE
+  GAME_TRANSFER
+  ITEM_PURCHASE
+  ITEM_TRANSFER
+  ESCROW_DEPOSIT
+  ESCROW_RELEASE
+  ESCROW_REFUND
+  PLATFORM_FEE
+  ROYALTY_PAYMENT
+  OTHER
+}
+
+enum TransactionStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+  REVERTED
+}
+
+// ==================== GAME MODELS ====================
+
+model Game {
+  id                  String               @id @default(uuid())
+  title               String
+  slug                String               @unique
+  description         String               @db.Text
+  shortDescription    String?              @db.Text
+  publisherId         String
+  publisher           Publisher            @relation(fields: [publisherId], references: [id])
+  developerIds        DeveloperGame[]
+  releaseDate         DateTime
+  basePrice           Decimal
+  discountPrice       Decimal?
+  isActive            Boolean              @default(true)
+  isFeatured          Boolean              @default(false)
+  contentRating       String? // e.g., "PEGI 18", "ESRB M"
+  systemRequirements  Json?
+  tags                GameTag[]
+  genres              GameGenre[]
+  versions            GameVersion[]
+  licenses            GameLicense[]
+  items               GameItem[]
+  reviews             GameReview[]
+  contentFiles        ContentFile[]        @relation("GameContentFiles")
+  coverImage          ContentFile?         @relation("GameCoverImage", fields: [coverImageId], references: [id])
+  coverImageId        String?
+  screenshots         ContentFile[]        @relation("GameScreenshots")
+  trailerVideo        ContentFile?         @relation("GameTrailer", fields: [trailerVideoId], references: [id])
+  trailerVideoId      String?
+  marketplaceListings MarketplaceListing[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  @@map("game")
+}
+
+model Publisher {
+  id                String            @id @default(uuid())
+  name              String
+  slug              String            @unique
+  description       String?           @db.Text
+  website           String?
+  organizationId    String? // Optional link to Organization from auth.prisma
+  walletAddresses   PublisherWallet[]
+  games             Game[]
+  royaltyPercentage Decimal           @default(10.00) // Default 10%
+  isVerified        Boolean           @default(false)
+  logo              ContentFile?      @relation(fields: [logoId], references: [id])
+  logoId            String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@map("publisher")
+}
+
+model PublisherWallet {
+  id           String     @id @default(uuid())
+  publisherId  String
+  publisher    Publisher  @relation(fields: [publisherId], references: [id])
+  blockchainId String
+  blockchain   Blockchain @relation(fields: [blockchainId], references: [id])
+  address      String
+  isDefault    Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([publisherId, blockchainId, address])
+  @@map("publisher_wallet")
+}
+
+model Developer {
+  id             String          @id @default(uuid())
+  name           String
+  slug           String          @unique
+  description    String?         @db.Text
+  website        String?
+  organizationId String? // Optional link to Organization from auth.prisma
+  games          DeveloperGame[]
+  logo           ContentFile?    @relation(fields: [logoId], references: [id])
+  logoId         String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@map("developer")
+}
+
+model DeveloperGame {
+  id          String    @id @default(uuid())
+  developerId String
+  developer   Developer @relation(fields: [developerId], references: [id])
+  gameId      String
+  game        Game      @relation(fields: [gameId], references: [id])
+  role        String? // e.g., "Lead Developer", "Co-Developer"
+  createdAt   DateTime  @default(now())
+
+  @@unique([developerId, gameId])
+  @@map("developer_game")
+}
+
+model GameVersion {
+  id           String        @id @default(uuid())
+  gameId       String
+  game         Game          @relation(fields: [gameId], references: [id])
+  version      String // Semantic versioning
+  releaseNotes String?       @db.Text
+  isActive     Boolean       @default(true)
+  size         BigInt // Size in bytes
+  contentHash  String // Content hash for integrity verification
+  contentCid   String // IPFS Content Identifier
+  contentFiles ContentFile[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([gameId, version])
+  @@map("game_version")
+}
+
+model GameGenre {
+  id      String @id @default(uuid())
+  gameId  String
+  game    Game   @relation(fields: [gameId], references: [id])
+  genreId String
+  genre   Genre  @relation(fields: [genreId], references: [id])
+
+  @@unique([gameId, genreId])
+  @@map("game_genre")
+}
+
+model Genre {
+  id          String      @id @default(uuid())
+  name        String      @unique
+  slug        String      @unique
+  description String?
+  games       GameGenre[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("genre")
+}
+
+model GameTag {
+  id     String @id @default(uuid())
+  gameId String
+  game   Game   @relation(fields: [gameId], references: [id])
+  tagId  String
+  tag    Tag    @relation(fields: [tagId], references: [id])
+
+  @@unique([gameId, tagId])
+  @@map("game_tag")
+}
+
+model Tag {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  slug      String    @unique
+  games     GameTag[]
+  items     ItemTag[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("tag")
+}
+
+// ==================== CONTENT STORAGE MODELS ====================
+
+model ContentFile {
+  id               String       @id @default(uuid())
+  filename         String
+  mimeType         String
+  size             BigInt // Size in bytes
+  path             String // Path in storage system
+  contentHash      String // Hash for integrity verification
+  contentCid       String? // IPFS Content Identifier (optional)
+  storageType      StorageType  @default(CENTRALIZED)
+  isPublic         Boolean      @default(true)
+  metadata         Json? // Additional metadata
+  gameId           String? // Optional game association
+  game             Game?        @relation("GameContentFiles", fields: [gameId], references: [id])
+  gameVersionId    String?
+  gameVersion      GameVersion? @relation(fields: [gameVersionId], references: [id])
+  gameAsCover      Game[]       @relation("GameCoverImage")
+  gameAsScreenshot Game[]       @relation("GameScreenshots")
+  gameAsTrailer    Game[]       @relation("GameTrailer")
+  publisherLogo    Publisher[]
+  developerLogo    Developer[]
+  itemImage        GameItem[]   @relation("ItemImage")
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@map("content_file")
+}
+
+enum StorageType {
+  CENTRALIZED // Stored on platform's servers
+  DECENTRALIZED // Stored on IPFS or similar
+  HYBRID // Combination of both
+}
+
+// ==================== LICENSE & OWNERSHIP MODELS ====================
+
+model GameLicense {
+  id              String                   @id @default(uuid())
+  gameId          String
+  game            Game                     @relation(fields: [gameId], references: [id])
+  walletId        String
+  wallet          Wallet                   @relation(fields: [walletId], references: [id])
+  nftId           String? // NFT token ID if applicable
+  nftCollectionId String?
+  nftCollection   NFTCollection?           @relation(fields: [nftCollectionId], references: [id])
+  licenseType     LicenseType              @default(STANDARD)
+  isActive        Boolean                  @default(true)
+  acquiredAt      DateTime                 @default(now())
+  expiresAt       DateTime? // For time-limited licenses
+  metadata        Json? // Additional license metadata
+  transactions    GameLicenseTransaction[]
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @updatedAt
+
+  @@unique([gameId, walletId])
+  @@map("game_license")
+}
+
+enum LicenseType {
+  STANDARD // Basic license
+  PREMIUM // Premium features
+  COLLECTOR // Special edition
+  SUBSCRIPTION // Time-based access
+  TRIAL // Limited trial
+}
+
+model GameLicenseTransaction {
+  id            String                 @id @default(uuid())
+  licenseeId    String
+  license       GameLicense            @relation(fields: [licenseeId], references: [id])
+  transactionId String
+  transaction   Transaction            @relation(fields: [transactionId], references: [id])
+  type          LicenseTransactionType
+  price         Decimal
+  fromWalletId  String? // For transfers
+  toWalletId    String? // For transfers
+  createdAt     DateTime               @default(now())
+
+  @@map("game_license_transaction")
+}
+
+enum LicenseTransactionType {
+  PURCHASE
+  TRANSFER
+  GIFT
+  REVOKE
+}
+
+// ==================== IN-GAME ITEM MODELS ====================
+
+model GameItem {
+  id                 String               @id @default(uuid())
+  name               String
+  description        String?              @db.Text
+  gameId             String
+  game               Game                 @relation(fields: [gameId], references: [id])
+  itemType           ItemType
+  rarity             ItemRarity
+  price              Decimal
+  supply             Int? // Total supply (null for unlimited)
+  remaining          Int? // Remaining supply
+  isTransferable     Boolean              @default(true)
+  isTradeable        Boolean              @default(true)
+  metadata           Json? // Game-specific item metadata
+  contentHash        String? // Hash for item data integrity
+  contentCid         String? // IPFS Content Identifier
+  image              ContentFile?         @relation("ItemImage", fields: [imageId], references: [id])
+  imageId            String?
+  nftCollectionId    String?
+  nftCollection      NFTCollection?       @relation(fields: [nftCollectionId], references: [id])
+  tags               ItemTag[]
+  ownerships         ItemOwnership[]
+  transactions       ItemTransaction[]
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  MarketplaceListing MarketplaceListing[]
+
+  @@map("game_item")
+}
+
+enum ItemType {
+  COSMETIC // Visual customization
+  FUNCTIONAL // Affects gameplay
+  CONSUMABLE // One-time use
+  COLLECTIBLE // Collection items
+  CURRENCY // In-game currency
+}
+
+enum ItemRarity {
+  COMMON
+  UNCOMMON
+  RARE
+  EPIC
+  LEGENDARY
+  UNIQUE
+}
+
+model ItemTag {
+  id     String   @id @default(uuid())
+  itemId String
+  item   GameItem @relation(fields: [itemId], references: [id])
+  tagId  String
+  tag    Tag      @relation(fields: [tagId], references: [id])
+
+  @@unique([itemId, tagId])
+  @@map("item_tag")
+}
+
+model ItemOwnership {
+  id           String            @id @default(uuid())
+  itemId       String
+  item         GameItem          @relation(fields: [itemId], references: [id])
+  walletId     String
+  wallet       Wallet            @relation(fields: [walletId], references: [id])
+  quantity     Int               @default(1)
+  nftId        String? // NFT token ID if applicable
+  acquiredAt   DateTime          @default(now())
+  transactions ItemTransaction[]
+
+  @@unique([itemId, walletId])
+  @@map("item_ownership")
+}
+
+model ItemTransaction {
+  id            String              @id @default(uuid())
+  itemId        String
+  item          GameItem            @relation(fields: [itemId], references: [id])
+  ownershipId   String
+  ownership     ItemOwnership       @relation(fields: [ownershipId], references: [id])
+  transactionId String
+  transaction   Transaction         @relation(fields: [transactionId], references: [id])
+  type          ItemTransactionType
+  quantity      Int                 @default(1)
+  price         Decimal
+  fromWalletId  String? // For transfers
+  toWalletId    String? // For transfers
+  createdAt     DateTime            @default(now())
+
+  @@map("item_transaction")
+}
+
+enum ItemTransactionType {
+  PURCHASE
+  TRANSFER
+  TRADE
+  GIFT
+  CONSUME
+}
+
+// ==================== NFT MODELS ====================
+
+model NFTCollection {
+  id              String        @id @default(uuid())
+  name            String
+  symbol          String
+  blockchainId    String
+  blockchain      Blockchain    @relation(fields: [blockchainId], references: [id])
+  contractAddress String
+  standard        String // e.g., "ERC721", "ERC1155", "SPL"
+  metadata        Json?
+  gameLicenses    GameLicense[]
+  gameItems       GameItem[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@unique([blockchainId, contractAddress])
+  @@map("nft_collection")
+}
+
+// ==================== MARKETPLACE MODELS ====================
+
+model MarketplaceListing {
+  id        String        @id @default(uuid())
+  type      ListingType
+  status    ListingStatus @default(ACTIVE)
+  sellerId  String // User ID of seller
+  price     Decimal
+  quantity  Int           @default(1)
+  expiresAt DateTime?
+  gameId    String? // For game license listings
+  game      Game?         @relation(fields: [gameId], references: [id])
+  itemId    String? // For item listings
+  item      GameItem?     @relation(fields: [itemId], references: [id])
+  escrowId  String?
+  escrow    Escrow?       @relation(fields: [escrowId], references: [id])
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@map("marketplace_listing")
+}
+
+enum ListingType {
+  GAME_LICENSE
+  GAME_ITEM
+  BUNDLE
+}
+
+enum ListingStatus {
+  DRAFT
+  ACTIVE
+  SOLD
+  CANCELLED
+  EXPIRED
+}
+
+// ==================== ESCROW & SECURITY MODELS ====================
+
+model Escrow {
+  id                  String               @id @default(uuid())
+  depositorWalletId   String
+  depositorWallet     Wallet               @relation("DepositorWallet", fields: [depositorWalletId], references: [id])
+  beneficiaryWalletId String
+  beneficiaryWallet   Wallet               @relation("BeneficiaryWallet", fields: [beneficiaryWalletId], references: [id])
+  amount              Decimal
+  status              EscrowStatus         @default(PENDING)
+  releaseCondition    String? // Condition for release
+  expiresAt           DateTime?
+  transactions        EscrowTransaction[]
+  marketplaceListings MarketplaceListing[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  @@map("escrow")
+}
+
+enum EscrowStatus {
+  PENDING
+  FUNDED
+  RELEASED
+  REFUNDED
+  DISPUTED
+  EXPIRED
+}
+
+model EscrowTransaction {
+  id            String                @id @default(uuid())
+  escrowId      String
+  escrow        Escrow                @relation(fields: [escrowId], references: [id])
+  transactionId String
+  transaction   Transaction           @relation(fields: [transactionId], references: [id])
+  type          EscrowTransactionType
+  amount        Decimal
+  createdAt     DateTime              @default(now())
+
+  @@map("escrow_transaction")
+}
+
+enum EscrowTransactionType {
+  DEPOSIT
+  RELEASE
+  REFUND
+  FEE
+}
+
+// ==================== REVIEW & RATING MODELS ====================
+
+model GameReview {
+  id                 String       @id @default(uuid())
+  gameId             String
+  game               Game         @relation(fields: [gameId], references: [id])
+  userId             String // Reference to User from auth.prisma
+  rating             Int // 1-5 star rating
+  title              String?
+  content            String?      @db.Text
+  playTime           Int? // Play time in minutes
+  isVerifiedPurchase Boolean      @default(false)
+  isRecommended      Boolean?
+  upvotes            Int          @default(0)
+  downvotes          Int          @default(0)
+  status             ReviewStatus @default(PENDING)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  @@unique([gameId, userId])
+  @@map("game_review")
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ==================== ANALYTICS & REPORTING MODELS ====================
+
+model AnalyticsEvent {
+  id        String   @id @default(uuid())
+  userId    String? // Optional user ID
+  sessionId String? // Browser/app session ID
+  eventType String // Type of event
+  eventData Json // Event-specific data
+  ipAddress String?
+  userAgent String?
+  timestamp DateTime @default(now())
+
+  @@map("analytics_event")
+}
+
+model Report {
+  id          String       @id @default(uuid())
+  type        ReportType
+  title       String
+  description String?      @db.Text
+  parameters  Json? // Report parameters
+  resultData  Json? // Report results
+  createdById String // User who created the report
+  status      ReportStatus @default(PENDING)
+  scheduledAt DateTime? // For scheduled reports
+  completedAt DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("report")
+}
+
+enum ReportType {
+  SALES
+  USER_ACTIVITY
+  GAME_PERFORMANCE
+  MARKETPLACE_ACTIVITY
+  CUSTOM
+}
+
+enum ReportStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+// ==================== CACHING & INDEXING MODELS ====================
+
+model BlockchainIndex {
+  id                 String      @id @default(uuid())
+  blockchainId       String
+  blockchain         Blockchain  @relation(fields: [blockchainId], references: [id])
+  lastBlockProcessed Int
+  lastProcessedAt    DateTime
+  status             IndexStatus @default(ACTIVE)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  @@map("blockchain_index")
+}
+
+enum IndexStatus {
+  ACTIVE
+  PAUSED
+  REINDEXING
+  ERROR
+}
+
+model CacheEntry {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String   @db.Text
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cache_entry")
+}
+
+// ==================== GOVERNANCE & COMMUNITY MODELS ====================
+
+model GovernanceProposal {
+  id                 String         @id @default(uuid())
+  title              String
+  description        String         @db.Text
+  proposerId         String // User who proposed
+  status             ProposalStatus @default(DRAFT)
+  proposalType       ProposalType
+  votingStartsAt     DateTime?
+  votingEndsAt       DateTime?
+  implementationDate DateTime?
+  votes              ProposalVote[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  @@map("governance_proposal")
+}
+
+enum ProposalStatus {
+  DRAFT
+  ACTIVE
+  PASSED
+  REJECTED
+  IMPLEMENTED
+  CANCELLED
+}
+
+enum ProposalType {
+  FEATURE_REQUEST
+  POLICY_CHANGE
+  PARAMETER_CHANGE
+  FUND_ALLOCATION
+  OTHER
+}
+
+model ProposalVote {
+  id         String             @id @default(uuid())
+  proposalId String
+  proposal   GovernanceProposal @relation(fields: [proposalId], references: [id])
+  voterId    String // User who voted
+  vote       VoteType
+  votePower  Decimal            @default(1.0) // Voting power (can be token-weighted)
+  reason     String?            @db.Text
+  createdAt  DateTime           @default(now())
+
+  @@unique([proposalId, voterId])
+  @@map("proposal_vote")
+}
+
+enum VoteType {
+  FOR
+  AGAINST
+  ABSTAIN
+}
+
+model DisputeCase {
+  id                String        @id @default(uuid())
+  title             String
+  description       String        @db.Text
+  reporterId        String // User who reported
+  defenderId        String? // User being reported
+  status            DisputeStatus @default(OPEN)
+  type              DisputeType
+  relatedEntityType String? // e.g., "Transaction", "Listing"
+  relatedEntityId   String? // ID of the related entity
+  resolution        String?       @db.Text
+  resolvedById      String? // Admin who resolved
+  resolvedAt        DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@map("dispute_case")
+}
+
+enum DisputeStatus {
+  OPEN
+  UNDER_REVIEW
+  RESOLVED
+  CLOSED
+}
+
+enum DisputeType {
+  TRANSACTION
+  CONTENT
+  USER_BEHAVIOR
+  TECHNICAL
+  OTHER
+}
+
+// ==================== SHARDING STRATEGY MODELS ====================
+
+model ShardConfig {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String?
+  strategy    ShardStrategy
+  parameters  Json // Strategy-specific parameters
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  shards      Shard[]
+
+  @@map("shard_config")
+}
+
+enum ShardStrategy {
+  GEOGRAPHIC
+  USER_BASED
+  CONTENT_BASED
+  HYBRID
+}
+
+model Shard {
+  id            String      @id @default(uuid())
+  shardConfigId String
+  shardConfig   ShardConfig @relation(fields: [shardConfigId], references: [id])
+  name          String
+  endpoint      String // API endpoint or connection string
+  region        String? // Geographic region
+  capacity      Int? // Capacity metrics
+  load          Int? // Current load
+  isActive      Boolean     @default(true)
+  metadata      Json? // Additional shard metadata
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("shard")
+}
+
+// ==================== COMPLIANCE & REGULATION MODELS ====================
+
+model CompliancePolicy {
+  id            String        @id @default(uuid())
+  name          String
+  description   String        @db.Text
+  policyText    String        @db.Text
+  version       String
+  effectiveDate DateTime
+  jurisdictions String[] // Array of applicable jurisdictions
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  UserConsent   UserConsent[]
+
+  @@map("compliance_policy")
+}
+
+model UserConsent {
+  id           String           @id @default(uuid())
+  userId       String // Reference to User from auth.prisma
+  policyId     String
+  policy       CompliancePolicy @relation(fields: [policyId], references: [id])
+  consentGiven Boolean
+  ipAddress    String?
+  userAgent    String?
+  consentDate  DateTime         @default(now())
+
+  @@unique([userId, policyId])
+  @@map("user_consent")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String? // User who performed the action
+  action     String // Action performed
+  entityType String // Type of entity affected
+  entityId   String? // ID of entity affected
+  details    Json? // Additional details
+  ipAddress  String?
+  userAgent  String?
+  timestamp  DateTime @default(now())
+
+  @@map("audit_log")
+}
