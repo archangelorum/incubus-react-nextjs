@@ -1,132 +1,86 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/prisma";
-import { createSuccessResponse, createErrorResponse, handleApiError } from "../types";
-import { PlatformStaffRole } from "@prisma/client";
-import { z } from "zod";
-import { auth } from "@/auth";
-
-const publisherCreateSchema = z.object({
-  name: z.string().min(2).max(100),
-  contactInfo: z.string().optional()
-});
-
-const publisherUpdateSchema = publisherCreateSchema.partial();
+import { 
+  successResponse, 
+  errorResponse, 
+  paginatedResponse, 
+  notFoundResponse 
+} from "../utils/response";
+import { 
+  getPaginationParams, 
+  getSortParams, 
+  getSearchParams
+} from "../utils/query";
 
 /**
- * @route GET /api/publishers
- * @description Get all publishers with pagination
- * @access Public
+ * GET /api/publishers
+ * 
+ * Retrieves a paginated list of game publishers
+ * Supports sorting and searching
+ * 
+ * @param req - The incoming request
+ * @returns Paginated list of publishers
  */
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
-    const page = parseInt(searchParams.get('page') || '1');
-    const pageSize = parseInt(searchParams.get('pageSize') || '10');
-    const search = searchParams.get('search') || '';
+    // Get pagination and sorting parameters
+    const { page, limit, skip } = getPaginationParams(req);
+    const { orderBy } = getSortParams(
+      req, 
+      "name", 
+      "asc", 
+      ["name", "createdAt", "isVerified"]
+    );
+    
+    const url = new URL(req.url);
+    
+    // Build where clause
+    let where: any = {};
+    
+    // Search
+    if (url.searchParams.has("search")) {
+      const searchTerm = url.searchParams.get("search") || "";
+      where.OR = [
+        { name: { contains: searchTerm, mode: "insensitive" } },
+        { description: { contains: searchTerm, mode: "insensitive" } }
+      ];
+    }
 
-    const where = search ? {
-      name: {
-        contains: search,
-        mode: 'insensitive' as const
-      }
-    } : {};
+    // Filter by verification status
+    if (url.searchParams.has("verified")) {
+      const verified = url.searchParams.get("verified") === "true";
+      where.isVerified = verified;
+    }
 
-    const publishers = await prisma.publisher.findMany({
-      where,
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      orderBy: {
-        name: 'asc'
-      },
-      include: {
-        _count: {
-          select: {
-            games: true
+    // Fetch publishers with pagination
+    const [publishers, total] = await Promise.all([
+      prisma.publisher.findMany({
+        where,
+        orderBy,
+        skip,
+        take: limit,
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          description: true,
+          website: true,
+          isVerified: true,
+          createdAt: true,
+          updatedAt: true,
+          _count: {
+            select: {
+              games: true
+            }
           }
         }
-      }
-    });
-
-    const total = await prisma.publisher.count({ where });
-
-    return createSuccessResponse({
-      data: publishers,
-      pagination: { page, pageSize, total }
-    });
-  } catch (error) {
-    return handleApiError(error);
-  }
-}
-
-/**
- * @route POST /api/publishers
- * @description Create a new publisher
- * @access Private - Platform Admin only
- */
-export const POST = auth(async function POST(request) {
-  try {
-    // Check role - only platform admins can create publishers
-    const { userId } = await checkAuthRole(request, [
-      PlatformStaffRole.Admin,
-      PlatformStaffRole.Owner
+      }),
+      prisma.publisher.count({ where })
     ]);
 
-    // Validate request body
-    const body = await request.json();
-    const validation = publisherCreateSchema.safeParse(body);
-    
-    if (!validation.success) {
-      return createErrorResponse(validation.error.message, 400);
-    }
-
-    const publisherData = validation.data;
-    
-    // Check if publisher with same name already exists
-    const existingPublisher = await prisma.publisher.findUnique({
-      where: { name: publisherData.name }
-    });
-
-    if (existingPublisher) {
-      return createErrorResponse("Publisher with this name already exists", 409);
-    }
-
-    // Create publisher
-    const publisher = await prisma.publisher.create({
-      data: publisherData
-    });
-
-    return createSuccessResponse(publisher);
+    return paginatedResponse(publishers, page, limit, total);
   } catch (error) {
-    if (error instanceof Error) {
-      if (error.message === 'Insufficient permissions') {
-        return createErrorResponse('Insufficient permissions', 403);
-      }
-      if (error.message === 'Unauthorized access') {
-        return createErrorResponse('Unauthorized access', 401);
-      }
-    }
-    return handleApiError(error);
+    console.error("Error fetching publishers:", error);
+    return errorResponse("Failed to fetch publishers", 500);
   }
-});
-
-// Helper function to check roles for auth-wrapped handlers
-const checkAuthRole = async (request: any, allowedRoles: PlatformStaffRole[]) => {
-  if (!request.auth?.user?.id) {
-    throw new Error('Unauthorized access');
-  }
-
-  const platformStaff = await prisma.platformStaff.findUnique({
-    where: { userId: request.auth.user.id }
-  });
-
-  if (!platformStaff) {
-    throw new Error('Insufficient permissions');
-  }
-
-  const hasValidRole = allowedRoles.includes(platformStaff.role);
-  if (!hasValidRole) {
-    throw new Error('Insufficient permissions');
-  }
-
-  return { userId: request.auth.user.id, role: platformStaff.role };
-};
+}
