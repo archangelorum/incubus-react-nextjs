@@ -13,13 +13,13 @@ import {
 } from "../utils/query";
 
 /**
- * GET /api/genres
+ * GET /api/tags
  * 
- * Retrieves a paginated list of game genres
+ * Retrieves a paginated list of tags
  * Supports sorting and searching
  * 
  * @param req - The incoming request
- * @returns Paginated list of genres
+ * @returns Paginated list of tags
  */
 export async function GET(req: NextRequest) {
   try {
@@ -41,14 +41,13 @@ export async function GET(req: NextRequest) {
     if (url.searchParams.has("search")) {
       const searchTerm = url.searchParams.get("search") || "";
       where.OR = [
-        { name: { contains: searchTerm, mode: "insensitive" } },
-        { description: { contains: searchTerm, mode: "insensitive" } }
+        { name: { contains: searchTerm, mode: "insensitive" } }
       ];
     }
 
-    // Fetch genres with pagination
-    const [genres, total] = await Promise.all([
-      prisma.genre.findMany({
+    // Fetch tags with pagination
+    const [tags, total] = await Promise.all([
+      prisma.tag.findMany({
         where,
         orderBy,
         skip,
@@ -57,22 +56,22 @@ export async function GET(req: NextRequest) {
           id: true,
           name: true,
           slug: true,
-          description: true,
           createdAt: true,
           updatedAt: true,
           _count: {
             select: {
-              games: true
+              games: true,
+              items: true
             }
           }
         }
       }),
-      prisma.genre.count({ where })
+      prisma.tag.count({ where })
     ]);
 
-    return paginatedResponse(genres, page, limit, total);
+    return paginatedResponse(tags, page, limit, total);
   } catch (error) {
-    console.error("Error fetching genres:", error);
-    return errorResponse("Failed to fetch genres", 500);
+    console.error("Error fetching tags:", error);
+    return errorResponse("Failed to fetch tags", 500);
   }
 }
