@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useTheme } from '@/components/theme/theme-provider';
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { useAuth } from '@/components/auth/auth-provider';
+import { authClient } from '@/lib/auth-client';
 import { useWallet } from '@/components/wallet/wallet-provider';
 import {
     Menu,
@@ -27,13 +28,14 @@ export function Header() {
     const pathname = usePathname();
     const { theme, setTheme } = useTheme();
     const { t, language, setLanguage } = useI18n();
-    const { user, isAuthenticated, signOut } = useAuth();
+    const { user, isAuthenticated, signOut, signIn } = useAuth();
     const { activeWallet, isConnected } = useWallet();
 
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+    const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
 
     // Handle scroll effect
     useEffect(() => {
@@ -50,6 +52,7 @@ export function Header() {
         const handleClickOutside = () => {
             setIsUserMenuOpen(false);
             setIsLanguageMenuOpen(false);
+            setIsAuthMenuOpen(false);
         };
 
         document.addEventListener('click', handleClickOutside);
@@ -273,18 +276,32 @@ export function Header() {
                             </div>
                         ) : (
                             <div className="flex items-center space-x-2">
-                                <Link
-                                    href="/auth/signin"
-                                    className="px-4 py-2 text-sm rounded-md hover:bg-primary/10 transition-colors"
+                                <button
+                                    onClick={async () => {
+                                        try {
+                                            await authClient.oneTap();
+                                        } catch (err) {
+                                            console.error('Google One Tap failed:', err);
+                                        }
+                                    }}
+                                    className="flex items-center px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
                                 >
-                                    {t('auth.signIn')}
-                                </Link>
-                                <Link
-                                    href="/auth/signup"
-                                    className="px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+                                    <span className="mr-2">🔍</span>
+                                    {t('auth.signIn')} with Google
+                                </button>
+                                <button
+                                    onClick={async () => {
+                                        try {
+                                            await authClient.signIn.passkey();
+                                        } catch (err) {
+                                            console.error('Passkey authentication failed:', err);
+                                        }
+                                    }}
+                                    className="flex items-center px-4 py-2 text-sm bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors"
                                 >
-                                    {t('auth.signUp')}
-                                </Link>
+                                    <span className="mr-2">🔑</span>
+                                    {t('auth.signIn')} with Passkey
+                                </button>
                             </div>
                         )}
                     </div>
@@ -389,21 +406,40 @@ export function Header() {
                                         {t('auth.signOut')}
                                     </button>
                                 ) : (
-                                    <div className="flex items-center space-x-2">
-                                        <Link
-                                            href="/auth/signin"
-                                            className="px-3 py-1 text-sm rounded-md hover:bg-primary/10 transition-colors"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            {t('auth.signIn')}
-                                        </Link>
-                                        <Link
-                                            href="/auth/signup"
-                                            className="px-3 py-1 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            {t('auth.signUp')}
-                                        </Link>
+                                    <div className="flex flex-col space-y-2">
+                                        <div className="flex items-center space-x-2">
+                                            <button
+                                                onClick={async () => {
+                                                    setIsMobileMenuOpen(false);
+                                                    try {
+                                                        const data = await authClient.signIn.social({
+                                                            provider: "google"
+                                                        });
+                                                        console.log(data);
+                                                    } catch (err) {
+                                                        console.error('Google One Tap failed:', err);
+                                                    }
+                                                }}
+                                                className="flex items-center px-3 py-1 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+                                            >
+                                                <span className="mr-1">🔍</span>
+                                                Google
+                                            </button>
+                                            <button
+                                                onClick={async () => {
+                                                    setIsMobileMenuOpen(false);
+                                                    try {
+                                                        await authClient.signIn.passkey();
+                                                    } catch (err) {
+                                                        console.error('Passkey authentication failed:', err);
+                                                    }
+                                                }}
+                                                className="flex items-center px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors"
+                                            >
+                                                <span className="mr-1">🔑</span>
+                                                Passkey
+                                            </button>
+                                        </div>
                                     </div>
                                 )}
                             </div>

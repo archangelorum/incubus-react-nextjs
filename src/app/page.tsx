@@ -78,8 +78,8 @@ export default function HomePage() {
                     <Suspense fallback={<LoadingGames count={8} />}>
                         <GameGrid
                             query={{
-                                sort: 'releaseDate',
-                                order: 'desc',
+                                sortBy: 'releaseDate',
+                                sortOrder: 'desc',
                                 limit: 8
                             }}
                         />
@@ -96,7 +96,7 @@ export default function HomePage() {
                             <h2 className="text-2xl md:text-3xl font-bold">Top Sellers</h2>
                         </div>
                         <Link
-                            href="/games?sort=popularity&order=desc"
+                            href="/games?sortBy=popularity&sortOrder=desc"
                             className="text-primary inline-flex items-center hover:underline"
                         >
                             View all
@@ -106,8 +106,8 @@ export default function HomePage() {
                     <Suspense fallback={<LoadingGames count={8} />}>
                         <GameGrid
                             query={{
-                                sort: 'popularity',
-                                order: 'desc',
+                                sortBy: 'popularity',
+                                sortOrder: 'desc',
                                 limit: 8
                             }}
                         />

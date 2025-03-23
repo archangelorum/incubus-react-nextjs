@@ -1,9 +1,11 @@
 import { createAuthClient } from "better-auth/react"
-import { adminClient, organizationClient, passkeyClient } from "better-auth/client/plugins"
+import { adminClient, oneTapClient, organizationClient, passkeyClient } from "better-auth/client/plugins"
 
 export const authClient = createAuthClient({
-    baseURL: "http://localhost:3000",
     plugins: [
+        oneTapClient({
+            clientId: "769858400792-q54seavc1b4iu6psqg1mdcr8llif60mf.apps.googleusercontent.com",
+        }),
         passkeyClient(),
         adminClient(),
         organizationClient()
