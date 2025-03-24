@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/prisma";
 import { authenticateRequest, authorizeAdmin } from "../../../utils/auth";
 import { 
   successResponse, 
@@ -27,12 +27,13 @@ export async function GET(
 ) {
   try {
     // Validate ID parameter
-    const validatedParams = validateParams(params, gameIdSchema);
+    const validatedParams = validateParams(await params, gameIdSchema);
     if (validatedParams instanceof Response) return validatedParams;
-
+    
+    const { id } = await params;
     // Check if game exists
     const game = await prisma.game.findUnique({
-      where: { id: params.id }
+      where: { id }
     });
 
     if (!game) {
@@ -89,7 +90,14 @@ export async function GET(
           downvotes: true,
           status: true,
           createdAt: true,
-          updatedAt: true
+          updatedAt: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              image: true
+            }
+          }
         }
       }),
       prisma.gameReview.count({ where })
@@ -205,6 +213,15 @@ export async function POST(
         status: "PENDING", // Reviews start as pending and need approval
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            image: true
+          }
+        }
       }
     });
 

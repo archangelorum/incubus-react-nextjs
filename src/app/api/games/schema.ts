@@ -63,7 +63,7 @@ export const updateGameSchema = z.object({
 export const gameQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(10),
-  sortBy: z.enum(["title", "releaseDate", "basePrice", "createdAt"]).default("createdAt"),
+  sortBy: z.enum(["title", "releaseDate", "basePrice", "createdAt", "popularity"]).default("createdAt"),
   sortOrder: z.enum(["asc", "desc"]).default("desc"),
   search: z.string().optional(),
   publisherId: CommonValidators.id.optional(),

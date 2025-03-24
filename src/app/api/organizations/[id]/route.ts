@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/prisma";
 import { authorizeAdmin, authorizeOrganization } from "../../utils/auth";
 import { 
   successResponse, 

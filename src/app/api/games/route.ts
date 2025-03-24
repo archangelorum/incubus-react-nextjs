@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/prisma";
 import { authenticateRequest, authorizeOrganization } from "../utils/auth";
 import { 
   successResponse, 
@@ -41,6 +41,8 @@ export async function GET(req: NextRequest) {
       ["title", "releaseDate", "basePrice", "createdAt"]
     );
     
+    console.log(orderBy);
+
     const url = new URL(req.url);
     
     // Build where clause

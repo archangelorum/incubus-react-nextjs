@@ -2,9 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma"
 import { passkey } from "better-auth/plugins/passkey"
 import { admin, oneTap, organization } from "better-auth/plugins";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 export const auth = betterAuth({
   socialProviders: {

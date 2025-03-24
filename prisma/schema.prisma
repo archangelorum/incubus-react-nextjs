@@ -8,22 +8,35 @@ generator client {
 }
 
 model User {
-  id            String       @id
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  role          String?
-  banned        Boolean?
-  banReason     String?
-  banExpires    DateTime?
-  sessions      Session[]
-  accounts      Account[]
-  passkeys      Passkey[]
-  members       Member[]
-  invitations   Invitation[]
+  id                  String               @id
+  name                String
+  email               String
+  emailVerified       Boolean
+  image               String?
+  createdAt           DateTime
+  updatedAt           DateTime
+  role                String?
+  banned              Boolean?
+  banReason           String?
+  banExpires          DateTime?
+  sessions            Session[]
+  accounts            Account[]
+  passkeys            Passkey[]
+  members             Member[]
+  invitations         Invitation[]
+  gameReviews         GameReview[]
+  gameReviewVotes     GameReviewVote[] // Fixed capitalization for consistency
+  wallets             Wallet[]
+  analyticsEvents     AnalyticsEvent[]
+  reports             Report[]
+  proposals           GovernanceProposal[]
+  proposalVotes       ProposalVote[]
+  disputesReported    DisputeCase[]        @relation("ReporterUser")
+  disputesDefended    DisputeCase[]        @relation("DefenderUser")
+  disputesResolved    DisputeCase[]        @relation("ResolverUser")
+  auditLogs           AuditLog[]
+  marketplaceListings MarketplaceListing[]
+  consents            UserConsent[]
 
   @@unique([email])
   @@map("user")
@@ -101,6 +114,8 @@ model Organization {
   metadata    String?
   members     Member[]
   invitations Invitation[]
+  publishers  Publisher[]
+  developers  Developer[]
 
   @@unique([slug])
   @@map("organization")
@@ -153,22 +168,27 @@ model Blockchain {
 }
 
 model Wallet {
-  id                   String          @id @default(uuid())
-  userId               String // Reference to User from auth.prisma
-  blockchainId         String
-  blockchain           Blockchain      @relation(fields: [blockchainId], references: [id])
-  address              String // Public wallet address
-  isDefault            Boolean         @default(false)
-  label                String? // User-defined label for the wallet
-  balance              Decimal         @default(0)
-  lastSynced           DateTime? // Last time the balance was synced
-  createdAt            DateTime        @default(now())
-  updatedAt            DateTime        @updatedAt
-  transactions         Transaction[]   @relation("WalletTransactions")
-  ownedLicenses        GameLicense[]
-  ownedItems           ItemOwnership[]
-  escrowsAsDepositor   Escrow[]        @relation("DepositorWallet")
-  escrowsAsBeneficiary Escrow[]        @relation("BeneficiaryWallet")
+  id                       String                   @id @default(uuid())
+  userId                   String // Reference to User from auth.prisma
+  user                     User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blockchainId             String
+  blockchain               Blockchain               @relation(fields: [blockchainId], references: [id], onDelete: Restrict)
+  address                  String // Public wallet address
+  isDefault                Boolean                  @default(false)
+  label                    String? // User-defined label for the wallet
+  balance                  Decimal                  @default(0)
+  lastSynced               DateTime? // Last time the balance was synced
+  createdAt                DateTime                 @default(now())
+  updatedAt                DateTime                 @updatedAt
+  transactions             Transaction[]            @relation("WalletTransactions")
+  ownedLicenses            GameLicense[]
+  ownedItems               ItemOwnership[]
+  escrowsAsDepositor       Escrow[]                 @relation("DepositorWallet")
+  escrowsAsBeneficiary     Escrow[]                 @relation("BeneficiaryWallet")
+  outgoingLicenseTransfers GameLicenseTransaction[] @relation("FromLicenseTransfer")
+  incomingLicenseTransfers GameLicenseTransaction[] @relation("ToLicenseTransfer")
+  outgoingItemTransfers    ItemTransaction[]        @relation("FromItemTransfer")
+  incomingItemTransfers    ItemTransaction[]        @relation("ToItemTransfer")
 
   @@unique([userId, blockchainId, address])
   @@map("wallet")
@@ -177,7 +197,7 @@ model Wallet {
 model SmartContract {
   id           String        @id @default(uuid())
   blockchainId String
-  blockchain   Blockchain    @relation(fields: [blockchainId], references: [id])
+  blockchain   Blockchain    @relation(fields: [blockchainId], references: [id], onDelete: Restrict)
   address      String // Contract address on the blockchain
   name         String // Human-readable name
   type         String // e.g., "GameLicense", "Marketplace", "ItemNFT", "Governance"
@@ -197,11 +217,11 @@ model Transaction {
   id                      String                   @id @default(uuid())
   hash                    String // Transaction hash
   blockchainId            String
-  blockchain              Blockchain               @relation(fields: [blockchainId], references: [id])
+  blockchain              Blockchain               @relation(fields: [blockchainId], references: [id], onDelete: Restrict)
   walletId                String
-  wallet                  Wallet                   @relation("WalletTransactions", fields: [walletId], references: [id])
+  wallet                  Wallet                   @relation("WalletTransactions", fields: [walletId], references: [id], onDelete: Cascade)
   smartContractId         String?
-  smartContract           SmartContract?           @relation(fields: [smartContractId], references: [id])
+  smartContract           SmartContract?           @relation(fields: [smartContractId], references: [id], onDelete: SetNull)
   type                    TransactionType
   status                  TransactionStatus        @default(PENDING)
   amount                  Decimal                  @default(0)
@@ -248,7 +268,7 @@ model Game {
   description         String               @db.Text
   shortDescription    String?              @db.Text
   publisherId         String
-  publisher           Publisher            @relation(fields: [publisherId], references: [id])
+  publisher           Publisher            @relation(fields: [publisherId], references: [id], onDelete: Restrict)
   developerIds        DeveloperGame[]
   releaseDate         DateTime
   basePrice           Decimal
@@ -264,10 +284,10 @@ model Game {
   items               GameItem[]
   reviews             GameReview[]
   contentFiles        ContentFile[]        @relation("GameContentFiles")
-  coverImage          ContentFile?         @relation("GameCoverImage", fields: [coverImageId], references: [id])
+  coverImage          ContentFile?         @relation("GameCoverImage", fields: [coverImageId], references: [id], onDelete: SetNull)
   coverImageId        String?
   screenshots         ContentFile[]        @relation("GameScreenshots")
-  trailerVideo        ContentFile?         @relation("GameTrailer", fields: [trailerVideoId], references: [id])
+  trailerVideo        ContentFile?         @relation("GameTrailer", fields: [trailerVideoId], references: [id], onDelete: SetNull)
   trailerVideoId      String?
   marketplaceListings MarketplaceListing[]
   createdAt           DateTime             @default(now())
@@ -283,11 +303,12 @@ model Publisher {
   description       String?           @db.Text
   website           String?
   organizationId    String? // Optional link to Organization from auth.prisma
+  organization      Organization?     @relation(fields: [organizationId], references: [id], onDelete: SetNull)
   walletAddresses   PublisherWallet[]
   games             Game[]
   royaltyPercentage Decimal           @default(10.00) // Default 10%
   isVerified        Boolean           @default(false)
-  logo              ContentFile?      @relation(fields: [logoId], references: [id])
+  logo              ContentFile?      @relation(fields: [logoId], references: [id], onDelete: SetNull)
   logoId            String?
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
@@ -298,9 +319,9 @@ model Publisher {
 model PublisherWallet {
   id           String     @id @default(uuid())
   publisherId  String
-  publisher    Publisher  @relation(fields: [publisherId], references: [id])
+  publisher    Publisher  @relation(fields: [publisherId], references: [id], onDelete: Cascade)
   blockchainId String
-  blockchain   Blockchain @relation(fields: [blockchainId], references: [id])
+  blockchain   Blockchain @relation(fields: [blockchainId], references: [id], onDelete: Restrict)
   address      String
   isDefault    Boolean    @default(false)
   createdAt    DateTime   @default(now())
@@ -317,8 +338,9 @@ model Developer {
   description    String?         @db.Text
   website        String?
   organizationId String? // Optional link to Organization from auth.prisma
+  organization   Organization?   @relation(fields: [organizationId], references: [id], onDelete: SetNull)
   games          DeveloperGame[]
-  logo           ContentFile?    @relation(fields: [logoId], references: [id])
+  logo           ContentFile?    @relation(fields: [logoId], references: [id], onDelete: SetNull)
   logoId         String?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
@@ -329,9 +351,9 @@ model Developer {
 model DeveloperGame {
   id          String    @id @default(uuid())
   developerId String
-  developer   Developer @relation(fields: [developerId], references: [id])
+  developer   Developer @relation(fields: [developerId], references: [id], onDelete: Cascade)
   gameId      String
-  game        Game      @relation(fields: [gameId], references: [id])
+  game        Game      @relation(fields: [gameId], references: [id], onDelete: Cascade)
   role        String? // e.g., "Lead Developer", "Co-Developer"
   createdAt   DateTime  @default(now())
 
@@ -342,7 +364,7 @@ model DeveloperGame {
 model GameVersion {
   id           String        @id @default(uuid())
   gameId       String
-  game         Game          @relation(fields: [gameId], references: [id])
+  game         Game          @relation(fields: [gameId], references: [id], onDelete: Cascade)
   version      String // Semantic versioning
   releaseNotes String?       @db.Text
   isActive     Boolean       @default(true)
@@ -360,9 +382,9 @@ model GameVersion {
 model GameGenre {
   id      String @id @default(uuid())
   gameId  String
-  game    Game   @relation(fields: [gameId], references: [id])
+  game    Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
   genreId String
-  genre   Genre  @relation(fields: [genreId], references: [id])
+  genre   Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
 
   @@unique([gameId, genreId])
   @@map("game_genre")
@@ -383,9 +405,9 @@ model Genre {
 model GameTag {
   id     String @id @default(uuid())
   gameId String
-  game   Game   @relation(fields: [gameId], references: [id])
+  game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
   tagId  String
-  tag    Tag    @relation(fields: [tagId], references: [id])
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@unique([gameId, tagId])
   @@map("game_tag")
@@ -417,9 +439,9 @@ model ContentFile {
   isPublic         Boolean      @default(true)
   metadata         Json? // Additional metadata
   gameId           String? // Optional game association
-  game             Game?        @relation("GameContentFiles", fields: [gameId], references: [id])
+  game             Game?        @relation("GameContentFiles", fields: [gameId], references: [id], onDelete: SetNull)
   gameVersionId    String?
-  gameVersion      GameVersion? @relation(fields: [gameVersionId], references: [id])
+  gameVersion      GameVersion? @relation(fields: [gameVersionId], references: [id], onDelete: SetNull)
   gameAsCover      Game[]       @relation("GameCoverImage")
   gameAsScreenshot Game[]       @relation("GameScreenshots")
   gameAsTrailer    Game[]       @relation("GameTrailer")
@@ -443,12 +465,12 @@ enum StorageType {
 model GameLicense {
   id              String                   @id @default(uuid())
   gameId          String
-  game            Game                     @relation(fields: [gameId], references: [id])
+  game            Game                     @relation(fields: [gameId], references: [id], onDelete: Restrict)
   walletId        String
-  wallet          Wallet                   @relation(fields: [walletId], references: [id])
+  wallet          Wallet                   @relation(fields: [walletId], references: [id], onDelete: Cascade)
   nftId           String? // NFT token ID if applicable
   nftCollectionId String?
-  nftCollection   NFTCollection?           @relation(fields: [nftCollectionId], references: [id])
+  nftCollection   NFTCollection?           @relation(fields: [nftCollectionId], references: [id], onDelete: SetNull)
   licenseType     LicenseType              @default(STANDARD)
   isActive        Boolean                  @default(true)
   acquiredAt      DateTime                 @default(now())
@@ -473,13 +495,15 @@ enum LicenseType {
 model GameLicenseTransaction {
   id            String                 @id @default(uuid())
   licenseeId    String
-  license       GameLicense            @relation(fields: [licenseeId], references: [id])
+  license       GameLicense            @relation(fields: [licenseeId], references: [id], onDelete: Cascade)
   transactionId String
-  transaction   Transaction            @relation(fields: [transactionId], references: [id])
+  transaction   Transaction            @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   type          LicenseTransactionType
   price         Decimal
   fromWalletId  String? // For transfers
+  fromWallet    Wallet?                @relation("FromLicenseTransfer", fields: [fromWalletId], references: [id], onDelete: SetNull)
   toWalletId    String? // For transfers
+  toWallet      Wallet?                @relation("ToLicenseTransfer", fields: [toWalletId], references: [id], onDelete: SetNull)
   createdAt     DateTime               @default(now())
 
   @@map("game_license_transaction")
@@ -495,31 +519,31 @@ enum LicenseTransactionType {
 // ==================== IN-GAME ITEM MODELS ====================
 
 model GameItem {
-  id                 String               @id @default(uuid())
-  name               String
-  description        String?              @db.Text
-  gameId             String
-  game               Game                 @relation(fields: [gameId], references: [id])
-  itemType           ItemType
-  rarity             ItemRarity
-  price              Decimal
-  supply             Int? // Total supply (null for unlimited)
-  remaining          Int? // Remaining supply
-  isTransferable     Boolean              @default(true)
-  isTradeable        Boolean              @default(true)
-  metadata           Json? // Game-specific item metadata
-  contentHash        String? // Hash for item data integrity
-  contentCid         String? // IPFS Content Identifier
-  image              ContentFile?         @relation("ItemImage", fields: [imageId], references: [id])
-  imageId            String?
-  nftCollectionId    String?
-  nftCollection      NFTCollection?       @relation(fields: [nftCollectionId], references: [id])
-  tags               ItemTag[]
-  ownerships         ItemOwnership[]
-  transactions       ItemTransaction[]
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  MarketplaceListing MarketplaceListing[]
+  id                  String               @id @default(uuid())
+  name                String
+  description         String?              @db.Text
+  gameId              String
+  game                Game                 @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  itemType            ItemType
+  rarity              ItemRarity
+  price               Decimal
+  supply              Int? // Total supply (null for unlimited)
+  remaining           Int? // Remaining supply
+  isTransferable      Boolean              @default(true)
+  isTradeable         Boolean              @default(true)
+  metadata            Json? // Game-specific item metadata
+  contentHash         String? // Hash for item data integrity
+  contentCid          String? // IPFS Content Identifier
+  image               ContentFile?         @relation("ItemImage", fields: [imageId], references: [id], onDelete: SetNull)
+  imageId             String?
+  nftCollectionId     String?
+  nftCollection       NFTCollection?       @relation(fields: [nftCollectionId], references: [id], onDelete: SetNull)
+  tags                ItemTag[]
+  ownerships          ItemOwnership[]
+  transactions        ItemTransaction[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  marketplaceListings MarketplaceListing[] // Fixed capitalization for consistency
 
   @@map("game_item")
 }
@@ -544,9 +568,9 @@ enum ItemRarity {
 model ItemTag {
   id     String   @id @default(uuid())
   itemId String
-  item   GameItem @relation(fields: [itemId], references: [id])
+  item   GameItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
   tagId  String
-  tag    Tag      @relation(fields: [tagId], references: [id])
+  tag    Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@unique([itemId, tagId])
   @@map("item_tag")
@@ -555,9 +579,9 @@ model ItemTag {
 model ItemOwnership {
   id           String            @id @default(uuid())
   itemId       String
-  item         GameItem          @relation(fields: [itemId], references: [id])
+  item         GameItem          @relation(fields: [itemId], references: [id], onDelete: Cascade)
   walletId     String
-  wallet       Wallet            @relation(fields: [walletId], references: [id])
+  wallet       Wallet            @relation(fields: [walletId], references: [id], onDelete: Cascade)
   quantity     Int               @default(1)
   nftId        String? // NFT token ID if applicable
   acquiredAt   DateTime          @default(now())
@@ -570,16 +594,18 @@ model ItemOwnership {
 model ItemTransaction {
   id            String              @id @default(uuid())
   itemId        String
-  item          GameItem            @relation(fields: [itemId], references: [id])
+  item          GameItem            @relation(fields: [itemId], references: [id], onDelete: Cascade)
   ownershipId   String
-  ownership     ItemOwnership       @relation(fields: [ownershipId], references: [id])
+  ownership     ItemOwnership       @relation(fields: [ownershipId], references: [id], onDelete: Cascade)
   transactionId String
-  transaction   Transaction         @relation(fields: [transactionId], references: [id])
+  transaction   Transaction         @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   type          ItemTransactionType
   quantity      Int                 @default(1)
   price         Decimal
   fromWalletId  String? // For transfers
+  fromWallet    Wallet?             @relation("FromItemTransfer", fields: [fromWalletId], references: [id], onDelete: SetNull)
   toWalletId    String? // For transfers
+  toWallet      Wallet?             @relation("ToItemTransfer", fields: [toWalletId], references: [id], onDelete: SetNull)
   createdAt     DateTime            @default(now())
 
   @@map("item_transaction")
@@ -600,7 +626,7 @@ model NFTCollection {
   name            String
   symbol          String
   blockchainId    String
-  blockchain      Blockchain    @relation(fields: [blockchainId], references: [id])
+  blockchain      Blockchain    @relation(fields: [blockchainId], references: [id], onDelete: Restrict)
   contractAddress String
   standard        String // e.g., "ERC721", "ERC1155", "SPL"
   metadata        Json?
@@ -620,15 +646,16 @@ model MarketplaceListing {
   type      ListingType
   status    ListingStatus @default(ACTIVE)
   sellerId  String // User ID of seller
+  seller    User          @relation(fields: [sellerId], references: [id], onDelete: Cascade)
   price     Decimal
   quantity  Int           @default(1)
   expiresAt DateTime?
   gameId    String? // For game license listings
-  game      Game?         @relation(fields: [gameId], references: [id])
+  game      Game?         @relation(fields: [gameId], references: [id], onDelete: SetNull)
   itemId    String? // For item listings
-  item      GameItem?     @relation(fields: [itemId], references: [id])
+  item      GameItem?     @relation(fields: [itemId], references: [id], onDelete: SetNull)
   escrowId  String?
-  escrow    Escrow?       @relation(fields: [escrowId], references: [id])
+  escrow    Escrow?       @relation(fields: [escrowId], references: [id], onDelete: SetNull)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
@@ -654,9 +681,9 @@ enum ListingStatus {
 model Escrow {
   id                  String               @id @default(uuid())
   depositorWalletId   String
-  depositorWallet     Wallet               @relation("DepositorWallet", fields: [depositorWalletId], references: [id])
+  depositorWallet     Wallet               @relation("DepositorWallet", fields: [depositorWalletId], references: [id], onDelete: Restrict)
   beneficiaryWalletId String
-  beneficiaryWallet   Wallet               @relation("BeneficiaryWallet", fields: [beneficiaryWalletId], references: [id])
+  beneficiaryWallet   Wallet               @relation("BeneficiaryWallet", fields: [beneficiaryWalletId], references: [id], onDelete: Restrict)
   amount              Decimal
   status              EscrowStatus         @default(PENDING)
   releaseCondition    String? // Condition for release
@@ -681,9 +708,9 @@ enum EscrowStatus {
 model EscrowTransaction {
   id            String                @id @default(uuid())
   escrowId      String
-  escrow        Escrow                @relation(fields: [escrowId], references: [id])
+  escrow        Escrow                @relation(fields: [escrowId], references: [id], onDelete: Cascade)
   transactionId String
-  transaction   Transaction           @relation(fields: [transactionId], references: [id])
+  transaction   Transaction           @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   type          EscrowTransactionType
   amount        Decimal
   createdAt     DateTime              @default(now())
@@ -701,21 +728,23 @@ enum EscrowTransactionType {
 // ==================== REVIEW & RATING MODELS ====================
 
 model GameReview {
-  id                 String       @id @default(uuid())
+  id                 String           @id @default(uuid())
   gameId             String
-  game               Game         @relation(fields: [gameId], references: [id])
-  userId             String // Reference to User from auth.prisma
+  game               Game             @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  userId             String
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   rating             Int // 1-5 star rating
   title              String?
-  content            String?      @db.Text
+  content            String?          @db.Text
   playTime           Int? // Play time in minutes
-  isVerifiedPurchase Boolean      @default(false)
+  isVerifiedPurchase Boolean          @default(false)
   isRecommended      Boolean?
-  upvotes            Int          @default(0)
-  downvotes          Int          @default(0)
-  status             ReviewStatus @default(PENDING)
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  upvotes            Int              @default(0)
+  downvotes          Int              @default(0)
+  status             ReviewStatus     @default(PENDING)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  votes              GameReviewVote[]
 
   @@unique([gameId, userId])
   @@map("game_review")
@@ -727,11 +756,25 @@ enum ReviewStatus {
   REJECTED
 }
 
+model GameReviewVote {
+  id        String     @id @default(uuid())
+  reviewId  String
+  review    GameReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade, map: "gameReviewVotes")
+  isUpvote  Boolean
+  createdAt DateTime   @default(now())
+
+  @@unique([reviewId, userId])
+  @@map("game_review_vote")
+}
+
 // ==================== ANALYTICS & REPORTING MODELS ====================
 
 model AnalyticsEvent {
   id        String   @id @default(uuid())
   userId    String? // Optional user ID
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   sessionId String? // Browser/app session ID
   eventType String // Type of event
   eventData Json // Event-specific data
@@ -750,6 +793,7 @@ model Report {
   parameters  Json? // Report parameters
   resultData  Json? // Report results
   createdById String // User who created the report
+  createdBy   User         @relation(fields: [createdById], references: [id], onDelete: Cascade)
   status      ReportStatus @default(PENDING)
   scheduledAt DateTime? // For scheduled reports
   completedAt DateTime?
@@ -779,7 +823,7 @@ enum ReportStatus {
 model BlockchainIndex {
   id                 String      @id @default(uuid())
   blockchainId       String
-  blockchain         Blockchain  @relation(fields: [blockchainId], references: [id])
+  blockchain         Blockchain  @relation(fields: [blockchainId], references: [id], onDelete: Cascade)
   lastBlockProcessed Int
   lastProcessedAt    DateTime
   status             IndexStatus @default(ACTIVE)
@@ -814,6 +858,7 @@ model GovernanceProposal {
   title              String
   description        String         @db.Text
   proposerId         String // User who proposed
+  proposer           User           @relation(fields: [proposerId], references: [id], onDelete: Cascade)
   status             ProposalStatus @default(DRAFT)
   proposalType       ProposalType
   votingStartsAt     DateTime?
@@ -846,8 +891,9 @@ enum ProposalType {
 model ProposalVote {
   id         String             @id @default(uuid())
   proposalId String
-  proposal   GovernanceProposal @relation(fields: [proposalId], references: [id])
+  proposal   GovernanceProposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
   voterId    String // User who voted
+  voter      User               @relation(fields: [voterId], references: [id], onDelete: Cascade)
   vote       VoteType
   votePower  Decimal            @default(1.0) // Voting power (can be token-weighted)
   reason     String?            @db.Text
@@ -868,13 +914,16 @@ model DisputeCase {
   title             String
   description       String        @db.Text
   reporterId        String // User who reported
+  reporter          User          @relation("ReporterUser", fields: [reporterId], references: [id], onDelete: Restrict)
   defenderId        String? // User being reported
+  defender          User?         @relation("DefenderUser", fields: [defenderId], references: [id], onDelete: SetNull)
   status            DisputeStatus @default(OPEN)
   type              DisputeType
   relatedEntityType String? // e.g., "Transaction", "Listing"
   relatedEntityId   String? // ID of the related entity
   resolution        String?       @db.Text
   resolvedById      String? // Admin who resolved
+  resolvedBy        User?         @relation("ResolverUser", fields: [resolvedById], references: [id], onDelete: SetNull)
   resolvedAt        DateTime?
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
@@ -923,7 +972,7 @@ enum ShardStrategy {
 model Shard {
   id            String      @id @default(uuid())
   shardConfigId String
-  shardConfig   ShardConfig @relation(fields: [shardConfigId], references: [id])
+  shardConfig   ShardConfig @relation(fields: [shardConfigId], references: [id], onDelete: Cascade)
   name          String
   endpoint      String // API endpoint or connection string
   region        String? // Geographic region
@@ -958,8 +1007,9 @@ model CompliancePolicy {
 model UserConsent {
   id           String           @id @default(uuid())
   userId       String // Reference to User from auth.prisma
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   policyId     String
-  policy       CompliancePolicy @relation(fields: [policyId], references: [id])
+  policy       CompliancePolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
   consentGiven Boolean
   ipAddress    String?
   userAgent    String?
@@ -972,6 +1022,7 @@ model UserConsent {
 model AuditLog {
   id         String   @id @default(uuid())
   userId     String? // User who performed the action
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   action     String // Action performed
   entityType String // Type of entity affected
   entityId   String? // ID of entity affected

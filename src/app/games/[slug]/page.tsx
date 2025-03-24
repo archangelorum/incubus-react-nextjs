@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { prisma } from '@/prisma';
+import { prisma } from '@/lib/prisma';
 import { GameScreenshots } from '@/components/games/game-screenshots';
 import { GameReviews } from '@/components/games/game-reviews';
 import { RelatedGames } from '@/components/games/related-games';
@@ -22,8 +22,10 @@ import {
 
 // Generate metadata for the page
 export async function generateMetadata({ params }: { params: { slug: string } }) {
+    const { slug } = await params;
+
     const game = await prisma.game.findUnique({
-        where: { slug: params.slug },
+        where: { slug },
         select: {
             title: true,
             shortDescription: true,
@@ -103,7 +105,9 @@ async function getGameDetails(slug: string) {
 }
 
 export default async function GamePage({ params }: { params: { slug: string } }) {
-    const game = await getGameDetails(params.slug);
+    const { slug } = await params;
+
+    const game = await getGameDetails(slug);
 
     if (!game) {
         notFound();

@@ -76,7 +76,7 @@ export async function authorizeOrganization(
 
     // Check if user is a member of the organization
     // We need to fetch the membership from the database
-    const { prisma } = await import('@/prisma');
+    const { prisma } = await import('@/lib/prisma');
     const membership = await prisma.member.findFirst({
         where: {
             userId: session.user.id,

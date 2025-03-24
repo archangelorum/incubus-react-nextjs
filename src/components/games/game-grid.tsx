@@ -185,7 +185,7 @@ export function GameGrid({ query, showFilters = false }: GameGridProps) {
                       ${Number(game.basePrice).toFixed(2)}
                     </span>
                     <span className="text-green-500">
-                      ${Number(game.basePrice).toFixed(2)}
+                      ${Number(game.discountPrice).toFixed(2)}
                     </span>
                   </div>
                 ) : (

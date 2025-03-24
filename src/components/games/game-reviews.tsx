@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/components/auth/auth-provider';
 import { useI18n } from '@/components/i18n/i18n-provider';

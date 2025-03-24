@@ -13,7 +13,7 @@ export interface PaginationParams {
  * Sorting parameters
  */
 export interface SortParams {
-  orderBy: Record<string, "asc" | "desc">;
+  orderBy: any; // Using 'any' to support complex sorting structures
 }
 
 /**
@@ -55,7 +55,7 @@ export function getPaginationParams(
 
 /**
  * Extracts sorting parameters from the request
- * 
+ *
  * @param req - The incoming request
  * @param defaultField - Default field to sort by
  * @param defaultOrder - Default sort order (default: "desc")
@@ -72,9 +72,20 @@ export function getSortParams(
   const sortField = url.searchParams.get("sortBy") || defaultField;
   const sortOrder = url.searchParams.get("sortOrder") as "asc" | "desc" || defaultOrder;
   
+  // Special case for popularity sorting
+  if (sortField === "popularity") {
+    return {
+      orderBy: {
+        reviews: {
+          _count: sortOrder
+        }
+      }
+    };
+  }
+  
   // If sortField is not in allowedFields and allowedFields is not empty, use defaultField
-  const field = allowedFields.length > 0 && !allowedFields.includes(sortField) 
-    ? defaultField 
+  const field = allowedFields.length > 0 && !allowedFields.includes(sortField)
+    ? defaultField
     : sortField;
   
   return {

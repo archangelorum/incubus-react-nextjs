@@ -123,7 +123,7 @@ async function main() {
   await createEscrowTransactions(escrows, transactions)
   
   // Create marketplace listings
-  await createMarketplaceListings(games, gameItems, escrows)
+  await createMarketplaceListings(games, gameItems, escrows, users)
   
   // Create game reviews
   await createGameReviews(games, users)
@@ -1308,20 +1308,30 @@ async function createEscrowTransactions(escrows: string | any[], transactions: s
   return escrowTransactions
 }
 
-async function createMarketplaceListings(games: string | any[], gameItems: string | any[], escrows: string | any[]) {
+async function createMarketplaceListings(games: string | any[], gameItems: string | any[], escrows: string | any[], users: string | any[] = []) {
   console.log('Creating marketplace listings...')
+  
+  // Get users from the database if not provided
+  if (users.length === 0) {
+    users = await prisma.user.findMany();
+    if (users.length === 0) {
+      throw new Error('No users found in the database. Cannot create marketplace listings.');
+    }
+  }
   
   const marketplaceListings = []
   
-  // Create game license listings
+  // Cre>
   for (let i = 0; i < Math.min(games.length, 2); i++) {
     const game = games[i]
+    // Use a real user ID from the users array
+    const seller = users[i % users.length]
     
     const listing = await prisma.marketplaceListing.create({
       data: {
         type: ListingType.GAME_LICENSE,
         status: ListingStatus.ACTIVE,
-        sellerId: randomUUID(), // User ID
+        sellerId: seller.id, // Use actual User ID
         price: game.basePrice * 0.8, // 20% discount for resale
         quantity: 1,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
@@ -1342,13 +1352,15 @@ async function createMarketplaceListings(games: string | any[], gameItems: strin
     // Skip if the item is not tradeable
     if (!item.isTradeable) continue
     
+    // Use a real user ID from the users array
+    const seller = users[i % users.length]
     const quantity = Math.floor(Math.random() * 3) + 1
     
     const listing = await prisma.marketplaceListing.create({
       data: {
         type: ListingType.GAME_ITEM,
         status: ListingStatus.ACTIVE,
-        sellerId: randomUUID(), // User ID
+        sellerId: seller.id, // Use actual User ID
         price: item.price * (Math.random() * 0.4 + 0.8), // Random price between 80% and 120% of original
         quantity,
         expiresAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
