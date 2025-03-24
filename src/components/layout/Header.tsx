@@ -49,14 +49,24 @@ export function Header() {
 
     // Close menus when clicking outside
     useEffect(() => {
-        const handleClickOutside = () => {
-            setIsUserMenuOpen(false);
-            setIsLanguageMenuOpen(false);
+        const handleClickOutside = (event: MouseEvent) => {
+            // Check if the click is outside the dropdown containers
+            const userMenuContainer = document.querySelector('.user-dropdown-container');
+            const languageMenuContainer = document.querySelector('.language-dropdown-container');
+            
+            if (userMenuContainer && !userMenuContainer.contains(event.target as Node)) {
+                setIsUserMenuOpen(false);
+            }
+            
+            if (languageMenuContainer && !languageMenuContainer.contains(event.target as Node)) {
+                setIsLanguageMenuOpen(false);
+            }
+            
             setIsAuthMenuOpen(false);
         };
 
-        document.addEventListener('click', handleClickOutside);
-        return () => document.removeEventListener('click', handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     const toggleTheme = () => {
@@ -139,7 +149,7 @@ export function Header() {
                         </button>
 
                         {/* Language Selector */}
-                        <div className="relative dropdown-container">
+                        <div className="relative dropdown-container language-dropdown-container">
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -148,14 +158,17 @@ export function Header() {
                                 className="flex items-center space-x-1 p-2 rounded-full hover:bg-primary/10 transition-colors"
                             >
                                 <Globe className="w-5 h-5" />
-                                <span className="text-sm font-medium">{/*language.toUpperCase()*/}</span>
+                                <span className="text-sm font-medium">{language.toUpperCase()}</span>
                                 <ChevronDown className="w-4 h-4" />
                             </button>
 
                             {isLanguageMenuOpen && (
                                 <>
                                     <div className="dropdown-bridge" />
-                                    <div className="absolute right-0 mt-2 w-48 bg-card rounded-md shadow-lg overflow-hidden z-20 dropdown-menu">
+                                    <div
+                                        className="absolute right-0 mt-2 w-48 bg-card rounded-md shadow-lg overflow-hidden z-20 dropdown-menu"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
                                         <div className="py-1">
                                             {Object.entries(languageNames).map(([code, name]) => (
                                                 <button
@@ -177,7 +190,7 @@ export function Header() {
 
                         {/* Auth / User Menu */}
                         {isAuthenticated ? (
-                            <div className="relative dropdown-container">
+                            <div className="relative dropdown-container user-dropdown-container">
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -203,7 +216,10 @@ export function Header() {
                                 {isUserMenuOpen && (
                                     <>
                                         <div className="dropdown-bridge" />
-                                        <div className="absolute right-0 mt-2 w-56 bg-card rounded-md shadow-lg overflow-hidden z-20 dropdown-menu">
+                                        <div
+                                            className="absolute right-0 mt-2 w-56 bg-card rounded-md shadow-lg overflow-hidden z-20 dropdown-menu"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
                                             <div className="py-1">
                                                 <div className="px-4 py-2 border-b border-border">
                                                     <p className="text-sm font-medium">{user?.name}</p>
