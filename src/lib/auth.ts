@@ -7,8 +7,8 @@ import { prisma } from "@/lib/prisma";
 export const auth = betterAuth({
   socialProviders: {
     google: {
-      clientId: "769858400792-q54seavc1b4iu6psqg1mdcr8llif60mf.apps.googleusercontent.com",
-      clientSecret: "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",
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string | "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string | "",
     },
   },
   database: prismaAdapter(prisma, {

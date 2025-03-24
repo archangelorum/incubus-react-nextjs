@@ -4,7 +4,7 @@ import { adminClient, oneTapClient, organizationClient, passkeyClient } from "be
 export const authClient = createAuthClient({
     plugins: [
         oneTapClient({
-            clientId: "769858400792-q54seavc1b4iu6psqg1mdcr8llif60mf.apps.googleusercontent.com",
+            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string | "",
         }),
         passkeyClient(),
         adminClient(),
