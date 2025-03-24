@@ -43,7 +43,7 @@ export async function GET(
     // Get pagination and sorting parameters
     const { page, limit, skip } = getPaginationParams(req);
     const { orderBy } = getSortParams(req, "createdAt", "desc", ["rating", "createdAt", "upvotes"]);
-
+    
     // Get filters if provided
     const url = new URL(req.url);
     const ratingFilter = url.searchParams.get("rating");
@@ -51,7 +51,7 @@ export async function GET(
     const verifiedFilter = url.searchParams.get("verified");
     const recommendedFilter = url.searchParams.get("recommended");
     
-    const where: any = { gameId: params.id };
+    const where: any = { gameId: game.id };
     
     if (ratingFilter) {
       where.rating = parseInt(ratingFilter);
@@ -106,7 +106,7 @@ export async function GET(
     // Calculate average rating
     const averageRating = await prisma.gameReview.aggregate({
       where: {
-        gameId: params.id,
+        gameId: game.id,
         status: "APPROVED"
       },
       _avg: {
