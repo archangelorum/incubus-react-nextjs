@@ -11,13 +11,21 @@ type User = {
   role?: string;
 };
 
+type SignInProviders = "onetap" | "passkey" | "google"
+
 type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  signIn: (provider: string) => Promise<void>;
+  signIn: (provider: SignInProviders) => Promise<void>;
   signOut: () => Promise<void>;
   error: string | null;
+};
+
+const authProviders = {
+  onetap: () => authClient.oneTap(),
+  passkey: () => authClient.signIn.passkey(),
+  google: () => authClient.signIn.social({ provider: "google" })
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -39,7 +47,7 @@ export function AuthProvider({ children, initialSession }: { children: React.Rea
     const initAuth = async () => {
       try {
         setIsLoading(true);
-        const { data: session, error } = await authClient.getSession(); 
+        const { data: session, error } = await authClient.getSession();
         if (session) {
           setUser({
             id: session.user.id,
@@ -63,13 +71,17 @@ export function AuthProvider({ children, initialSession }: { children: React.Rea
     if (!initialSession) initAuth();
   }, [initialSession]);
 
-  const signIn = async (provider: string) => {
+  const signIn = async (provider: SignInProviders) => {
     try {
       setIsLoading(true);
       setError(null);
-      await authClient.signIn.social({
-        provider: provider as "google"
-      });
+      
+      const authMethod = authProviders[provider];
+      if (!authMethod) {
+        throw new Error(`Unsupported authentication provider: ${provider}`);
+      }
+      
+      await authMethod();
     } catch (err) {
       console.error(`Failed to sign in with ${provider}:`, err);
       setError(`Failed to sign in with ${provider}`);

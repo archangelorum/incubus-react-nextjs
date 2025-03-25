@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { useTheme } from '@/components/theme/theme-provider';
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { useAuth } from '@/components/auth/auth-provider';
-import { authClient } from '@/lib/auth-client';
 import { useWallet } from '@/components/wallet/wallet-provider';
 import {
     Menu,
@@ -294,11 +293,7 @@ export function Header() {
                             <div className="flex items-center space-x-2">
                                 <button
                                     onClick={async () => {
-                                        try {
-                                            await authClient.oneTap();
-                                        } catch (err) {
-                                            console.error('Google One Tap failed:', err);
-                                        }
+                                        await signIn("onetap");
                                     }}
                                     className="flex items-center px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
                                 >
@@ -307,11 +302,7 @@ export function Header() {
                                 </button>
                                 <button
                                     onClick={async () => {
-                                        try {
-                                            await authClient.signIn.passkey();
-                                        } catch (err) {
-                                            console.error('Passkey authentication failed:', err);
-                                        }
+                                        await signIn("passkey");
                                     }}
                                     className="flex items-center px-4 py-2 text-sm bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors"
                                 >
@@ -427,14 +418,7 @@ export function Header() {
                                             <button
                                                 onClick={async () => {
                                                     setIsMobileMenuOpen(false);
-                                                    try {
-                                                        const data = await authClient.signIn.social({
-                                                            provider: "google"
-                                                        });
-                                                        console.log(data);
-                                                    } catch (err) {
-                                                        console.error('Google One Tap failed:', err);
-                                                    }
+                                                    await signIn("onetap");
                                                 }}
                                                 className="flex items-center px-3 py-1 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
                                             >
@@ -444,11 +428,7 @@ export function Header() {
                                             <button
                                                 onClick={async () => {
                                                     setIsMobileMenuOpen(false);
-                                                    try {
-                                                        await authClient.signIn.passkey();
-                                                    } catch (err) {
-                                                        console.error('Passkey authentication failed:', err);
-                                                    }
+                                                    await signIn("passkey");
                                                 }}
                                                 className="flex items-center px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors"
                                             >
