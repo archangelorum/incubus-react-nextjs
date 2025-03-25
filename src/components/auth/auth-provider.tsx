@@ -22,9 +22,17 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export function AuthProvider({ children, initialSession }: { children: React.ReactNode, initialSession?: any }) {
+  const [user, setUser] = useState<User | null>(
+    initialSession?.user ? {
+      id: initialSession.user.id,
+      name: initialSession.user.name,
+      email: initialSession.user.email,
+      image: String(initialSession.user.image),
+      role: String(initialSession.user.role),
+    } : null
+  );
+  const [isLoading, setIsLoading] = useState(!initialSession);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -52,15 +60,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
-    initAuth();
-  }, []);
+    if (!initialSession) initAuth();
+  }, [initialSession]);
 
   const signIn = async (provider: string) => {
     try {
       setIsLoading(true);
       setError(null);
       await authClient.signIn.social({
-        provider: provider as "google" | "discord" | "github"
+        provider: provider as "google"
       });
     } catch (err) {
       console.error(`Failed to sign in with ${provider}:`, err);
