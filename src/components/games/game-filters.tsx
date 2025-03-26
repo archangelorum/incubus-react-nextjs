@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from '@/i18n/navigation';
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 import {
   Search,
@@ -12,8 +13,7 @@ import {
   ChevronUp,
   Star,
   Tag,
-  Building,
-  DollarSign
+  Building
 } from 'lucide-react';
 
 type Genre = {
@@ -241,8 +241,15 @@ export function GameFilters({
           onClick={() => setExpandedPrice(!expandedPrice)}
         >
           <div className="flex items-center">
-            <DollarSign className="w-4 h-4 mr-2 text-primary" />
-            <h3 className="font-medium">Price Range</h3>
+            <div className="w-4 h-4 mr-2 relative">
+              <Image
+                src="/polygon-logo.svg"
+                alt="Polygon"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <h3 className="font-medium">Price Range (MATIC)</h3>
           </div>
           {expandedPrice ? (
             <ChevronUp className="w-4 h-4" />
@@ -308,8 +315,8 @@ export function GameFilters({
                 key={genre.id}
                 href={`/games?genre=${genre.slug}`}
                 className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentGenre === genre.slug
-                    ? 'bg-primary/10 text-primary'
-                    : 'hover:bg-primary/5'
+                  ? 'bg-primary/10 text-primary'
+                  : 'hover:bg-primary/5'
                   }`}
               >
                 <span>{genre.name}</span>
@@ -348,8 +355,8 @@ export function GameFilters({
                 key={tag.id}
                 href={`/games?tag=${tag.slug}`}
                 className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentTag === tag.slug
-                    ? 'bg-primary/10 text-primary'
-                    : 'hover:bg-primary/5'
+                  ? 'bg-primary/10 text-primary'
+                  : 'hover:bg-primary/5'
                   }`}
               >
                 <span>{tag.name}</span>
@@ -396,8 +403,8 @@ export function GameFilters({
                 key={publisher.id}
                 href={`/games?publisher=${publisher.slug}`}
                 className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentPublisher === publisher.slug
-                    ? 'bg-primary/10 text-primary'
-                    : 'hover:bg-primary/5'
+                  ? 'bg-primary/10 text-primary'
+                  : 'hover:bg-primary/5'
                   }`}
               >
                 <span>{publisher.name}</span>

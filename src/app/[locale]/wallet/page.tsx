@@ -74,15 +74,15 @@ export default function WalletPage() {
               
               <div className="p-6 space-y-4">
                 <button className="w-full py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors flex items-center justify-center">
-                  Send SOL
+                  Send MATIC
                 </button>
                 
                 <button className="w-full py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors flex items-center justify-center">
-                  Receive SOL
+                  Receive MATIC
                 </button>
                 
                 <button className="w-full py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center">
-                  Buy SOL
+                  Buy MATIC
                 </button>
                 
                 <button className="w-full py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center">
@@ -100,9 +100,9 @@ export default function WalletPage() {
               <div className="p-6">
                 <ul className="space-y-3">
                   <li>
-                    <a 
-                      href="https://solana.com" 
-                      target="_blank" 
+                    <a
+                      href="https://polygonscan.com"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline flex items-center"
                     >
@@ -113,26 +113,26 @@ export default function WalletPage() {
                     </a>
                   </li>
                   <li>
-                    <a 
-                      href="https://phantom.app" 
-                      target="_blank" 
+                    <a
+                      href="https://metamask.io"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline flex items-center"
                     >
-                      Phantom Wallet
+                      MetaMask Wallet
                       <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </a>
                   </li>
                   <li>
-                    <a 
-                      href="https://solflare.com" 
-                      target="_blank" 
+                    <a
+                      href="https://wallet.polygon.technology"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline flex items-center"
                     >
-                      Solflare Wallet
+                      Polygon Wallet
                       <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>

@@ -4,15 +4,15 @@ import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from '@/i18n/navigation';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import { 
-  Search, 
-  X, 
-  ChevronDown, 
-  ChevronUp, 
-  Tag, 
-  Gamepad2, 
-  User, 
-  DollarSign,
+import Image from 'next/image';
+import {
+  Search,
+  X,
+  ChevronDown,
+  ChevronUp,
+  Tag,
+  Gamepad2,
+  User,
   CheckCircle,
   ShoppingCart,
   XCircle,
@@ -302,8 +302,15 @@ export function MarketplaceFilters({
           onClick={() => setExpandedPrice(!expandedPrice)}
         >
           <div className="flex items-center">
-            <DollarSign className="w-4 h-4 mr-2 text-primary" />
-            <h3 className="font-medium">Price Range (SOL)</h3>
+            <div className="w-4 h-4 mr-2 relative">
+              <Image
+                src="/polygon-logo.svg"
+                alt="Polygon"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <h3 className="font-medium">Price Range (MATIC)</h3>
           </div>
           {expandedPrice ? (
             <ChevronUp className="w-4 h-4" />

@@ -186,15 +186,38 @@ export function RelatedGames({ gameId, genreIds, tagIds }: RelatedGamesProps) {
                 <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-sm">
                   {game.discountPrice ? (
                     <div className="flex items-center space-x-1">
-                      <span className="line-through text-muted-foreground text-xs">
-                        ${game.basePrice.toFixed(2)}
+                      <span className="line-through text-muted-foreground text-xs flex items-center">
+                        <Image
+                          src="/polygon-logo.svg"
+                          alt="Polygon"
+                          width={8}
+                          height={8}
+                          className="mr-0.5 opacity-70"
+                        />
+                        {game.basePrice.toFixed(2)}
                       </span>
-                      <span className="text-green-500">
-                        ${game.discountPrice.toFixed(2)}
+                      <span className="text-green-500 flex items-center">
+                        <Image
+                          src="/polygon-logo.svg"
+                          alt="Polygon"
+                          width={10}
+                          height={10}
+                          className="mr-0.5"
+                        />
+                        {game.discountPrice.toFixed(2)}
                       </span>
                     </div>
                   ) : (
-                    <span>${game.basePrice.toFixed(2)}</span>
+                    <span className="flex items-center">
+                      <Image
+                        src="/polygon-logo.svg"
+                        alt="Polygon"
+                        width={10}
+                        height={10}
+                        className="mr-0.5"
+                      />
+                      {game.basePrice.toFixed(2)}
+                    </span>
                   )}
                 </div>
               </div>

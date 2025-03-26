@@ -295,11 +295,11 @@ export function WalletTransactions() {
                         {['GAME_PURCHASE', 'ITEM_PURCHASE', 'ESCROW_DEPOSIT', 'PLATFORM_FEE', 'ROYALTY_PAYMENT'].includes(transaction.type)
                           ? `-${transaction.amount.toFixed(4)}`
                           : `+${transaction.amount.toFixed(4)}`
-                        } SOL
+                        } MATIC
                       </div>
                       {transaction.fee > 0 && (
                         <div className="text-xs text-muted-foreground">
-                          Fee: {transaction.fee.toFixed(4)} SOL
+                          Fee: {transaction.fee.toFixed(4)} MATIC
                         </div>
                       )}
                     </td>
@@ -316,7 +316,7 @@ export function WalletTransactions() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       <a
-                        href={`https://explorer.solana.com/tx/${transaction.hash}`}
+                        href={`https://polygonscan.com/tx/${transaction.hash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center text-primary hover:underline text-sm"

@@ -123,7 +123,7 @@ export function WalletDashboard() {
               </div>
               
               <div className="text-right">
-                <div className="text-2xl font-bold">{activeWallet.balance.toFixed(4)} SOL</div>
+                <div className="text-2xl font-bold">{activeWallet.balance.toFixed(4)} MATIC</div>
                 <button
                   onClick={() => handleRefreshBalance(activeWallet.id)}
                   disabled={refreshing === activeWallet.id}
@@ -141,7 +141,7 @@ export function WalletDashboard() {
             
             <div className="flex flex-wrap gap-2">
               <a
-                href={`https://explorer.solana.com/address/${activeWallet.address}`}
+                href={`https://polygonscan.com/address/${activeWallet.address}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 text-sm bg-secondary/10 text-secondary-foreground rounded-md hover:bg-secondary/20 transition-colors flex items-center"
@@ -200,7 +200,7 @@ export function WalletDashboard() {
               
               <div className="flex items-center">
                 <div className="text-right mr-4">
-                  <div className="font-bold">{wallet.balance.toFixed(4)} SOL</div>
+                  <div className="font-bold">{wallet.balance.toFixed(4)} MATIC</div>
                   <div className="text-xs text-muted-foreground">
                     {wallet.type.charAt(0).toUpperCase() + wallet.type.slice(1)}
                   </div>
