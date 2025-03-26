@@ -65,7 +65,7 @@ export default async function GamesPage({
 
                             <div className="flex items-center justify-between">
                                 <p className="text-muted-foreground">
-                                    Discover and buy games as NFTs on the Solana blockchain
+                                    Discover and buy games as NFTs on the Polygon blockchain
                                 </p>
 
                                 <SortSelect currentSort={sort} currentOrder={order} />

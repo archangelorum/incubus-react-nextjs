@@ -628,7 +628,7 @@ model NFTCollection {
   blockchainId    String
   blockchain      Blockchain    @relation(fields: [blockchainId], references: [id], onDelete: Restrict)
   contractAddress String
-  standard        String // e.g., "ERC721", "ERC1155", "SPL"
+  standard        String // e.g., "ERC721", "ERC1155", "ERC20"
   metadata        Json?
   gameLicenses    GameLicense[]
   gameItems       GameItem[]

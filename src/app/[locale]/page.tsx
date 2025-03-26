@@ -19,7 +19,7 @@ export default function HomePage() {
                             The Future of Game Distribution
                         </h1>
                         <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-                            Discover, buy, and trade games and in-game items as NFTs on the Solana blockchain
+                            Discover, buy, and trade games and in-game items as NFTs on the Polygon blockchain
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link
@@ -146,7 +146,7 @@ export default function HomePage() {
                 <div className="container mx-auto px-4 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Join the Revolution?</h2>
                     <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                        Create an account to start buying, selling, and trading games and in-game items as NFTs on the Solana blockchain.
+                        Create an account to start buying, selling, and trading games and in-game items as NFTs on the Polygon blockchain.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link

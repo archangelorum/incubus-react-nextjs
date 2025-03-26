@@ -28,7 +28,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
-              The future of game distribution on the Solana blockchain. Buy, sell, and trade games and in-game items as NFTs.
+              The future of game distribution on the Polygon blockchain. Buy, sell, and trade games and in-game items as NFTs.
             </p>
             <div className="mt-6 flex items-center space-x-4">
               <a

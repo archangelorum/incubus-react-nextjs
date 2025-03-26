@@ -166,15 +166,38 @@ export function FeaturedGames() {
             <div className="text-sm">
               {currentGame.discountPrice ? (
                 <div className="flex items-center space-x-2">
-                  <span className="line-through text-muted-foreground">
-                    ${Number(currentGame.basePrice).toFixed(2)}
+                  <span className="line-through text-muted-foreground flex items-center">
+                    <Image
+                      src="/polygon-logo.svg"
+                      alt="Polygon"
+                      width={14}
+                      height={14}
+                      className="mr-1 opacity-70"
+                    />
+                    {Number(currentGame.basePrice).toFixed(2)}
                   </span>
-                  <span className="text-green-500 font-bold">
-                    ${Number(currentGame.discountPrice).toFixed(2)}
+                  <span className="text-green-500 font-bold flex items-center">
+                    <Image
+                      src="/polygon-logo.svg"
+                      alt="Polygon"
+                      width={16}
+                      height={16}
+                      className="mr-1"
+                    />
+                    {Number(currentGame.discountPrice).toFixed(2)}
                   </span>
                 </div>
               ) : (
-                <span>${Number(currentGame.basePrice).toFixed(2)}</span>
+                <span className="flex items-center">
+                  <Image
+                    src="/polygon-logo.svg"
+                    alt="Polygon"
+                    width={16}
+                    height={16}
+                    className="mr-1"
+                  />
+                  {Number(currentGame.basePrice).toFixed(2)}
+                </span>
               )}
             </div>
           </div>

@@ -8,7 +8,7 @@ import { SortSelect } from '@/components/marketplace/sort-select';
 
 export const metadata = {
   title: 'NFT Marketplace | Incubus',
-  description: 'Buy, sell, and trade game licenses and in-game items as NFTs on the Solana blockchain',
+  description: 'Buy, sell, and trade game licenses and in-game items as NFTs on the Polygon blockchain',
 };
 
 export default async function MarketplacePage({
@@ -37,7 +37,7 @@ export default async function MarketplacePage({
               NFT Marketplace
             </h1>
             <p className="text-lg text-muted-foreground mb-6">
-              Buy, sell, and trade game licenses and in-game items as NFTs on the Solana blockchain.
+              Buy, sell, and trade game licenses and in-game items as NFTs on the Polygon blockchain.
               Own your games and items truly and transfer them freely.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -91,7 +91,7 @@ export default async function MarketplacePage({
               
               <div className="flex items-center justify-between">
                 <p className="text-muted-foreground">
-                  Showing NFT listings on the Solana blockchain
+                  Showing NFT listings on the Polygon blockchain
                 </p>
                 
                 <SortSelect currentSort={sort} currentOrder={order} />

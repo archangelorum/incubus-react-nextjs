@@ -239,10 +239,10 @@ async function createBlockchains() {
   
   const blockchainData = [
     {
-      name: 'Solana',
-      chainId: '1',
-      rpcUrl: 'https://api.mainnet-beta.solana.com',
-      explorerUrl: 'https://explorer.solana.com',
+      name: 'Polygon',
+      chainId: '137',
+      rpcUrl: 'https://polygon-rpc.com',
+      explorerUrl: 'https://polygonscan.com',
       isDefault: true
     },
     {
@@ -287,8 +287,8 @@ async function createWallets(users: { id: string; name: string; email: string; e
     for (const blockchain of blockchains) {
       // Generate a fake wallet address based on the blockchain
       let address
-      if (blockchain.name === 'Solana') {
-        address = `sol${randomUUID().replace(/-/g, '').substring(0, 32)}`
+      if (blockchain.name === 'Polygon') {
+        address = `0x${randomUUID().replace(/-/g, '').substring(0, 40)}`
       } else if (blockchain.name === 'Ethereum' || blockchain.name === 'Polygon') {
         address = `0x${randomUUID().replace(/-/g, '').substring(0, 40)}`
       }
@@ -777,16 +777,16 @@ async function createNFTCollections(blockchains: any[]) {
     {
       name: 'Game License NFTs',
       symbol: 'GLNFT',
-      standard: 'SPL',
-      blockchainId: blockchains.find((b: { name: string }) => b.name === 'Solana').id,
-      contractAddress: 'sol' + randomUUID().replace(/-/g, '').substring(0, 32)
+      standard: 'ERC721',
+      blockchainId: blockchains.find((b: { name: string }) => b.name === 'Polygon').id,
+      contractAddress: '0x' + randomUUID().replace(/-/g, '').substring(0, 40)
     },
     {
       name: 'Game Item NFTs',
       symbol: 'GINFT',
-      standard: 'SPL',
-      blockchainId: blockchains.find((b: { name: string }) => b.name === 'Solana').id,
-      contractAddress: 'sol' + randomUUID().replace(/-/g, '').substring(0, 32)
+      standard: 'ERC721',
+      blockchainId: blockchains.find((b: { name: string }) => b.name === 'Polygon').id,
+      contractAddress: '0x' + randomUUID().replace(/-/g, '').substring(0, 40)
     },
     {
       name: 'Ethereum Game Licenses',
@@ -1063,8 +1063,8 @@ async function createSmartContracts(blockchains: { id: string; name: string; cre
   for (const blockchain of blockchains) {
     for (const type of contractTypes) {
       let address
-      if (blockchain.name === 'Solana') {
-        address = `sol${randomUUID().replace(/-/g, '').substring(0, 32)}`
+      if (blockchain.name === 'Polygon') {
+        address = `0x${randomUUID().replace(/-/g, '').substring(0, 40)}`
       } else if (blockchain.name === 'Ethereum' || blockchain.name === 'Polygon') {
         address = `0x${randomUUID().replace(/-/g, '').substring(0, 40)}`
       }
@@ -1111,8 +1111,8 @@ async function createTransactions(blockchains: string | any[], wallets: any[], s
     const status = transactionStatuses[Math.floor(Math.random() * transactionStatuses.length)]
     
     let hash
-    if (blockchain.name === 'Solana') {
-      hash = randomUUID().replace(/-/g, '')
+    if (blockchain.name === 'Polygon') {
+      hash = '0x' + randomUUID().replace(/-/g, '')
     } else {
       hash = '0x' + randomUUID().replace(/-/g, '')
     }

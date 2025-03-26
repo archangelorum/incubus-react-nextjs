@@ -164,12 +164,26 @@ export default async function GamePage({ params }: { params: { slug: string } })
                             <div className="mt-4 space-y-3">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <span className="text-2xl font-bold">
-                                            ${game.discountPrice?.toFixed(2) || game.basePrice.toFixed(2)}
+                                        <span className="text-2xl font-bold flex items-center">
+                                            <Image
+                                                src="/polygon-logo.svg"
+                                                alt="Polygon"
+                                                width={24}
+                                                height={24}
+                                                className="mr-1"
+                                            />
+                                            {game.discountPrice?.toFixed(2) || game.basePrice.toFixed(2)}
                                         </span>
                                         {game.discountPrice && (
-                                            <span className="ml-2 text-muted-foreground line-through">
-                                                ${game.basePrice.toFixed(2)}
+                                            <span className="ml-2 text-muted-foreground line-through flex items-center">
+                                                <Image
+                                                    src="/polygon-logo.svg"
+                                                    alt="Polygon"
+                                                    width={16}
+                                                    height={16}
+                                                    className="mr-1 opacity-70"
+                                                />
+                                                {game.basePrice.toFixed(2)}
                                             </span>
                                         )}
                                     </div>
@@ -259,7 +273,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                                     <h3 className="font-semibold">NFT License</h3>
                                 </div>
                                 <p className="text-sm text-muted-foreground">
-                                    This game is sold as an NFT on the Solana blockchain. You can trade, sell, or transfer your license.
+                                    This game is sold as an NFT on the Polygon blockchain. You can trade, sell, or transfer your license.
                                 </p>
                             </div>
                         </div>

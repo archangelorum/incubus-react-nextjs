@@ -359,8 +359,15 @@ export function MarketplaceListings({ query }: MarketplaceListingsProps) {
               )}
               
               <div className="flex items-center justify-between mt-4">
-                <div className="text-xl font-bold">
-                  {Number(listing.price).toFixed(2)} SOL
+                <div className="text-xl font-bold flex items-center">
+                  <Image
+                    src="/polygon-logo.svg"
+                    alt="Polygon"
+                    width={20}
+                    height={20}
+                    className="mr-1"
+                  />
+                  {Number(listing.price).toFixed(2)}
                 </div>
                 
                 {listing.status === 'ACTIVE' ? (

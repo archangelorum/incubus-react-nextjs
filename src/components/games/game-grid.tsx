@@ -181,15 +181,38 @@ export function GameGrid({ query, showFilters = false }: GameGridProps) {
               <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-sm">
                 {game.discountPrice ? (
                   <div className="flex items-center space-x-2">
-                    <span className="line-through text-muted-foreground text-xs">
-                      ${Number(game.basePrice).toFixed(2)}
+                    <span className="line-through text-muted-foreground text-xs flex items-center">
+                      <Image
+                        src="/polygon-logo.svg"
+                        alt="Polygon"
+                        width={10}
+                        height={10}
+                        className="mr-0.5 opacity-70"
+                      />
+                      {Number(game.basePrice).toFixed(2)}
                     </span>
-                    <span className="text-green-500">
-                      ${Number(game.discountPrice).toFixed(2)}
+                    <span className="text-green-500 flex items-center">
+                      <Image
+                        src="/polygon-logo.svg"
+                        alt="Polygon"
+                        width={12}
+                        height={12}
+                        className="mr-0.5"
+                      />
+                      {Number(game.discountPrice).toFixed(2)}
                     </span>
                   </div>
                 ) : (
-                  <span>${Number(game.basePrice).toFixed(2)}</span>
+                  <span className="flex items-center">
+                    <Image
+                      src="/polygon-logo.svg"
+                      alt="Polygon"
+                      width={12}
+                      height={12}
+                      className="mr-0.5"
+                    />
+                    {Number(game.basePrice).toFixed(2)}
+                  </span>
                 )}
               </div>
             </div>

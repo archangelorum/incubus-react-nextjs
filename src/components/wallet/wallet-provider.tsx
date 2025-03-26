@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from '@/components/auth/auth-provider';
 
-type WalletType = 'phantom' | 'solflare' | 'slope' | 'sollet' | 'other';
+type WalletType = 'metamask' | 'walletconnect' | 'coinbase' | 'trustwallet' | 'other';
 
 type WalletInfo = {
   id: string;
@@ -94,7 +94,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({
           address: publicKey.toString(),
           type,
-          blockchainId: 'solana-mainnet', // Default to Solana mainnet
+          blockchainId: 'polygon-mainnet', // Default to Polygon mainnet
           label: `My ${type} wallet`,
         }),
       });
@@ -195,7 +195,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Create and sign transaction
-      // This is a simplified version - in a real app, you'd use the Solana web3.js library
+      // This is a simplified version - in a real app, you'd use the Polygon Web3.js library
       const transaction = await createTransaction(activeWallet.address, to, amount);
       const signature = await walletAdapter.signAndSendTransaction(transaction);
       
@@ -243,7 +243,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
 
   // Helper function to create a transaction
   const createTransaction = async (from: string, to: string, amount: number) => {
-    // This is a placeholder - in a real app, you'd use the Solana web3.js library
+    // This is a placeholder - in a real app, you'd use the Polygon Web3.js library
     return {
       from,
       to,

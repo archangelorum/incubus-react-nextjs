@@ -7,7 +7,7 @@ import { Wallet, ArrowUpDown, CreditCard, History } from 'lucide-react';
 
 export const metadata = {
   title: 'Wallet | Incubus',
-  description: 'Manage your Solana wallet, view transactions, and connect to the blockchain',
+  description: 'Manage your Polygon wallet, view transactions, and connect to the blockchain',
 };
 
 export default function WalletPage() {
@@ -106,7 +106,7 @@ export default function WalletPage() {
                       rel="noopener noreferrer"
                       className="text-primary hover:underline flex items-center"
                     >
-                      Solana Blockchain Explorer
+                      Polygon Blockchain Explorer
                       <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>

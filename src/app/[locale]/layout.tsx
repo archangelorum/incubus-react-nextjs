@@ -12,9 +12,9 @@ import { routing } from '@/i18n/routing';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Incubus - Solana NFT Game Distribution Platform',
-  description: 'Discover, buy, and trade games and in-game items as NFTs on the Solana blockchain',
-  keywords: ['NFT', 'games', 'Solana', 'blockchain', 'marketplace', 'gaming'],
+  title: 'Incubus - Polygon NFT Game Distribution Platform',
+  description: 'Discover, buy, and trade games and in-game items as NFTs on the Polygon blockchain',
+  keywords: ['NFT', 'games', 'Polygon', 'blockchain', 'marketplace', 'gaming'],
 };
 
 export const viewport: Viewport = {

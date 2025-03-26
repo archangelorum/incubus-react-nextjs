@@ -10,39 +10,39 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 type WalletOption = {
   id: string;
   name: string;
-  type: 'phantom' | 'solflare' | 'slope' | 'sollet' | 'other';
+  type: 'metamask' | 'walletconnect' | 'coinbase' | 'trustwallet' | 'other';
   logo: string;
   description: string;
 };
 
 const walletOptions: WalletOption[] = [
   {
-    id: 'phantom',
-    name: 'Phantom',
-    type: 'phantom',
-    logo: '/wallets/phantom.png',
-    description: 'The most popular Solana wallet with a focus on security and usability.',
+    id: 'metamask',
+    name: 'MetaMask',
+    type: 'metamask',
+    logo: '/wallets/metamask.png',
+    description: 'The most popular Ethereum and Polygon wallet with a focus on security and usability.',
   },
   {
-    id: 'solflare',
-    name: 'Solflare',
-    type: 'solflare',
-    logo: '/wallets/solflare.png',
-    description: 'A non-custodial wallet built specifically for Solana.',
+    id: 'walletconnect',
+    name: 'WalletConnect',
+    type: 'walletconnect',
+    logo: '/wallets/walletconnect.png',
+    description: 'An open protocol that connects wallets to dApps on Polygon and other EVM chains.',
   },
   {
-    id: 'slope',
-    name: 'Slope',
-    type: 'slope',
-    logo: '/wallets/slope.png',
-    description: 'A wallet built for the Solana ecosystem with cross-chain support.',
+    id: 'coinbase',
+    name: 'Coinbase Wallet',
+    type: 'coinbase',
+    logo: '/wallets/coinbase.png',
+    description: 'A user-friendly wallet by Coinbase with support for Polygon and many other chains.',
   },
   {
-    id: 'sollet',
-    name: 'Sollet',
-    type: 'sollet',
-    logo: '/wallets/sollet.png',
-    description: 'A web wallet for Solana that supports SPL tokens and NFTs.',
+    id: 'trustwallet',
+    name: 'Trust Wallet',
+    type: 'trustwallet',
+    logo: '/wallets/trustwallet.png',
+    description: 'A secure multi-chain wallet with support for Polygon tokens and NFTs.',
   },
 ];
 
@@ -59,7 +59,7 @@ export function WalletConnect() {
   
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
 
-  const handleConnectWallet = async (type: 'phantom' | 'solflare' | 'slope' | 'sollet' | 'other') => {
+  const handleConnectWallet = async (type: 'metamask' | 'walletconnect' | 'coinbase' | 'trustwallet' | 'other') => {
     setSelectedWallet(type);
     try {
       await connectWallet(type);
@@ -145,13 +145,13 @@ export function WalletConnect() {
       <div className="mt-6 text-center text-sm text-muted-foreground">
         <p>
           Don't have a wallet?{' '}
-          <a 
-            href="https://phantom.app" 
-            target="_blank" 
+          <a
+            href="https://metamask.io"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline"
           >
-            Get Phantom
+            Get MetaMask
           </a>
         </p>
       </div>
