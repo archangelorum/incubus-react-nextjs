@@ -360,7 +360,7 @@ export function MarketplaceListings({ query }: MarketplaceListingsProps) {
               
               <div className="flex items-center justify-between mt-4">
                 <div className="text-xl font-bold">
-                  {listing.price.toFixed(2)} SOL
+                  {Number(listing.price).toFixed(2)} SOL
                 </div>
                 
                 {listing.status === 'ACTIVE' ? (

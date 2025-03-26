@@ -33,8 +33,8 @@ type Game = {
 
 type GameGridProps = {
   query: {
-    sortBy?: string;
-    sortOrder?: string;
+    sort?: string;
+    order?: string;
     limit?: number;
     genre?: string;
     tag?: string;
@@ -62,8 +62,8 @@ export function GameGrid({ query, showFilters = false }: GameGridProps) {
         // Build query string from props
         const params = new URLSearchParams();
         
-        if (query.sortBy) params.append('sortBy', query.sortBy);
-        if (query.sortOrder) params.append('sortOrder', query.sortOrder);
+        if (query.sort) params.append('sort', query.sort);
+        if (query.order) params.append('order', query.order);
         if (query.limit) params.append('limit', query.limit.toString());
         if (query.genre) params.append('genre', query.genre);
         if (query.tag) params.append('tag', query.tag);

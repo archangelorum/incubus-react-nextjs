@@ -78,8 +78,8 @@ export default function HomePage() {
                     <Suspense fallback={<LoadingGames count={8} />}>
                         <GameGrid
                             query={{
-                                sortBy: 'releaseDate',
-                                sortOrder: 'desc',
+                                sort: 'releaseDate',
+                                order: 'desc',
                                 limit: 8
                             }}
                         />
@@ -106,8 +106,8 @@ export default function HomePage() {
                     <Suspense fallback={<LoadingGames count={8} />}>
                         <GameGrid
                             query={{
-                                sortBy: 'popularity',
-                                sortOrder: 'desc',
+                                sort: 'popularity',
+                                order: 'desc',
                                 limit: 8
                             }}
                         />

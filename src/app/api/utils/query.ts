@@ -69,8 +69,8 @@ export function getSortParams(
   allowedFields: string[] = []
 ): SortParams {
   const url = new URL(req.url);
-  const sortField = url.searchParams.get("sortBy") || defaultField;
-  const sortOrder = url.searchParams.get("sortOrder") as "asc" | "desc" || defaultOrder;
+  const sortField = url.searchParams.get("sort") || defaultField;
+  const sortOrder = url.searchParams.get("order") as "asc" | "desc" || defaultOrder;
   
   // Special case for popularity sorting
   if (sortField === "popularity") {

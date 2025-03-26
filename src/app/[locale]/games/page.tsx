@@ -21,8 +21,8 @@ export default async function GamesPage({
     const tag = typeof searchParams.tag === 'string' ? searchParams.tag : undefined;
     const search = typeof searchParams.search === 'string' ? searchParams.search : undefined;
     const publisher = typeof searchParams.publisher === 'string' ? searchParams.publisher : undefined;
-    const sortBy = typeof searchParams.sortBy === 'string' ? searchParams.sortBy : 'releaseDate';
-    const sortOrder = typeof searchParams.sortOrder === 'string' ? searchParams.sortOrder : 'desc';
+    const sort = typeof searchParams.sort === 'string' ? searchParams.sort : 'releaseDate';
+    const order = typeof searchParams.order === 'string' ? searchParams.order : 'desc';
     const minPrice = typeof searchParams.minPrice === 'string' ? parseFloat(String(searchParams.minPrice)) : undefined;
     const maxPrice = typeof searchParams.maxPrice === 'string' ? parseFloat(String(searchParams.maxPrice)) : undefined;
     const featured = searchParams.featured === 'true';
@@ -68,15 +68,15 @@ export default async function GamesPage({
                                     Discover and buy games as NFTs on the Solana blockchain
                                 </p>
 
-                                <SortSelect currentSort={sortBy} currentOrder={sortOrder} />
+                                <SortSelect currentSort={sort} currentOrder={order} />
                             </div>
                         </div>
 
                         <Suspense fallback={<LoadingGames count={12} />}>
                             <GameGrid
                                 query={{
-                                    sortBy,
-                                    sortOrder,
+                                    sort,
+                                    order,
                                     genre,
                                     tag,
                                     search,

@@ -14,8 +14,8 @@ export function SortSelect({ currentSort, currentOrder }: SortSelectProps) {
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const [newSort, newOrder] = e.target.value.split('-');
     const url = new URL(window.location.href);
-    url.searchParams.set('sortBy', newSort);
-    url.searchParams.set('sortOrder', newOrder);
+    url.searchParams.set('sort', newSort);
+    url.searchParams.set('order', newOrder);
     
     // Use router.push instead of directly changing window.location for better performance
     router.push(url.toString());

@@ -11,11 +11,12 @@ export const metadata = {
   description: 'Buy, sell, and trade game licenses and in-game items as NFTs on the Solana blockchain',
 };
 
-export default function MarketplacePage({
+export default async function MarketplacePage({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  searchParams = await searchParams;
   // Extract search parameters
   const type = typeof searchParams.type === 'string' ? searchParams.type : undefined;
   const gameId = typeof searchParams.gameId === 'string' ? searchParams.gameId : undefined;
@@ -133,33 +134,6 @@ export default function MarketplacePage({
               >
                 <Tag className="w-3 h-3 mr-1" />
                 Bundles
-              </Link>
-              <Link
-                href={`/marketplace?sort=createdAt&order=desc${type ? `&type=${type}` : ''}`}
-                className={`px-3 py-1.5 rounded-full text-sm flex items-center ${
-                  sort === 'createdAt' && order === 'desc' ? 'bg-primary text-primary-foreground' : 'bg-secondary/10 text-secondary-foreground hover:bg-secondary/20'
-                }`}
-              >
-                <Clock className="w-3 h-3 mr-1" />
-                Recently Listed
-              </Link>
-              <Link
-                href={`/marketplace?sort=price&order=asc${type ? `&type=${type}` : ''}`}
-                className={`px-3 py-1.5 rounded-full text-sm flex items-center ${
-                  sort === 'price' && order === 'asc' ? 'bg-primary text-primary-foreground' : 'bg-secondary/10 text-secondary-foreground hover:bg-secondary/20'
-                }`}
-              >
-                <ArrowDown className="w-3 h-3 mr-1" />
-                Price: Low to High
-              </Link>
-              <Link
-                href={`/marketplace?sort=price&order=desc${type ? `&type=${type}` : ''}`}
-                className={`px-3 py-1.5 rounded-full text-sm flex items-center ${
-                  sort === 'price' && order === 'desc' ? 'bg-primary text-primary-foreground' : 'bg-secondary/10 text-secondary-foreground hover:bg-secondary/20'
-                }`}
-              >
-                <ArrowUp className="w-3 h-3 mr-1" />
-                Price: High to Low
               </Link>
             </div>
             
