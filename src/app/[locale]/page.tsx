@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { ArrowRight, TrendingUp, Star, Clock, Tag } from 'lucide-react';
 import { FeaturedGames } from '@/components/home/featured-games';
 import { GameGrid } from '@/components/games/game-grid';

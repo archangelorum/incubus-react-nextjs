@@ -5,6 +5,10 @@ import { Providers } from '@/components/providers';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 
+import { hasLocale } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -23,13 +27,21 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
+  params
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  // Ensure that the incoming `locale` is valid
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
           <div className="flex min-h-screen flex-col">

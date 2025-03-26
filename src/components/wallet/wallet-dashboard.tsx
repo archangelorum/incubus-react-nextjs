@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useWallet } from '@/components/wallet/wallet-provider';
 import { useAuth } from '@/components/auth/auth-provider';
-import { useI18n } from '@/components/i18n/i18n-provider';
+import { useTranslations } from 'next-intl';
 import { 
   Copy, 
   CheckCircle, 
@@ -19,7 +19,7 @@ import {
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 export function WalletDashboard() {
-  const { t } = useI18n();
+  const t = useTranslations();
   const { user, isAuthenticated } = useAuth();
   const { 
     wallets, 

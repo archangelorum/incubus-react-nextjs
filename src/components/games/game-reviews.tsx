@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useAuth } from '@/components/auth/auth-provider';
-import { useI18n } from '@/components/i18n/i18n-provider';
 import { Star, ThumbsUp, ThumbsDown, MessageSquare, Flag } from 'lucide-react';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { useTranslations } from 'next-intl';
 
 type Review = {
   id: string;
@@ -31,7 +31,7 @@ type GameReviewsProps = {
 };
 
 export function GameReviews({ gameId }: GameReviewsProps) {
-  const { t } = useI18n();
+  const t = useTranslations();
   const { user, isAuthenticated } = useAuth();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);

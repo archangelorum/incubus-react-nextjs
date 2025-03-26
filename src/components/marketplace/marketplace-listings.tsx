@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { useAuth } from '@/components/auth/auth-provider';
 import { useWallet } from '@/components/wallet/wallet-provider';
-import { useI18n } from '@/components/i18n/i18n-provider';
+import { useTranslations } from 'next-intl';
 import { 
   Tag, 
   ShoppingCart, 
@@ -69,7 +69,7 @@ type MarketplaceListingsProps = {
 };
 
 export function MarketplaceListings({ query }: MarketplaceListingsProps) {
-  const { t } = useI18n();
+  const t = useTranslations();
   const { user, isAuthenticated } = useAuth();
   const { activeWallet, isConnected } = useWallet();
   const [listings, setListings] = useState<Listing[]>([]);

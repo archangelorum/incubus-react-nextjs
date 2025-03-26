@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import { useTheme } from '@/components/theme/theme-provider';
-import { useI18n } from '@/components/i18n/i18n-provider';
 import { useAuth } from '@/components/auth/auth-provider';
 import { useWallet } from '@/components/wallet/wallet-provider';
 import {
@@ -21,12 +22,15 @@ import {
     Library,
     ChevronDown
 } from 'lucide-react';
-import { languageNames, Language } from '@/components/i18n/i18n-provider';
+import { routing } from '@/i18n/routing';
 
 export function Header() {
+    const router = useRouter();
     const pathname = usePathname();
+    const t = useTranslations();
+    const locale = useLocale();
+    const params = useParams();
     const { theme, setTheme } = useTheme();
-    const { t, language, setLanguage } = useI18n();
     const { user, isAuthenticated, signOut, signIn } = useAuth();
     const { activeWallet, isConnected } = useWallet();
 
@@ -52,15 +56,15 @@ export function Header() {
             // Check if the click is outside the dropdown containers
             const userMenuContainer = document.querySelector('.user-dropdown-container');
             const languageMenuContainer = document.querySelector('.language-dropdown-container');
-            
+
             if (userMenuContainer && !userMenuContainer.contains(event.target as Node)) {
                 setIsUserMenuOpen(false);
             }
-            
+
             if (languageMenuContainer && !languageMenuContainer.contains(event.target as Node)) {
                 setIsLanguageMenuOpen(false);
             }
-            
+
             setIsAuthMenuOpen(false);
         };
 
@@ -70,11 +74,6 @@ export function Header() {
 
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
-    };
-
-    const handleLanguageChange = (lang: Language) => {
-        setLanguage(lang);
-        setIsLanguageMenuOpen(false);
     };
 
     const handleSignOut = async () => {
@@ -89,8 +88,8 @@ export function Header() {
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? 'bg-background/95 backdrop-blur-md shadow-md'
-                    : 'bg-transparent'
+                ? 'bg-background/95 backdrop-blur-md shadow-md'
+                : 'bg-transparent'
                 }`}
         >
             <div className="container mx-auto px-4 py-4">
@@ -157,7 +156,7 @@ export function Header() {
                                 className="flex items-center space-x-1 p-2 rounded-full hover:bg-primary/10 transition-colors"
                             >
                                 <Globe className="w-5 h-5" />
-                                <span className="text-sm font-medium">{language.toUpperCase()}</span>
+                                <span className="text-sm font-medium">{locale.toUpperCase()}</span>
                                 <ChevronDown className="w-4 h-4" />
                             </button>
 
@@ -169,16 +168,23 @@ export function Header() {
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         <div className="py-1">
-                                            {Object.entries(languageNames).map(([code, name]) => (
+                                            {routing.locales.map((cur) => (
                                                 <button
-                                                    key={code}
-                                                    onClick={() => handleLanguageChange(code as Language)}
-                                                    className={`w-full text-left px-4 py-2 text-sm ${language === code
-                                                            ? 'bg-primary/10 text-primary'
-                                                            : 'hover:bg-primary/5'
+                                                    key={cur}
+                                                    value={cur}
+                                                    onClick={() => router.replace(
+                                                        // @ts-expect-error -- TypeScript will validate that only known `params`
+                                                        // are used in combination with a given `pathname`. Since the two will
+                                                        // always match for the current route, we can skip runtime checks.
+                                                        { pathname, params },
+                                                        { locale: cur }
+                                                    )}
+                                                    className={`w-full text-left px-4 py-2 text-sm ${locale === cur
+                                                        ? 'bg-primary/10 text-primary'
+                                                        : 'hover:bg-primary/5'
                                                         }`}
                                                 >
-                                                    {name}
+                                                    {cur}
                                                 </button>
                                             ))}
                                         </div>
@@ -392,13 +398,19 @@ export function Header() {
                                     </button>
 
                                     <select
-                                        value={language}
-                                        onChange={(e) => setLanguage(e.target.value as Language)}
+                                        value={locale}
+                                        onChange={(e) => router.replace(
+                                            // @ts-expect-error -- TypeScript will validate that only known `params`
+                                            // are used in combination with a given `pathname`. Since the two will
+                                            // always match for the current route, we can skip runtime checks.
+                                            { pathname, params },
+                                            { locale: e.target.value }
+                                        )}
                                         className="bg-transparent border border-border rounded-md text-sm p-1"
                                     >
-                                        {Object.entries(languageNames).map(([code, name]) => (
-                                            <option key={code} value={code}>
-                                                {name}
+                                        {routing.locales.map((cur) => (
+                                            <option key={cur} value={cur}>
+                                                {cur}
                                             </option>
                                         ))}
                                     </select>

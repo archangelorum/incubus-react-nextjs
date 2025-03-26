@@ -1,9 +1,10 @@
 import { Suspense } from 'react';
-import Link from 'next/link';
-import { Filter, SlidersHorizontal, Tag, Clock, ArrowDown, ArrowUp } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
+import { Filter, Tag, Clock, ArrowDown, ArrowUp } from 'lucide-react';
 import { MarketplaceListings } from '@/components/marketplace/marketplace-listings';
 import { MarketplaceFilters } from '@/components/marketplace/marketplace-filters';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { SortSelect } from '@/components/marketplace/sort-select';
 
 export const metadata = {
   title: 'NFT Marketplace | Incubus',
@@ -92,25 +93,7 @@ export default function MarketplacePage({
                   Showing NFT listings on the Solana blockchain
                 </p>
                 
-                <div className="flex items-center">
-                  <SlidersHorizontal className="w-4 h-4 mr-2" />
-                  <select 
-                    className="bg-transparent text-sm border-none focus:outline-none focus:ring-0"
-                    defaultValue={`${sort}-${order}`}
-                    onChange={(e) => {
-                      const [newSort, newOrder] = e.target.value.split('-');
-                      const url = new URL(window.location.href);
-                      url.searchParams.set('sort', newSort);
-                      url.searchParams.set('order', newOrder);
-                      window.location.href = url.toString();
-                    }}
-                  >
-                    <option value="createdAt-desc">Newest First</option>
-                    <option value="createdAt-asc">Oldest First</option>
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                  </select>
-                </div>
+                <SortSelect currentSort={sort} currentOrder={order} />
               </div>
             </div>
             

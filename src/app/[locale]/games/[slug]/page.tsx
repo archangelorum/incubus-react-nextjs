@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { GameScreenshots } from '@/components/games/game-screenshots';

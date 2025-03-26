@@ -243,7 +243,7 @@
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
     "cookies": "Cookie Policy",
-    "copyright": "© {{year}} Incubus. All rights reserved.",
+    "copyright": "© {year} Incubus. All rights reserved.",
     "followUs": "Follow Us"
   }
 }

@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@/components/theme/theme-provider';
-import { I18nProvider } from '@/components/i18n/i18n-provider';
+import { NextIntlClientProvider } from 'next-intl';
 import { AuthProvider } from '@/components/auth/auth-provider';
 import { WalletProvider } from '@/components/wallet/wallet-provider';
 import { Toaster } from 'sonner';
@@ -10,9 +10,9 @@ export async function Providers({ children }: { children: React.ReactNode }) {
   const session = await auth.api.getSession({
     headers: await headers()
   })
-  
+
   return (
-    <I18nProvider>
+    <NextIntlClientProvider>
       <ThemeProvider>
         <AuthProvider initialSession={session}>
           <WalletProvider>
@@ -21,6 +21,6 @@ export async function Providers({ children }: { children: React.ReactNode }) {
           </WalletProvider>
         </AuthProvider>
       </ThemeProvider>
-    </I18nProvider>
+    </NextIntlClientProvider>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { SlidersHorizontal } from 'lucide-react';
-import { useRouter } from '@/i18n/navigation';
+import { useRouter, usePathname } from '@/i18n/navigation';
 
 interface SortSelectProps {
   currentSort: string;
@@ -10,32 +10,28 @@ interface SortSelectProps {
 
 export function SortSelect({ currentSort, currentOrder }: SortSelectProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const [newSort, newOrder] = e.target.value.split('-');
     const url = new URL(window.location.href);
-    url.searchParams.set('sortBy', newSort);
-    url.searchParams.set('sortOrder', newOrder);
-    
-    // Use router.push instead of directly changing window.location for better performance
+    url.searchParams.set('sort', newSort);
+    url.searchParams.set('order', newOrder);
     router.push(url.toString());
   };
 
   return (
     <div className="flex items-center">
       <SlidersHorizontal className="w-4 h-4 mr-2" />
-      <select
+      <select 
         className="bg-transparent text-sm border-none focus:outline-none focus:ring-0"
         defaultValue={`${currentSort}-${currentOrder}`}
         onChange={handleSortChange}
       >
-        <option value="releaseDate-desc">Newest First</option>
-        <option value="releaseDate-asc">Oldest First</option>
-        <option value="basePrice-asc">Price: Low to High</option>
-        <option value="basePrice-desc">Price: High to Low</option>
-        <option value="title-asc">Title: A to Z</option>
-        <option value="title-desc">Title: Z to A</option>
-        <option value="popularity-desc">Most Popular</option>
+        <option value="createdAt-desc">Newest First</option>
+        <option value="createdAt-asc">Oldest First</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
       </select>
     </div>
   );

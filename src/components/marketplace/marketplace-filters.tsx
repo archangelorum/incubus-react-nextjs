@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { useI18n } from '@/components/i18n/i18n-provider';
+import { useRouter, usePathname } from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import { 
   Search, 
   X, 
@@ -46,7 +46,7 @@ export function MarketplaceFilters({
   currentMinPrice,
   currentMaxPrice,
 }: MarketplaceFiltersProps) {
-  const { t } = useI18n();
+  const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   

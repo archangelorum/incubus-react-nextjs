@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation'
 import Image from 'next/image';
-import { useI18n } from '@/components/i18n/i18n-provider';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type Game = {
   id: string;
@@ -32,7 +32,7 @@ type RelatedGamesProps = {
 };
 
 export function RelatedGames({ gameId, genreIds, tagIds }: RelatedGamesProps) {
-  const { t } = useI18n();
+  const t = useTranslations();
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -67,7 +67,7 @@ export function RelatedGames({ gameId, genreIds, tagIds }: RelatedGamesProps) {
         const response = await fetch(`/api/games?${params.toString()}`);
         
         if (!response.ok) {
-          throw new Error('Failed to fetch related games');
+          throw new Error('Failed to fetch games');
         }
         
         const data = await response.json();

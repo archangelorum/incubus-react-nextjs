@@ -1,18 +1,19 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { useI18n } from '@/components/i18n/i18n-provider';
-import { 
-  Search, 
-  X, 
-  ChevronDown, 
-  ChevronUp, 
-  Star, 
-  Tag, 
-  Building, 
-  DollarSign 
+import { useRouter, usePathname } from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl';
+
+import {
+  Search,
+  X,
+  ChevronDown,
+  ChevronUp,
+  Star,
+  Tag,
+  Building,
+  DollarSign
 } from 'lucide-react';
 
 type Genre = {
@@ -59,21 +60,21 @@ export function GameFilters({
   currentMaxPrice,
   currentFeatured,
 }: GameFiltersProps) {
-  const { t } = useI18n();
+  const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  
+
   const [genres, setGenres] = useState<Genre[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [publishers, setPublishers] = useState<Publisher[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const [searchTerm, setSearchTerm] = useState('');
   const [minPrice, setMinPrice] = useState(currentMinPrice?.toString() || '');
   const [maxPrice, setMaxPrice] = useState(currentMaxPrice?.toString() || '');
   const [featured, setFeatured] = useState(currentFeatured || false);
-  
+
   const [expandedGenres, setExpandedGenres] = useState(true);
   const [expandedTags, setExpandedTags] = useState(false);
   const [expandedPublishers, setExpandedPublishers] = useState(false);
@@ -83,22 +84,22 @@ export function GameFilters({
     const fetchFilters = async () => {
       try {
         setLoading(true);
-        
+
         // Fetch genres, tags, and publishers in parallel
         const [genresRes, tagsRes, publishersRes] = await Promise.all([
           fetch('/api/genres'),
           fetch('/api/tags'),
           fetch('/api/publishers')
         ]);
-        
+
         if (!genresRes.ok || !tagsRes.ok || !publishersRes.ok) {
           throw new Error('Failed to fetch filters');
         }
-        
+
         const genresData = await genresRes.json();
         const tagsData = await tagsRes.json();
         const publishersData = await publishersRes.json();
-        
+
         setGenres(genresData.data || []);
         setTags(tagsData.data || []);
         setPublishers(publishersData.data || []);
@@ -115,45 +116,45 @@ export function GameFilters({
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!searchTerm.trim()) return;
-    
+
     const params = new URLSearchParams(window.location.search);
     params.set('search', searchTerm.trim());
-    
+
     router.push(`${pathname}?${params.toString()}`);
   };
 
   const handlePriceFilter = () => {
     const params = new URLSearchParams(window.location.search);
-    
+
     if (minPrice) {
       params.set('minPrice', minPrice);
     } else {
       params.delete('minPrice');
     }
-    
+
     if (maxPrice) {
       params.set('maxPrice', maxPrice);
     } else {
       params.delete('maxPrice');
     }
-    
+
     router.push(`${pathname}?${params.toString()}`);
   };
 
   const handleFeaturedToggle = () => {
     const newFeatured = !featured;
     setFeatured(newFeatured);
-    
+
     const params = new URLSearchParams(window.location.search);
-    
+
     if (newFeatured) {
       params.set('featured', 'true');
     } else {
       params.delete('featured');
     }
-    
+
     router.push(`${pathname}?${params.toString()}`);
   };
 
@@ -162,7 +163,7 @@ export function GameFilters({
     setMinPrice('');
     setMaxPrice('');
     setFeatured(false);
-    
+
     router.push(pathname);
   };
 
@@ -186,15 +187,15 @@ export function GameFilters({
   }
 
   // Sort collections by game count
-  const sortedGenres = [...genres].sort((a, b) => 
+  const sortedGenres = [...genres].sort((a, b) =>
     (b._count?.games || 0) - (a._count?.games || 0)
   );
-  
-  const sortedTags = [...tags].sort((a, b) => 
+
+  const sortedTags = [...tags].sort((a, b) =>
     (b._count?.games || 0) - (a._count?.games || 0)
   );
-  
-  const sortedPublishers = [...publishers].sort((a, b) => 
+
+  const sortedPublishers = [...publishers].sort((a, b) =>
     (b._count?.games || 0) - (a._count?.games || 0)
   );
 
@@ -235,7 +236,7 @@ export function GameFilters({
 
       {/* Price Range */}
       <div>
-        <div 
+        <div
           className="flex items-center justify-between cursor-pointer"
           onClick={() => setExpandedPrice(!expandedPrice)}
         >
@@ -249,7 +250,7 @@ export function GameFilters({
             <ChevronDown className="w-4 h-4" />
           )}
         </div>
-        
+
         {expandedPrice && (
           <div className="mt-2 space-y-2">
             <div className="flex items-center space-x-2">
@@ -285,7 +286,7 @@ export function GameFilters({
 
       {/* Genres */}
       <div>
-        <div 
+        <div
           className="flex items-center justify-between cursor-pointer"
           onClick={() => setExpandedGenres(!expandedGenres)}
         >
@@ -299,18 +300,17 @@ export function GameFilters({
             <ChevronDown className="w-4 h-4" />
           )}
         </div>
-        
+
         {expandedGenres && (
           <div className="mt-2 space-y-1 max-h-60 overflow-y-auto pr-2">
             {sortedGenres.map((genre) => (
               <Link
                 key={genre.id}
                 href={`/games?genre=${genre.slug}`}
-                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
-                  currentGenre === genre.slug
+                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentGenre === genre.slug
                     ? 'bg-primary/10 text-primary'
                     : 'hover:bg-primary/5'
-                }`}
+                  }`}
               >
                 <span>{genre.name}</span>
                 {genre._count && (
@@ -326,7 +326,7 @@ export function GameFilters({
 
       {/* Tags */}
       <div>
-        <div 
+        <div
           className="flex items-center justify-between cursor-pointer"
           onClick={() => setExpandedTags(!expandedTags)}
         >
@@ -340,18 +340,17 @@ export function GameFilters({
             <ChevronDown className="w-4 h-4" />
           )}
         </div>
-        
+
         {expandedTags && (
           <div className="mt-2 space-y-1 max-h-60 overflow-y-auto pr-2">
             {sortedTags.slice(0, 20).map((tag) => (
               <Link
                 key={tag.id}
                 href={`/games?tag=${tag.slug}`}
-                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
-                  currentTag === tag.slug
+                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentTag === tag.slug
                     ? 'bg-primary/10 text-primary'
                     : 'hover:bg-primary/5'
-                }`}
+                  }`}
               >
                 <span>{tag.name}</span>
                 {tag._count && (
@@ -375,7 +374,7 @@ export function GameFilters({
 
       {/* Publishers */}
       <div>
-        <div 
+        <div
           className="flex items-center justify-between cursor-pointer"
           onClick={() => setExpandedPublishers(!expandedPublishers)}
         >
@@ -389,18 +388,17 @@ export function GameFilters({
             <ChevronDown className="w-4 h-4" />
           )}
         </div>
-        
+
         {expandedPublishers && (
           <div className="mt-2 space-y-1 max-h-60 overflow-y-auto pr-2">
             {sortedPublishers.map((publisher) => (
               <Link
                 key={publisher.id}
                 href={`/games?publisher=${publisher.slug}`}
-                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
-                  currentPublisher === publisher.slug
+                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentPublisher === publisher.slug
                     ? 'bg-primary/10 text-primary'
                     : 'hover:bg-primary/5'
-                }`}
+                  }`}
               >
                 <span>{publisher.name}</span>
                 {publisher._count && (

@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { useI18n } from '@/components/i18n/i18n-provider';
+import { Link } from '@/i18n/navigation';
+
 import {
   Github,
   Twitter,
@@ -10,9 +10,10 @@ import {
   Youtube,
   ArrowRight
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export function Footer() {
-  const { t } = useI18n();
+  const t = useTranslations();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -30,9 +31,9 @@ export function Footer() {
               The future of game distribution on the Solana blockchain. Buy, sell, and trade games and in-game items as NFTs.
             </p>
             <div className="mt-6 flex items-center space-x-4">
-              <a 
-                href="https://twitter.com" 
-                target="_blank" 
+              <a
+                href="https://twitter.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="Twitter"
@@ -48,27 +49,27 @@ export function Footer() {
               >
                 <MessageCircle className="w-5 h-5" />
               </a>
-              <a 
-                href="https://github.com" 
-                target="_blank" 
+              <a
+                href="https://github.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="GitHub"
               >
                 <Github className="w-5 h-5" />
               </a>
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
+              <a
+                href="https://instagram.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a 
-                href="https://youtube.com" 
-                target="_blank" 
+              <a
+                href="https://youtube.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="YouTube"
@@ -83,32 +84,32 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">{t('nav.home')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link 
-                  href="/games" 
+                <Link
+                  href="/games"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('nav.games')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/marketplace" 
+                <Link
+                  href="/marketplace"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('nav.marketplace')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/library" 
+                <Link
+                  href="/library"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('nav.library')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/wallet" 
+                <Link
+                  href="/wallet"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('nav.wallet')}
@@ -122,40 +123,40 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">{t('footer.about')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link 
-                  href="/about" 
+                <Link
+                  href="/about"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('footer.about')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/careers" 
+                <Link
+                  href="/careers"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('footer.careers')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/press" 
+                <Link
+                  href="/press"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('footer.press')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/support" 
+                <Link
+                  href="/support"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('footer.support')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/contact" 
+                <Link
+                  href="/contact"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('footer.contact')}
@@ -169,24 +170,24 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">{t('footer.terms')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link 
-                  href="/terms" 
+                <Link
+                  href="/terms"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('footer.terms')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/privacy" 
+                <Link
+                  href="/privacy"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('footer.privacy')}
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/cookies" 
+                <Link
+                  href="/cookies"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('footer.cookies')}
@@ -198,12 +199,12 @@ export function Footer() {
             <div className="mt-6">
               <h4 className="text-sm font-semibold mb-2">Subscribe to our newsletter</h4>
               <div className="flex">
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   placeholder="Your email"
                   className="flex-1 px-3 py-2 text-sm rounded-l-md bg-background border border-r-0 border-input focus:outline-none focus:ring-1 focus:ring-primary"
                 />
-                <button 
+                <button
                   type="button"
                   className="px-3 py-2 rounded-r-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
@@ -220,20 +221,20 @@ export function Footer() {
             {t('footer.copyright', { year: currentYear })}
           </p>
           <div className="mt-4 md:mt-0 flex items-center space-x-4">
-            <Link 
-              href="/terms" 
+            <Link
+              href="/terms"
               className="text-xs text-muted-foreground hover:text-primary transition-colors"
             >
               {t('footer.terms')}
             </Link>
-            <Link 
-              href="/privacy" 
+            <Link
+              href="/privacy"
               className="text-xs text-muted-foreground hover:text-primary transition-colors"
             >
               {t('footer.privacy')}
             </Link>
-            <Link 
-              href="/cookies" 
+            <Link
+              href="/cookies"
               className="text-xs text-muted-foreground hover:text-primary transition-colors"
             >
               {t('footer.cookies')}

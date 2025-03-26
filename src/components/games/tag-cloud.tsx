@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useI18n } from '@/components/i18n/i18n-provider';
+import { Link } from '@/i18n/navigation'
 import { Tag as TagIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type Tag = {
   id: string;
@@ -16,7 +16,7 @@ type Tag = {
 };
 
 export function TagCloud() {
-  const { t } = useI18n();
+  const t = useTranslations();
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

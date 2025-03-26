@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation'
 import Image from 'next/image';
-import { useI18n } from '@/components/i18n/i18n-provider';
+import { useTranslations } from 'next-intl';
 
 type Genre = {
   id: string;
@@ -37,7 +37,7 @@ const genreImages: Record<string, string> = {
 const fallbackGenreImage = '/genres/default.jpg';
 
 export function GenreList() {
-  const { t } = useI18n();
+  const t = useTranslations();
   const [genres, setGenres] = useState<Genre[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,11 +47,11 @@ export function GenreList() {
       try {
         setLoading(true);
         const response = await fetch('/api/genres');
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch genres');
         }
-        
+
         const data = await response.json();
         setGenres(data.data || []);
       } catch (err) {
@@ -111,12 +111,12 @@ export function GenreList() {
               className="object-cover opacity-70 group-hover:scale-105 group-hover:opacity-80 transition-all duration-300"
             />
           </div>
-          
+
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
             <h3 className="text-white font-semibold text-lg group-hover:text-primary transition-colors">
               {genre.name}
             </h3>
-            
+
             {genre._count && (
               <p className="text-white/80 text-sm">
                 {genre._count.games} {genre._count.games === 1 ? 'game' : 'games'}

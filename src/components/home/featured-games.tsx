@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
-import { useI18n } from '@/components/i18n/i18n-provider';
 import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type Game = {
   id: string;
@@ -32,7 +32,7 @@ type Game = {
 };
 
 export function FeaturedGames() {
-  const { t } = useI18n();
+  const t = useTranslations();
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -103,7 +103,7 @@ export function FeaturedGames() {
   }
 
   const currentGame = games[currentIndex];
-  
+
   return (
     <div className="relative h-[500px] md:h-[600px] rounded-lg overflow-hidden group">
       {/* Background Image */}
@@ -204,8 +204,8 @@ export function FeaturedGames() {
             key={index}
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-all ${index === currentIndex
-                ? 'bg-primary w-6'
-                : 'bg-white/50 hover:bg-white/80'
+              ? 'bg-primary w-6'
+              : 'bg-white/50 hover:bg-white/80'
               }`}
             aria-label={`Go to slide ${index + 1}`}
           />
