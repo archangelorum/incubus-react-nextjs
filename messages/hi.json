@@ -1,0 +1,945 @@
+{
+    "_metadata": {
+        "version": "1.0.0",
+        "lastUpdated": "2025-03-27",
+        "language": "hi",
+        "languageName": "हिन्दी",
+        "maintainer": "Incubus Team"
+    },
+    "common": {
+        "appName": "Incubus",
+        "tagline": "गेम वितरण का भविष्य",
+        "loading": "लोड हो रहा है...",
+        "error": "एक त्रुटि हुई",
+        "retry": "पुनः प्रयास करें",
+        "cancel": "रद्द करें",
+        "save": "सहेजें",
+        "edit": "संपादित करें",
+        "delete": "हटाएँ",
+        "confirm": "पुष्टि करें",
+        "back": "वापस",
+        "next": "आगे",
+        "previous": "पिछला",
+        "search": "खोजें",
+        "filter": "फ़िल्टर",
+        "sort": "क्रमबद्ध करें",
+        "all": "सभी",
+        "more": "अधिक",
+        "less": "कम",
+        "viewAll": "सभी देखें",
+        "seeMore": "और देखें",
+        "seeLess": "कम देखें"
+    },
+    "auth": {
+        "signIn": "साइन इन",
+        "signUp": "साइन अप",
+        "signOut": "साइन आउट",
+        "email": "ईमेल",
+        "password": "पासवर्ड",
+        "forgotPassword": "पासवर्ड भूल गए?",
+        "resetPassword": "पासवर्ड रीसेट करें",
+        "createAccount": "खाता बनाएँ",
+        "alreadyHaveAccount": "पहले से खाता है?",
+        "dontHaveAccount": "खाता नहीं है?",
+        "continueWith": "{{provider}} के साथ जारी रखें",
+        "orContinueWith": "या जारी रखें",
+        "verifyEmail": "ईमेल सत्यापित करें",
+        "checkEmail": "सत्यापन लिंक के लिए अपना ईमेल चेक करें",
+        "welcomeBack": "वापसी का स्वागत है",
+        "welcome": "Incubus में आपका स्वागत है"
+    },
+    "nav": {
+        "home": "होम",
+        "games": "गेम्स",
+        "marketplace": "मार्केटप्लेस",
+        "library": "मेरी लाइब्रेरी",
+        "wallet": "वॉलेट",
+        "profile": "प्रोफ़ाइल",
+        "settings": "सेटिंग्स",
+        "help": "सहायता",
+        "admin": "एडमिन डैशबोर्ड"
+    },
+    "home": {
+        "featuredGames": "फीचर्ड गेम्स",
+        "newReleases": "नए रिलीज़",
+        "topSellers": "टॉप सेलर्स",
+        "comingSoon": "जल्द आ रहा है",
+        "browseByGenre": "शैली के अनुसार ब्राउज़ करें",
+        "browseByTag": "टैग के अनुसार ब्राउज़ करें",
+        "discoverMore": "और गेम्स खोजें"
+    },
+    "games": {
+        "allGames": "सभी गेम्स",
+        "releaseDate": "रिलीज़ की तारीख",
+        "developer": "डेवलपर",
+        "publisher": "प्रकाशक",
+        "genre": "शैली",
+        "genres": "शैलियाँ",
+        "tags": "टैग्स",
+        "price": "कीमत",
+        "free": "मुफ़्त",
+        "owned": "स्वामित्व",
+        "addToCart": "कार्ट में जोड़ें",
+        "addToWishlist": "विशलिस्ट में जोड़ें",
+        "removeFromWishlist": "विशलिस्ट से हटाएँ",
+        "buyNow": "अभी खरीदें",
+        "playNow": "अभी खेलें",
+        "download": "डाउनलोड करें",
+        "downloadSize": "डाउनलोड आकार",
+        "version": "संस्करण",
+        "systemRequirements": "सिस्टम आवश्यकताएँ",
+        "minimum": "न्यूनतम",
+        "recommended": "अनुशंसित",
+        "description": "विवरण",
+        "reviews": "रिव्यू",
+        "writeReview": "रिव्यू लिखें",
+        "screenshots": "स्क्रीनशॉट्स",
+        "trailer": "ट्रेलर",
+        "relatedGames": "संबंधित गेम्स",
+        "moreFromDeveloper": "इस डेवलपर के और गेम्स",
+        "moreFromPublisher": "इस प्रकाशक के और गेम्स",
+        "contentRating": "कंटेंट रेटिंग",
+        "releaseStatus": {
+            "released": "रिलीज़ हो चुका है",
+            "earlyAccess": "अर्ली एक्सेस",
+            "comingSoon": "जल्द आ रहा है",
+            "beta": "बीटा"
+        }
+    },
+    "marketplace": {
+        "browse": "मार्केटप्लेस ब्राउज़ करें",
+        "sell": "आइटम बेचें",
+        "buy": "खरीदें",
+        "listings": "लिस्टिंग्स",
+        "myListings": "मेरी लिस्टिंग्स",
+        "createListing": "लिस्टिंग बनाएँ",
+        "editListing": "लिस्टिंग संपादित करें",
+        "removeListing": "लिस्टिंग हटाएँ",
+        "listingDetails": "लिस्टिंग विवरण",
+        "price": "कीमत",
+        "fees": "फीस",
+        "royalties": "रॉयल्टी",
+        "youReceive": "आपको प्राप्त होगा",
+        "expiresAt": "समाप्ति तिथि",
+        "seller": "विक्रेता",
+        "buyer": "खरीदार",
+        "status": {
+            "active": "सक्रिय",
+            "sold": "बिक गया",
+            "expired": "समाप्त",
+            "cancelled": "रद्द"
+        },
+        "filter": {
+            "gameLicenses": "गेम लाइसेंस",
+            "gameItems": "गेम आइटम्स",
+            "bundles": "बंडल्स",
+            "priceRange": "कीमत सीमा",
+            "sortBy": {
+                "newest": "नवीनतम पहले",
+                "oldest": "पुराने पहले",
+                "priceAsc": "कीमत: कम से अधिक",
+                "priceDesc": "कीमत: अधिक से कम",
+                "popularity": "लोकप्रियता"
+            }
+        }
+    },
+    "wallet": {
+        "myWallet": "मेरा वॉलेट",
+        "balance": "शेष राशि",
+        "addFunds": "धन जोड़ें",
+        "withdraw": "निकालें",
+        "transactions": "लेन-देन",
+        "connectWallet": "वॉलेट कनेक्ट करें",
+        "disconnectWallet": "वॉलेट डिस्कनेक्ट करें",
+        "createWallet": "वॉलेट बनाएँ",
+        "importWallet": "वॉलेट आयात करें",
+        "walletAddress": "वॉलेट पता",
+        "copyAddress": "पता कॉपी करें",
+        "addressCopied": "पता क्लिपबोर्ड पर कॉपी हो गया",
+        "transactionHistory": "लेन-देन इतिहास",
+        "transactionTypes": {
+            "purchase": "खरीद",
+            "sale": "बिक्री",
+            "transfer": "ट्रांसफर",
+            "deposit": "जमा",
+            "withdrawal": "निकासी",
+            "fee": "फीस",
+            "royalty": "रॉयल्टी",
+            "refund": "धनवापसी"
+        },
+        "transactionStatus": {
+            "pending": "लंबित",
+            "confirmed": "पुष्टि हुई",
+            "failed": "विफल",
+            "cancelled": "रद्द"
+        }
+    },
+    "library": {
+        "myGames": "मेरे गेम्स",
+        "myItems": "मेरे आइटम्स",
+        "recentlyPlayed": "हाल में खेले गए",
+        "allGames": "सभी गेम्स",
+        "installed": "इंस्टॉल किया गया",
+        "notInstalled": "इंस्टॉल नहीं किया गया",
+        "installGame": "गेम इंस्टॉल करें",
+        "uninstallGame": "गेम अनइंस्टॉल करें",
+        "updateAvailable": "अपडेट उपलब्ध",
+        "updateGame": "गेम अपडेट करें",
+        "playTime": "खेलने का समय",
+        "lastPlayed": "अंतिम बार खेला गया",
+        "achievements": "उपलब्धियाँ",
+        "friends": "मित्र",
+        "friendsWhoPlay": "वे मित्र जो यह गेम खेलते हैं"
+    },
+    "profile": {
+        "myProfile": "मेरी प्रोफ़ाइल",
+        "editProfile": "प्रोफ़ाइल संपादित करें",
+        "username": "यूजरनेम",
+        "bio": "बायो",
+        "avatar": "अवतार",
+        "changeAvatar": "अवतार बदलें",
+        "joinDate": "जुड़ने की तिथि",
+        "gamesOwned": "स्वामित्व वाले गेम्स",
+        "itemsOwned": "स्वामित्व वाले आइटम्स",
+        "achievements": "उपलब्धियाँ",
+        "friends": "मित्र",
+        "addFriend": "मित्र जोड़ें",
+        "removeFriend": "मित्र हटाएँ",
+        "blockUser": "उपयोगकर्ता ब्लॉक करें",
+        "unblockUser": "उपयोगकर्ता अनब्लॉक करें",
+        "activity": "गतिविधि",
+        "recentActivity": "हाल की गतिविधि"
+    },
+    "settings": {
+        "title": "सेटिंग्स",
+        "account": "खाता",
+        "profile": "प्रोफ़ाइल",
+        "privacy": "गोपनीयता",
+        "notifications": "सूचनाएँ",
+        "language": "भाषा",
+        "theme": {
+            "title": "थीम",
+            "light": "हल्का",
+            "dark": "गहरा",
+            "system": "सिस्टम"
+        },
+        "security": "सुरक्षा",
+        "twoFactorAuth": "दो-चरणीय प्रमाणीकरण",
+        "changePassword": "पासवर्ड बदलें",
+        "connectedAccounts": "जुड़े हुए खाते",
+        "wallets": "वॉलेट्स",
+        "deleteAccount": "खाता हटाएँ"
+    },
+    "errors": {
+        "general": "कुछ गलत हो गया",
+        "notFound": "नहीं मिला",
+        "unauthorized": "अनधिकृत",
+        "forbidden": "प्रतिबंधित",
+        "serverError": "सर्वर त्रुटि",
+        "networkError": "नेटवर्क त्रुटि",
+        "pageNotFound": "पृष्ठ नहीं मिला",
+        "resourceNotFound": "संसाधन नहीं मिला",
+        "tryAgain": "कृपया पुनः प्रयास करें"
+    },
+    "footer": {
+        "about": "हमारे बारे में",
+        "careers": "करियर",
+        "press": "प्रेस",
+        "support": "सहायता",
+        "contact": "संपर्क करें",
+        "terms": "सेवा की शर्तें",
+        "privacy": "गोपनीयता नीति",
+        "cookies": "कुकी नीति",
+        "copyright": "© {year} Incubus. सर्वाधिकार सुरक्षित।",
+        "followUs": "हमें फ़ॉलो करें"
+    },
+    "admin": {
+        "title": "एडमिन डैशबोर्ड",
+        "logout": "लॉगआउट",
+        "actions": {
+            "created": "बनाया",
+            "updated": "अपडेट किया",
+            "deleted": "हटाया",
+            "published": "प्रकाशित",
+            "unpublished": "अप्रकाशित",
+            "approved": "स्वीकृत",
+            "rejected": "अस्वीकृत",
+            "purchased": "खरीदा",
+            "registered": "पंजीकृत",
+            "logged_in": "लॉग इन किया",
+            "logged_out": "लॉग आउट किया",
+            "deposited": "जमा किया",
+            "withdrew": "निकाला",
+            "system_update": "सिस्टम अपडेट किया",
+            "reviewed": "समीक्षा की",
+            "user_login": "लॉग इन किया",
+            "user_logout": "लॉग आउट किया",
+            "user_created": "उपयोगकर्ता बनाया",
+            "user_updated": "उपयोगकर्ता अपडेट किया",
+            "user_deleted": "उपयोगकर्ता हटाया",
+            "game_created": "गेम बनाया",
+            "game_updated": "गेम अपडेट किया",
+            "game_deleted": "गेम हटाया",
+            "transaction_created": "लेन-देन बनाया",
+            "settings_updated": "सेटिंग्स अपडेट कीं",
+            "permission_granted": "अनुमति दी",
+            "permission_revoked": "अनुमति रद्द की",
+            "refresh": "ताज़ा करें"
+        },
+        "entityTypes": {
+            "user": "उपयोगकर्ता",
+            "game": "गेम",
+            "wallet": "वॉलेट",
+            "transaction": "लेन-देन",
+            "review": "समीक्षा",
+            "system": "सिस्टम रखरखाव",
+            "publisher": "प्रकाशक",
+            "developer": "डेवलपर",
+            "gamelicense": "गेम लाइसेंस",
+            "gameversion": "गेम संस्करण",
+            "gameitem": "गेम आइटम",
+            "organization": "संगठन",
+            "setting": "सेटिंग",
+            "dispute": "विवाद",
+            "proposal": "प्रस्ताव",
+            "marketplace": "मार्केटप्लेस",
+            "escrow": "एस्क्रो",
+            "blockchain": "ब्लॉकचेन",
+            "nftcollection": "एनएफटी संग्रह",
+            "smartcontract": "स्मार्ट कॉन्ट्रैक्ट",
+            "compliance": "अनुपालन नीति"
+        },
+        "roles": {
+            "admin": "प्रशासक",
+            "user": "उपयोगकर्ता",
+            "publisher": "प्रकाशक",
+            "developer": "डेवलपर",
+            "moderator": "मॉडरेटर"
+        },
+        "header": {
+            "notifications": "सूचनाएँ",
+            "noNewNotifications": "कोई नई सूचना नहीं",
+            "viewAllNotifications": "सभी सूचनाएँ देखें",
+            "profile": "आपकी प्रोफ़ाइल",
+            "settings": "सेटिंग्स",
+            "logout": "साइन आउट",
+            "toggleSidebar": "साइडबार टॉगल करें",
+            "searchPlaceholder": "खोजें...",
+            "darkMode": "डार्क मोड चालू करें",
+            "lightMode": "लाइट मोड चालू करें"
+        },
+        "navigation": {
+            "dashboard": "डैशबोर्ड",
+            "users": "उपयोगकर्ता",
+            "moderation": "मॉडरेशन",
+            "monitoring": "मॉनिटरिंग",
+            "analytics": "विश्लेषण",
+            "auditLogs": "ऑडिट लॉग",
+            "notifications": "सूचनाएँ",
+            "settings": "सेटिंग्स"
+        },
+        "sidebar": {
+            "openSidebar": "साइडबार खोलें",
+            "closeSidebar": "साइडबार बंद करें",
+            "home": "होम"
+        },
+        "dashboard": {
+            "title": "डैशबोर्ड",
+            "subtitle": "प्लेटफ़ॉर्म के प्रदर्शन और गतिविधि का अवलोकन",
+            "actions": {
+                "refresh": "ताज़ा करें",
+                "refreshing": "ताज़ा हो रहा है...",
+                "lastUpdated": "अंतिम अपडेट: {time}",
+                "dataUpdated": "डैशबोर्ड डेटा अपडेट हो गया"
+            },
+            "metrics": {
+                "users": "कुल उपयोगकर्ता",
+                "games": "कुल गेम्स",
+                "revenue": "कुल राजस्व",
+                "wallets": "सक्रिय वॉलेट्स",
+                "fromPrevious": "पिछली अवधि से",
+                "newThisWeek": "इस सप्ताह नए",
+                "totalSales": "कुल बिक्री",
+                "transactions": "लेन-देन"
+            },
+            "quickLinks": {
+                "manageUsers": "उपयोगकर्ता प्रबंधित करें",
+                "manageUsersDesc": "उपयोगकर्ता खाते देखें और प्रबंधित करें",
+                "moderateContent": "सामग्री मॉडरेट करें",
+                "moderateContentDesc": "सामग्री की समीक्षा और स्वीकृति",
+                "viewAnalytics": "विश्लेषण देखें",
+                "viewAnalyticsDesc": "विस्तृत मेट्रिक्स देखें",
+                "configureSettings": "सेटिंग्स कॉन्फ़िगर करें",
+                "configureSettingsDesc": "प्लेटफ़ॉर्म कॉन्फ़िगरेशन समायोजित करें"
+            },
+            "recentActivity": "हाल की गतिविधि",
+            "viewAllActivity": "सभी गतिविधि देखें"
+        },
+        "activityLog": {
+            "system": "सिस्टम",
+            "action": "{entityType} {action}",
+            "actionWithName": "{entityType} {entityName} {action}",
+            "timestamp": "समय",
+            "viewDetails": "विवरण देखें",
+            "noActivity": "कोई हाल की गतिविधि नहीं",
+            "checkBackLater": "अपडेट के लिए बाद में देखें",
+            "justNow": "अभी-अभी",
+            "minutesAgo": "{minutes} मिनट पहले",
+            "hoursAgo": "{hours} घंटे पहले",
+            "daysAgo": "{days} दिन पहले",
+            "daysAgoPlural": "{days} दिन पहले",
+            "relativeTime": {
+                "justNow": "अभी-अभी",
+                "minutesAgo": "{minutes} मिनट पहले",
+                "hoursAgo": "{hours} घंटे पहले",
+                "daysAgo": "{days} दिन पहले",
+                "daysAgoPlural": "{days} दिन पहले"
+            },
+            "entityId": "आईडी",
+            "actionReference": "क्रिया अनुवाद के लिए admin.actions देखें",
+            "entityTypeReference": "इकाई प्रकार अनुवाद के लिए admin.entityTypes देखें"
+        },
+        "users": {
+            "title": "उपयोगकर्ता प्रबंधन",
+            "subtitle": "उपयोगकर्ता खाते देखें और प्रबंधित करें",
+            "search": {
+                "placeholder": "नाम, ईमेल या आईडी से उपयोगकर्ता खोजें",
+                "search": "खोजें",
+                "clear": "साफ़ करें",
+                "filterByRole": "भूमिका से फ़िल्टर करें",
+                "noRolesFound": "कोई भूमिका नहीं मिली"
+            },
+            "filters": {
+                "role": "भूमिका",
+                "status": "स्थिति",
+                "dateJoined": "जुड़ने की तिथि",
+                "from": "से",
+                "to": "तक",
+                "apply": "लागू करें",
+                "clear": "फ़िल्टर साफ़ करें"
+            },
+            "table": {
+                "user": "उपयोगकर्ता",
+                "email": "ईमेल",
+                "role": "भूमिका",
+                "status": "स्थिति",
+                "joined": "जुड़े",
+                "actions": "क्रियाएँ",
+                "activity": "अंतिम गतिविधि"
+            },
+            "status": {
+                "active": "सक्रिय",
+                "inactive": "निष्क्रिय",
+                "suspended": "निलंबित",
+                "pending": "लंबित"
+            },
+            "roles": {
+                "user": "सामान्य उपयोगकर्ता",
+                "admin": "प्रशासक"
+            },
+            "actions": {
+                "view": "प्रोफ़ाइल देखें",
+                "edit": "उपयोगकर्ता संपादित करें",
+                "suspend": "उपयोगकर्ता निलंबित करें",
+                "activate": "उपयोगकर्ता सक्रिय करें",
+                "delete": "उपयोगकर्ता हटाएँ",
+                "confirmDelete": "हटाने की पुष्टि करें?",
+                "ban": "उपयोगकर्ता बैन करें",
+                "confirmBan": "बैन की पुष्टि करें?",
+                "unban": "उपयोगकर्ता अनबैन करें",
+                "promoteToAdmin": "प्रशासक बनाएँ",
+                "removeAdminRole": "प्रशासक भूमिका हटाएँ",
+                "impersonate": "उपयोगकर्ता बनें",
+                "createUser": "उपयोगकर्ता बनाएँ",
+                "options": "उपयोगकर्ता विकल्प"
+            },
+            "noUsersFound": "कोई उपयोगकर्ता नहीं मिला",
+            "tryDifferentFilters": "अलग खोज शब्द या फ़िल्टर आज़माएँ",
+            "pagination": {
+                "showing": "{total} में से {from} से {to} दिखाए जा रहे हैं",
+                "page": "पृष्ठ {current} / {total}"
+            }
+        },
+        "moderation": {
+            "title": "सामग्री मॉडरेशन",
+            "subtitle": "प्लेटफ़ॉर्म पर सामग्री की समीक्षा और प्रबंधन करें",
+            "tabs": {
+                "games": "गेम्स",
+                "reviews": "समीक्षाएँ",
+                "reports": "रिपोर्ट्स",
+                "disputes": "विवाद"
+            },
+            "filters": {
+                "statusLabel": "स्थिति",
+                "type": "प्रकार",
+                "typeLabel": "प्रकार",
+                "dateSubmitted": "जमा करने की तिथि",
+                "from": "से",
+                "to": "तक",
+                "apply": "लागू करें",
+                "clear": "फ़िल्टर साफ़ करें",
+                "clearType": "सभी प्रकार दिखाएँ",
+                "status": {
+                    "pending": "लंबित समीक्षा",
+                    "approved": "स्वीकृत",
+                    "rejected": "अस्वीकृत",
+                    "open": "खुला",
+                    "underReview": "समीक्षाधीन",
+                    "resolved": "हल",
+                    "closed": "बंद"
+                }
+            },
+            "reviews": {
+                "title": "सामग्री समीक्षाएँ",
+                "count": "समीक्षाएँ",
+                "noReviews": "समीक्षा के लिए कोई सामग्री नहीं",
+                "allClear": "सभी समीक्षाएँ संसाधित हो चुकी हैं"
+            },
+            "reports": {
+                "title": "रिपोर्ट की गई सामग्री",
+                "count": "रिपोर्ट्स",
+                "noReports": "समीक्षा के लिए कोई रिपोर्ट नहीं",
+                "allClear": "सभी रिपोर्ट्स संसाधित हो चुकी हैं",
+                "reporter": "रिपोर्टर",
+                "reported": "रिपोर्ट किया गया उपयोगकर्ता",
+                "relatedTo": "संबंधित",
+                "types": {
+                    "spam": "स्पैम",
+                    "inappropriate": "अनुपयुक्त सामग्री",
+                    "copyright": "कॉपीराइट उल्लंघन",
+                    "abuse": "अपमान/उत्पीड़न",
+                    "fraud": "धोखाधड़ी",
+                    "other": "अन्य",
+                    "content": "सामग्री समस्या",
+                    "transaction": "लेन-देन समस्या",
+                    "user_behavior": "उपयोगकर्ता व्यवहार"
+                }
+            },
+            "actions": {
+                "refresh": "ताज़ा करें",
+                "view": "विवरण देखें",
+                "approve": "स्वीकृत करें",
+                "reject": "अस्वीकृत करें",
+                "flag": "फ़्लैग करें",
+                "delete": "हटाएँ"
+            },
+            "search": {
+                "placeholder": "शीर्षक, आईडी या उपयोगकर्ता से खोजें",
+                "search": "खोजें"
+            },
+            "statusReference": "स्थिति अनुवाद के लिए filters.status देखें",
+            "table": {
+                "item": "आइटम",
+                "submittedBy": "जमा करने वाला",
+                "dateSubmitted": "जमा करने की तिथि",
+                "status": "स्थिति",
+                "actions": "क्रियाएँ"
+            },
+            "noItemsFound": "कोई आइटम नहीं मिला",
+            "tryDifferentFilters": "अलग फ़िल्टर आज़माएँ या बाद में देखें",
+            "pagination": {
+                "showing": "{total} में से {from} से {to} दिखाए जा रहे हैं",
+                "page": "पृष्ठ {current} / {total}"
+            }
+        },
+        "monitoring": {
+            "title": "सिस्टम मॉनिटरिंग",
+            "subtitle": "सिस्टम स्वास्थ्य और प्रदर्शन की निगरानी करें",
+            "lastUpdated": "अंतिम अपडेट",
+            "actions": {
+                "refresh": "ताज़ा करें",
+                "refreshing": "ताज़ा हो रहा है...",
+                "dataUpdated": "सिस्टम डेटा अपडेट हो गया"
+            },
+            "server": {
+                "title": "सर्वर",
+                "uptime": "अपटाइम"
+            },
+            "database": {
+                "title": "डेटाबेस",
+                "queries": "क्वेरीज़"
+            },
+            "api": {
+                "title": "API",
+                "performance": "API प्रदर्शन",
+                "requestsPerMinute": "अनुरोध/मिनट",
+                "avgResponseTime": "औसत प्रतिक्रिया समय",
+                "errorRate": "त्रुटि दर",
+                "topEndpoints": "शीर्ष एंडपॉइंट्स",
+                "requests": "अनुरोध",
+                "errors": "त्रुटियाँ"
+            },
+            "blockchain": {
+                "title": "ब्लॉकचेन",
+                "syncStatus": {
+                    "synced": "सिंक हुआ",
+                    "syncing": "सिंक हो रहा है",
+                    "failed": "सिंक विफल"
+                }
+            },
+            "status": {
+                "healthy": "स्वस्थ",
+                "warning": "चेतावनी",
+                "critical": "गंभीर"
+            },
+            "resources": {
+                "title": "संसाधन उपयोग",
+                "cpu": "CPU उपयोग",
+                "memory": "मेमोरी उपयोग",
+                "disk": "डिस्क उपयोग"
+            },
+            "charts": {
+                "resourceUsage": "समय के साथ संसाधन उपयोग",
+                "apiPerformance": "API प्रदर्शन",
+                "noData": "कोई डेटा उपलब्ध नहीं",
+                "series": {
+                    "cpu": "CPU",
+                    "memory": "मेमोरी",
+                    "requests": "अनुरोध",
+                    "responseTime": "प्रतिक्रिया समय"
+                }
+            },
+            "errors": {
+                "title": "त्रुटि लॉग्स",
+                "viewAll": "सभी लॉग्स देखें",
+                "source": "स्रोत",
+                "occurrences": "घटनाएँ",
+                "lastSeen": "अंतिम बार देखा गया",
+                "stackTrace": "स्टैक ट्रेस",
+                "firstSeen": "पहली बार देखा गया",
+                "noErrors": "कोई त्रुटि नहीं मिली",
+                "allClear": "सभी सिस्टम सुचारू रूप से चल रहे हैं",
+                "levels": {
+                    "error": "त्रुटि",
+                    "warning": "चेतावनी",
+                    "info": "सूचना"
+                }
+            }
+        },
+        "analytics": {
+            "title": "विश्लेषण",
+            "subtitle": "प्लेटफ़ॉर्म प्रदर्शन का विस्तृत विश्लेषण",
+            "exportData": "डेटा निर्यात करें",
+            "dateRange": {
+                "today": "आज",
+                "last7Days": "पिछले 7 दिन",
+                "last30Days": "पिछले 30 दिन",
+                "last12Months": "पिछले 12 महीने",
+                "custom": "कस्टम सीमा",
+                "startDate": "प्रारंभ तिथि",
+                "endDate": "समाप्ति तिथि",
+                "apply": "लागू करें",
+                "dataUpdated": "डेटा अपडेट हो गया"
+            },
+            "tabs": {
+                "overview": "अवलोकन",
+                "users": "उपयोगकर्ता",
+                "sales": "बिक्री",
+                "games": "गेम्स",
+                "reports": "रिपोर्ट्स"
+            },
+            "metrics": {
+                "totalUsers": "कुल उपयोगकर्ता",
+                "newUsers": "नए उपयोगकर्ता",
+                "activeUsers": "सक्रिय उपयोगकर्ता",
+                "totalRevenue": "कुल राजस्व",
+                "totalSales": "कुल बिक्री",
+                "averageOrderValue": "औसत ऑर्डर मूल्य",
+                "totalGames": "कुल गेम्स",
+                "totalDownloads": "कुल डाउनलोड",
+                "conversionRate": "रूपांतरण दर",
+                "fromPrevious": "पिछली अवधि से"
+            },
+            "users": {
+                "title": "उपयोगकर्ता विश्लेषण",
+                "short": "उपयोगकर्ता",
+                "detailedTitle": "विस्तृत उपयोगकर्ता विश्लेषण",
+                "newUsers": "नए उपयोगकर्ता",
+                "activeUsers": "सक्रिय उपयोगकर्ता",
+                "count": "उपयोगकर्ता संख्या"
+            },
+            "sales": {
+                "title": "बिक्री विश्लेषण",
+                "short": "बिक्री",
+                "detailedTitle": "विस्तृत बिक्री विश्लेषण",
+                "revenue": "राजस्व",
+                "orders": "ऑर्डर",
+                "amount": "राशि",
+                "note": "राजस्व USD में दिखाया गया है और सभी लेन-देन फीस शामिल हैं"
+            },
+            "games": {
+                "title": "गेम विश्लेषण",
+                "detailedTitle": "विस्तृत गेम विश्लेषण",
+                "downloads": "डाउनलोड",
+                "playTime": "खेलने का समय",
+                "count": "संख्या",
+                "topGenres": "शीर्ष शैलियाँ",
+                "platformStats": "प्लेटफ़ॉर्म स्टैट्स"
+            },
+            "topGames": "शीर्ष प्रदर्शन करने वाले गेम्स",
+            "topCountries": "शीर्ष देश",
+            "game": "गेम",
+            "revenue": "राजस्व",
+            "downloads": "डाउनलोड",
+            "conversionRate": "रूपांतरण दर",
+            "country": "देश",
+            "reports": {
+                "title": "रिपोर्ट्स",
+                "description": "अपने प्लेटफ़ॉर्म के लिए कस्टम रिपोर्ट बनाएँ और शेड्यूल करें",
+                "userActivity": "उपयोगकर्ता गतिविधि रिपोर्ट",
+                "userActivityDesc": "उपयोगकर्ता पंजीकरण, लॉगिन और सहभागिता की विस्तृत रिपोर्ट",
+                "salesReport": "बिक्री रिपोर्ट",
+                "salesReportDesc": "बिक्री, राजस्व और लेन-देन का व्यापक विश्लेषण",
+                "gamePerformance": "गेम प्रदर्शन रिपोर्ट",
+                "gamePerformanceDesc": "गेम डाउनलोड, खेलने का समय और समीक्षाओं का विश्लेषण",
+                "scheduledReports": "शेड्यूल्ड रिपोर्ट्स",
+                "scheduledReportsDesc": "अपने इनबॉक्स में स्वचालित रिपोर्ट सेट करें",
+                "customReport": "कस्टम रिपोर्ट",
+                "customReportDesc": "आवश्यक मेट्रिक्स के साथ कस्टम रिपोर्ट बनाएँ",
+                "generate": "रिपोर्ट जनरेट करें",
+                "manage": "शेड्यूल प्रबंधित करें",
+                "create": "कस्टम रिपोर्ट बनाएँ"
+            },
+            "charts": {
+                "noData": "कोई डेटा उपलब्ध नहीं",
+                "loading": "चार्ट डेटा लोड हो रहा है...",
+                "loadingTabs": "टैब्स लोड हो रहे हैं...",
+                "loadingFilters": "फ़िल्टर लोड हो रहे हैं...",
+                "loadingMetrics": "मेट्रिक्स लोड हो रहे हैं...",
+                "loadingDateRange": "तिथि सीमा चयनकर्ता लोड हो रहा है...",
+                "period": "अवधि",
+                "value": "मूल्य",
+                "count": "संख्या",
+                "date": "तिथि",
+                "total": "कुल",
+                "daily": "दैनिक",
+                "weekly": "साप्ताहिक",
+                "monthly": "मासिक",
+                "yearly": "वार्षिक",
+                "playTime": "खेलने का समय (घंटे)",
+                "downloads": "डाउनलोड",
+                "revenue": "राजस्व ($)",
+                "sales": "बिक्री"
+            },
+            "export": {
+                "title": "डेटा निर्यात करें",
+                "csv": "CSV के रूप में निर्यात करें",
+                "json": "JSON के रूप में निर्यात करें",
+                "pdf": "PDF के रूप में निर्यात करें",
+                "preparing": "निर्यात तैयार हो रहा है...",
+                "success": "निर्यात सफल",
+                "error": "निर्यात विफल"
+            }
+        },
+        "auditLogs": {
+            "title": "ऑडिट लॉग्स",
+            "subtitle": "प्लेटफ़ॉर्म पर सभी प्रशासनिक क्रियाओं को ट्रैक करें",
+            "exportLogs": "लॉग्स निर्यात करें",
+            "search": {
+                "placeholder": "क्रिया, इकाई या उपयोगकर्ता से लॉग्स खोजें",
+                "search": "खोजें"
+            },
+            "filters": {
+                "action": "क्रिया",
+                "entityType": "इकाई प्रकार",
+                "user": "उपयोगकर्ता",
+                "dateRange": "तिथि सीमा",
+                "from": "से",
+                "to": "तक",
+                "apply": "लागू करें",
+                "clear": "फ़िल्टर साफ़ करें"
+            },
+            "table": {
+                "timestamp": "समय",
+                "user": "उपयोगकर्ता",
+                "action": "क्रिया",
+                "entity": "इकाई",
+                "details": "विवरण",
+                "system": "सिस्टम",
+                "viewDetails": "विवरण देखें",
+                "noDetails": "कोई विवरण नहीं"
+            },
+            "actionsReference": "क्रिया अनुवाद के लिए admin.actions देखें",
+            "entityTypesReference": "इकाई प्रकार अनुवाद के लिए admin.entityTypes देखें",
+            "noLogsFound": "कोई ऑडिट लॉग नहीं मिला",
+            "tryDifferentFilters": "अलग खोज शब्द या फ़िल्टर आज़माएँ",
+            "pagination": {
+                "showing": "{total} में से {from} से {to} दिखाए जा रहे हैं",
+                "page": "पृष्ठ {current} / {total}"
+            }
+        },
+        "notifications": {
+            "title": "सूचनाएँ",
+            "subtitle": "सिस्टम सूचनाएँ और उपयोगकर्ता संचार प्रबंधित करें",
+            "tabs": {
+                "notifications": "सिस्टम सूचनाएँ",
+                "send": "सूचना भेजें",
+                "settings": "सूचना सेटिंग्स"
+            },
+            "systemNotifications": "सिस्टम सूचनाएँ",
+            "markAllAsRead": "सभी को पढ़ा हुआ चिह्नित करें",
+            "noNotifications": "कोई सूचना नहीं",
+            "allClear": "आप सभी अपडेट से अवगत हैं!",
+            "sendNotification": "सूचना भेजें",
+            "notificationSettings": "सूचना सेटिंग्स",
+            "channels": "सूचना चैनल",
+            "events": "सूचना इवेंट्स",
+            "digestSettings": "डाइजेस्ट सेटिंग्स",
+            "settings": {
+                "email": "ईमेल सूचनाएँ",
+                "push": "पुश सूचनाएँ",
+                "inApp": "ऐप में सूचनाएँ",
+                "newUser": "नया उपयोगकर्ता पंजीकरण",
+                "newPurchase": "नई खरीद",
+                "newReview": "नई समीक्षा",
+                "systemEvents": "सिस्टम इवेंट्स",
+                "digestFrequency": "डाइजेस्ट आवृत्ति",
+                "realtime": "रियल-टाइम",
+                "hourly": "प्रति घंटा",
+                "daily": "दैनिक",
+                "weekly": "साप्ताहिक",
+                "saveSettings": "सेटिंग्स सहेजें"
+            },
+            "form": {
+                "title": "सूचना शीर्षक",
+                "message": "सूचना संदेश",
+                "type": "सूचना प्रकार",
+                "types": {
+                    "info": "सूचना",
+                    "success": "सफलता",
+                    "warning": "चेतावनी",
+                    "error": "त्रुटि"
+                },
+                "targetGroup": "लक्षित उपयोगकर्ता",
+                "users": "उपयोगकर्ता",
+                "scheduledDate": "निर्धारित तिथि",
+                "optional": "वैकल्पिक",
+                "scheduledDateHelp": "तुरंत भेजने के लिए खाली छोड़ें",
+                "deliveryChannels": "वितरण चैनल",
+                "inApp": "ऐप में सूचना",
+                "email": "ईमेल",
+                "push": "पुश सूचना",
+                "send": "सूचना भेजें",
+                "sending": "भेजा जा रहा है...",
+                "sendSuccess": "सूचना सफलतापूर्वक भेजी गई"
+            }
+        },
+        "settings": {
+            "title": "सेटिंग्स",
+            "subtitle": "प्लेटफ़ॉर्म सेटिंग्स और एकीकरण कॉन्फ़िगर करें",
+            "tabs": {
+                "system": "सिस्टम",
+                "notifications": "सूचनाएँ",
+                "integrations": "एकीकरण",
+                "permissions": "अनुमतियाँ"
+            },
+            "save": "परिवर्तन सहेजें",
+            "saving": "सहेजा जा रहा है...",
+            "reset": "रीसेट",
+            "saveSuccess": "सेटिंग्स सफलतापूर्वक सहेजी गईं",
+            "system": {
+                "title": "सिस्टम सेटिंग्स",
+                "description": "सामान्य प्लेटफ़ॉर्म सेटिंग्स कॉन्फ़िगर करें",
+                "siteInfo": "साइट जानकारी",
+                "siteName": "साइट नाम",
+                "siteDescription": "साइट विवरण",
+                "maintenance": "रखरखाव मोड",
+                "enableMaintenance": "रखरखाव मोड सक्षम करें",
+                "maintenanceMessage": "रखरखाव संदेश",
+                "userSettings": "उपयोगकर्ता सेटिंग्स",
+                "allowRegistration": "उपयोगकर्ता पंजीकरण की अनुमति दें",
+                "defaultRole": "डिफ़ॉल्ट उपयोगकर्ता भूमिका",
+                "roles": {
+                    "user": "उपयोगकर्ता",
+                    "publisher": "प्रकाशक",
+                    "developer": "डेवलपर"
+                },
+                "sessionTimeout": "सत्र समय समाप्ति",
+                "minutes": "मिनट",
+                "appearance": "दिखावट",
+                "defaultLanguage": "डिफ़ॉल्ट भाषा",
+                "defaultTheme": "डिफ़ॉल्ट थीम",
+                "themes": {
+                    "light": "हल्का",
+                    "dark": "गहरा",
+                    "system": "सिस्टम डिफ़ॉल्ट"
+                },
+                "maxUploadSize": "अधिकतम अपलोड आकार",
+                "megabytes": "एमबी",
+                "showPassword": "पासवर्ड दिखाएँ",
+                "hidePassword": "पासवर्ड छिपाएँ"
+            },
+            "notifications": {
+                "title": "सूचना सेटिंग्स",
+                "description": "उपयोगकर्ताओं और प्रशासकों को सूचनाएँ कैसे भेजी जाएँ, यह कॉन्फ़िगर करें",
+                "emailSettings": "ईमेल सेटिंग्स",
+                "enableEmail": "ईमेल सूचनाएँ सक्षम करें",
+                "adminEmail": "प्रशासक ईमेल पता",
+                "emailProvider": "ईमेल प्रदाता",
+                "fromName": "प्रेषक नाम",
+                "fromAddress": "प्रेषक ईमेल पता",
+                "sendTestEmail": "टेस्ट ईमेल भेजें",
+                "testEmailSent": "टेस्ट ईमेल सफलतापूर्वक भेजा गया",
+                "events": "सूचना इवेंट्स",
+                "newUser": "नया उपयोगकर्ता पंजीकरण",
+                "newPurchase": "नई खरीद",
+                "newReview": "नई समीक्षा",
+                "systemErrors": "सिस्टम त्रुटियाँ",
+                "discordSettings": "डिस्कॉर्ड एकीकरण",
+                "enableDiscord": "डिस्कॉर्ड सूचनाएँ सक्षम करें",
+                "webhookUrl": "डिस्कॉर्ड वेबहुक URL"
+            },
+            "integrations": {
+                "title": "एकीकरण सेटिंग्स",
+                "description": "थर्ड-पार्टी एकीकरण और API कॉन्फ़िगर करें",
+                "analytics": "विश्लेषण",
+                "googleAnalyticsId": "Google Analytics ID",
+                "googleAnalyticsHelp": "अपना Google Analytics ट्रैकिंग ID दर्ज करें",
+                "recaptcha": "reCAPTCHA",
+                "recaptchaSiteKey": "साइट कुंजी",
+                "recaptchaSecretKey": "गुप्त कुंजी",
+                "payments": "भुगतान प्रसंस्करण",
+                "stripePublicKey": "Stripe पब्लिक कुंजी",
+                "stripeSecretKey": "Stripe गुप्त कुंजी",
+                "stripeHelp": "क्रेडिट कार्ड भुगतान प्रसंस्करण के लिए उपयोग किया जाता है",
+                "blockchain": "ब्लॉकचेन",
+                "polygonRpcUrl": "Polygon RPC URL",
+                "ipfsGateway": "IPFS गेटवे",
+                "ipfsApiKey": "IPFS API कुंजी",
+                "showSecret": "गुप्त दिखाएँ",
+                "hideSecret": "गुप्त छिपाएँ"
+            },
+            "permissions": {
+                "title": "भूमिका अनुमतियाँ",
+                "description": "प्लेटफ़ॉर्म के लिए भूमिका-आधारित पहुँच नियंत्रण प्रबंधित करें। निर्धारित करें कि कौन सी भूमिकाओं को विशिष्ट सुविधाओं और क्रियाओं तक पहुँच है।",
+                "manageUsers": "उपयोगकर्ता प्रबंधित करें"
+            },
+            "quickSettings": {
+                "backups": "डेटाबेस बैकअप",
+                "lastBackup": "अंतिम बैकअप",
+                "createBackup": "बैकअप बनाएँ",
+                "payments": "भुगतान गेटवे",
+                "paymentStatus": "स्थिति",
+                "configurePayments": "कॉन्फ़िगर करें",
+                "domains": "डोमेन सेटिंग्स",
+                "primaryDomain": "प्राथमिक डोमेन",
+                "manageDomains": "डोमेन प्रबंधित करें",
+                "notifications": "सूचना चैनल",
+                "notificationCount": "सक्रिय चैनल",
+                "configureNotifications": "कॉन्फ़िगर करें"
+            }
+        },
+        "common": {
+            "adminSpecific": {
+                "loadingData": "डेटा लोड हो रहा है...",
+                "processingRequest": "अनुरोध प्रसंस्करण...",
+                "success": "सफलता!",
+                "confirmAction": "क्रिया की पुष्टि करें",
+                "areYouSure": "क्या आप सुनिश्चित हैं?",
+                "thisActionCannot": "इस क्रिया को पूर्ववत नहीं किया जा सकता",
+                "yes": "हाँ",
+                "no": "नहीं"
+            }
+        }
+    }
+}

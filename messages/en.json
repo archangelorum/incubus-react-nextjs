@@ -1,4 +1,11 @@
 {
+  "_metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-03-27",
+    "language": "en",
+    "languageName": "English",
+    "maintainer": "Incubus Team"
+  },
   "common": {
     "appName": "Incubus",
     "tagline": "The Future of Game Distribution",
@@ -245,5 +252,694 @@
     "cookies": "Cookie Policy",
     "copyright": "© {year} Incubus. All rights reserved.",
     "followUs": "Follow Us"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "logout": "Logout",
+    "actions": {
+      "created": "created",
+      "updated": "updated",
+      "deleted": "deleted",
+      "published": "published",
+      "unpublished": "unpublished",
+      "approved": "approved",
+      "rejected": "rejected",
+      "purchased": "purchased",
+      "registered": "registered",
+      "logged_in": "logged in",
+      "logged_out": "logged out",
+      "deposited": "deposited to",
+      "withdrew": "withdrew from",
+      "system_update": "performed",
+      "reviewed": "reviewed",
+      "user_login": "logged in to",
+      "user_logout": "logged out from",
+      "user_created": "created",
+      "user_updated": "updated",
+      "user_deleted": "deleted",
+      "game_created": "created",
+      "game_updated": "updated",
+      "game_deleted": "deleted",
+      "transaction_created": "created",
+      "settings_updated": "updated",
+      "permission_granted": "granted permission to",
+      "permission_revoked": "revoked permission from",
+      "refresh": "refresh"
+    },
+    "entityTypes": {
+      "user": "user",
+      "game": "game",
+      "wallet": "wallet",
+      "transaction": "transaction",
+      "review": "review",
+      "system": "system maintenance",
+      "publisher": "publisher",
+      "developer": "developer",
+      "gamelicense": "game license",
+      "gameversion": "game version",
+      "gameitem": "game item",
+      "organization": "organization",
+      "setting": "setting",
+      "dispute": "dispute",
+      "proposal": "proposal",
+      "marketplace": "marketplace",
+      "escrow": "escrow",
+      "blockchain": "blockchain",
+      "nftcollection": "NFT collection",
+      "smartcontract": "smart contract",
+      "compliance": "compliance policy"
+    },
+    "roles": {
+      "admin": "Administrator",
+      "user": "User",
+      "publisher": "Publisher",
+      "developer": "Developer",
+      "moderator": "Moderator"
+    },
+    "header": {
+      "notifications": "Notifications",
+      "noNewNotifications": "No new notifications",
+      "viewAllNotifications": "View all notifications",
+      "profile": "Your Profile",
+      "settings": "Settings",
+      "logout": "Sign Out",
+      "toggleSidebar": "Toggle Sidebar",
+      "searchPlaceholder": "Search...",
+      "darkMode": "Switch to Dark Mode",
+      "lightMode": "Switch to Light Mode"
+    },
+    "navigation": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "moderation": "Moderation",
+      "monitoring": "Monitoring",
+      "analytics": "Analytics",
+      "auditLogs": "Audit Logs",
+      "notifications": "Notifications",
+      "settings": "Settings"
+    },
+    "sidebar": {
+      "openSidebar": "Open sidebar",
+      "closeSidebar": "Close sidebar",
+      "home": "Home"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Overview of your platform's performance and activity",
+      "actions": {
+        "refresh": "Refresh",
+        "refreshing": "Refreshing...",
+        "lastUpdated": "Last updated: {time}",
+        "dataUpdated": "Dashboard data updated"
+      },
+      "metrics": {
+        "users": "Total Users",
+        "games": "Total Games",
+        "revenue": "Total Revenue",
+        "wallets": "Active Wallets",
+        "fromPrevious": "from previous period",
+        "newThisWeek": "new this week",
+        "totalSales": "total sales",
+        "transactions": "transactions"
+      },
+      "quickLinks": {
+        "manageUsers": "Manage Users",
+        "manageUsersDesc": "View and manage user accounts",
+        "moderateContent": "Moderate Content",
+        "moderateContentDesc": "Review and approve content",
+        "viewAnalytics": "View Analytics",
+        "viewAnalyticsDesc": "See detailed platform metrics",
+        "configureSettings": "Configure Settings",
+        "configureSettingsDesc": "Adjust platform configuration"
+      },
+      "recentActivity": "Recent Activity",
+      "viewAllActivity": "View all activity"
+    },
+    "activityLog": {
+      "system": "System",
+      "action": "{action} a {entityType}",
+      "actionWithName": "{action} {entityType} \"{entityName}\"",
+      "timestamp": "Timestamp",
+      "viewDetails": "View details",
+      "noActivity": "No recent activity",
+      "checkBackLater": "Check back later for updates",
+      "justNow": "Just now",
+      "minutesAgo": "{minutes} min ago",
+      "hoursAgo": "{hours} hr ago",
+      "daysAgo": "{days} day ago",
+      "daysAgoPlural": "{days} days ago",
+      "relativeTime": {
+        "justNow": "Just now",
+        "minutesAgo": "{minutes} min ago",
+        "hoursAgo": "{hours} hr ago",
+        "daysAgo": "{days} day ago",
+        "daysAgoPlural": "{days} days ago"
+      },
+      "entityId": "ID",
+      "actionReference": "See admin.actions for action translations",
+      "entityTypeReference": "See admin.entityTypes for entity type translations"
+    },
+    "users": {
+      "title": "User Management",
+      "subtitle": "View and manage user accounts",
+      "search": {
+        "placeholder": "Search users by name, email, or ID",
+        "search": "Search",
+        "clear": "Clear",
+        "filterByRole": "Filter by role",
+        "noRolesFound": "No roles found"
+      },
+      "filters": {
+        "role": "Role",
+        "status": "Status",
+        "dateJoined": "Date Joined",
+        "from": "From",
+        "to": "To",
+        "apply": "Apply",
+        "clear": "Clear Filters"
+      },
+      "table": {
+        "user": "User",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "joined": "Joined",
+        "actions": "Actions",
+        "activity": "Last Activity"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "suspended": "Suspended",
+        "pending": "Pending"
+      },
+      "roles": {
+        "user": "Regular User",
+        "admin": "Administrator"
+      },
+      "actions": {
+        "view": "View Profile",
+        "edit": "Edit User",
+        "suspend": "Suspend User",
+        "activate": "Activate User",
+        "delete": "Delete User",
+        "confirmDelete": "Confirm Delete?",
+        "ban": "Ban User",
+        "confirmBan": "Confirm Ban?",
+        "unban": "Unban User",
+        "promoteToAdmin": "Promote to Admin",
+        "removeAdminRole": "Remove Admin Role",
+        "impersonate": "Impersonate",
+        "createUser": "Create User",
+        "options": "User Options"
+      },
+      "noUsersFound": "No users found",
+      "tryDifferentFilters": "Try different search terms or filters",
+      "pagination": {
+        "showing": "Showing {from} to {to} of {total} users",
+        "page": "Page {current} of {total}"
+      }
+    },
+    "moderation": {
+      "title": "Content Moderation",
+      "subtitle": "Review and manage content across the platform",
+      "tabs": {
+        "games": "Games",
+        "reviews": "Reviews",
+        "reports": "Reports",
+        "disputes": "Disputes"
+      },
+      "filters": {
+        "statusLabel": "Status",
+        "type": "Type",
+        "typeLabel": "Type",
+        "dateSubmitted": "Date Submitted",
+        "from": "From",
+        "to": "To",
+        "apply": "Apply",
+        "clear": "Clear Filters",
+        "clearType": "Show All Types",
+        "status": {
+          "pending": "Pending Review",
+          "approved": "Approved",
+          "rejected": "Rejected",
+          "open": "Open",
+          "underReview": "Under Review",
+          "resolved": "Resolved",
+          "closed": "Closed"
+        }
+      },
+      "reviews": {
+        "title": "Content Reviews",
+        "count": "reviews",
+        "noReviews": "No reviews to moderate",
+        "allClear": "All reviews have been processed"
+      },
+      "reports": {
+        "title": "Reported Content",
+        "count": "reports",
+        "noReports": "No reports to review",
+        "allClear": "All reports have been processed",
+        "reporter": "Reporter",
+        "reported": "Reported User",
+        "relatedTo": "Related to",
+        "types": {
+          "spam": "Spam",
+          "inappropriate": "Inappropriate Content",
+          "copyright": "Copyright Violation",
+          "abuse": "Abuse/Harassment",
+          "fraud": "Fraud",
+          "other": "Other",
+          "content": "Content Issue",
+          "transaction": "Transaction Issue",
+          "user_behavior": "User Behavior"
+        }
+      },
+      "actions": {
+        "refresh": "Refresh",
+        "view": "View Details",
+        "approve": "Approve",
+        "reject": "Reject",
+        "flag": "Flag",
+        "delete": "Delete"
+      },
+      "search": {
+        "placeholder": "Search by title, ID, or user",
+        "search": "Search"
+      },
+      "statusReference": "See filters.status for status translations",
+      "table": {
+        "item": "Item",
+        "submittedBy": "Submitted By",
+        "dateSubmitted": "Date Submitted",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "noItemsFound": "No items found",
+      "tryDifferentFilters": "Try different filters or check back later",
+      "pagination": {
+        "showing": "Showing {from} to {to} of {total} items",
+        "page": "Page {current} of {total}"
+      }
+    },
+    "monitoring": {
+      "title": "System Monitoring",
+      "subtitle": "Monitor system health and performance",
+      "lastUpdated": "Last updated",
+      "actions": {
+        "refresh": "Refresh",
+        "refreshing": "Refreshing...",
+        "dataUpdated": "System data updated"
+      },
+      "server": {
+        "title": "Server",
+        "uptime": "Uptime"
+      },
+      "database": {
+        "title": "Database",
+        "queries": "Queries"
+      },
+      "api": {
+        "title": "API",
+        "performance": "API Performance",
+        "requestsPerMinute": "requests/min",
+        "avgResponseTime": "Avg Response Time",
+        "errorRate": "Error Rate",
+        "topEndpoints": "Top Endpoints",
+        "requests": "requests",
+        "errors": "errors"
+      },
+      "blockchain": {
+        "title": "Blockchain",
+        "syncStatus": {
+          "synced": "Synced",
+          "syncing": "Syncing",
+          "failed": "Sync Failed"
+        }
+      },
+      "status": {
+        "healthy": "Healthy",
+        "warning": "Warning",
+        "critical": "Critical"
+      },
+      "resources": {
+        "title": "Resource Usage",
+        "cpu": "CPU Usage",
+        "memory": "Memory Usage",
+        "disk": "Disk Usage"
+      },
+      "charts": {
+        "resourceUsage": "Resource Usage Over Time",
+        "apiPerformance": "API Performance",
+        "noData": "No data available",
+        "series": {
+          "cpu": "CPU",
+          "memory": "Memory",
+          "requests": "Requests",
+          "responseTime": "Response Time"
+        }
+      },
+      "errors": {
+        "title": "Error Logs",
+        "viewAll": "View all logs",
+        "source": "Source",
+        "occurrences": "Occurrences",
+        "lastSeen": "Last seen",
+        "stackTrace": "Stack Trace",
+        "firstSeen": "First seen",
+        "noErrors": "No errors found",
+        "allClear": "All systems are running smoothly",
+        "levels": {
+          "error": "Error",
+          "warning": "Warning",
+          "info": "Info"
+        }
+      }
+    },
+    "analytics": {
+      "title": "Analytics",
+      "subtitle": "Detailed insights into platform performance",
+      "exportData": "Export Data",
+      "dateRange": {
+        "today": "Today",
+        "last7Days": "Last 7 Days",
+        "last30Days": "Last 30 Days",
+        "last12Months": "Last 12 Months",
+        "custom": "Custom Range",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "apply": "Apply",
+        "dataUpdated": "Data updated"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "users": "Users",
+        "sales": "Sales",
+        "games": "Games",
+        "reports": "Reports"
+      },
+      "metrics": {
+        "totalUsers": "Total Users",
+        "newUsers": "New Users",
+        "activeUsers": "Active Users",
+        "totalRevenue": "Total Revenue",
+        "totalSales": "Total Sales",
+        "averageOrderValue": "Avg Order Value",
+        "totalGames": "Total Games",
+        "totalDownloads": "Total Downloads",
+        "conversionRate": "Conversion Rate",
+        "fromPrevious": "from previous period"
+      },
+      "users": {
+        "title": "User Analytics",
+        "short": "User",
+        "detailedTitle": "Detailed User Analytics",
+        "newUsers": "New Users",
+        "activeUsers": "Active Users",
+        "count": "User Count"
+      },
+      "sales": {
+        "title": "Sales Analytics",
+        "short": "Sales",
+        "detailedTitle": "Detailed Sales Analytics",
+        "revenue": "Revenue",
+        "orders": "Orders",
+        "amount": "Amount",
+        "note": "Revenue is shown in USD and includes all transaction fees"
+      },
+      "games": {
+        "title": "Game Analytics",
+        "detailedTitle": "Detailed Game Analytics",
+        "downloads": "Downloads",
+        "playTime": "Play Time",
+        "count": "Count",
+        "topGenres": "Top Genres",
+        "platformStats": "Platform Stats"
+      },
+      "topGames": "Top Performing Games",
+      "topCountries": "Top Countries",
+      "game": "Game",
+      "revenue": "Revenue",
+      "downloads": "Downloads",
+      "conversionRate": "Conversion Rate",
+      "country": "Country",
+      "reports": {
+        "title": "Reports",
+        "description": "Generate and schedule custom reports for your platform",
+        "userActivity": "User Activity Report",
+        "userActivityDesc": "Detailed report on user registrations, logins, and engagement",
+        "salesReport": "Sales Report",
+        "salesReportDesc": "Comprehensive breakdown of sales, revenue, and transactions",
+        "gamePerformance": "Game Performance Report",
+        "gamePerformanceDesc": "Analysis of game downloads, play time, and reviews",
+        "scheduledReports": "Scheduled Reports",
+        "scheduledReportsDesc": "Set up automated reports delivered to your inbox",
+        "customReport": "Custom Report",
+        "customReportDesc": "Build a custom report with the metrics you need",
+        "generate": "Generate Report",
+        "manage": "Manage Schedules",
+        "create": "Create Custom Report"
+      },
+      "charts": {
+        "noData": "No data available",
+        "loading": "Loading chart data...",
+        "loadingTabs": "Loading tabs...",
+        "loadingFilters": "Loading filters...",
+        "loadingMetrics": "Loading metrics...",
+        "loadingDateRange": "Loading date range selector...",
+        "period": "Period",
+        "value": "Value",
+        "count": "Count",
+        "date": "Date",
+        "total": "Total",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "playTime": "Play Time (hours)",
+        "downloads": "Downloads",
+        "revenue": "Revenue ($)",
+        "sales": "Sales"
+      },
+      "export": {
+        "title": "Export Data",
+        "csv": "Export as CSV",
+        "json": "Export as JSON",
+        "pdf": "Export as PDF",
+        "preparing": "Preparing export...",
+        "success": "Export successful",
+        "error": "Export failed"
+      }
+    },
+    "auditLogs": {
+      "title": "Audit Logs",
+      "subtitle": "Track all administrative actions on the platform",
+      "exportLogs": "Export Logs",
+      "search": {
+        "placeholder": "Search logs by action, entity, or user",
+        "search": "Search"
+      },
+      "filters": {
+        "action": "Action",
+        "entityType": "Entity Type",
+        "user": "User",
+        "dateRange": "Date Range",
+        "from": "From",
+        "to": "To",
+        "apply": "Apply",
+        "clear": "Clear Filters"
+      },
+      "table": {
+        "timestamp": "Timestamp",
+        "user": "User",
+        "action": "Action",
+        "entity": "Entity",
+        "details": "Details",
+        "system": "System",
+        "viewDetails": "View Details",
+        "noDetails": "No details"
+      },
+      "actionsReference": "See admin.actions for action translations",
+      "entityTypesReference": "See admin.entityTypes for entity type translations",
+      "noLogsFound": "No audit logs found",
+      "tryDifferentFilters": "Try different search terms or filters",
+      "pagination": {
+        "showing": "Showing {from} to {to} of {total} logs",
+        "page": "Page {current} of {total}"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Manage system notifications and user communications",
+      "tabs": {
+        "notifications": "System Notifications",
+        "send": "Send Notification",
+        "settings": "Notification Settings"
+      },
+      "systemNotifications": "System Notifications",
+      "markAllAsRead": "Mark all as read",
+      "noNotifications": "No notifications",
+      "allClear": "You're all caught up!",
+      "sendNotification": "Send Notification",
+      "notificationSettings": "Notification Settings",
+      "channels": "Notification Channels",
+      "events": "Notification Events",
+      "digestSettings": "Digest Settings",
+      "settings": {
+        "email": "Email Notifications",
+        "push": "Push Notifications",
+        "inApp": "In-App Notifications",
+        "newUser": "New User Registration",
+        "newPurchase": "New Purchase",
+        "newReview": "New Review",
+        "systemEvents": "System Events",
+        "digestFrequency": "Digest Frequency",
+        "realtime": "Real-time",
+        "hourly": "Hourly",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "saveSettings": "Save Settings"
+      },
+      "form": {
+        "title": "Notification Title",
+        "message": "Notification Message",
+        "type": "Notification Type",
+        "types": {
+          "info": "Information",
+          "success": "Success",
+          "warning": "Warning",
+          "error": "Error"
+        },
+        "targetGroup": "Target Users",
+        "users": "users",
+        "scheduledDate": "Scheduled Date",
+        "optional": "optional",
+        "scheduledDateHelp": "Leave empty to send immediately",
+        "deliveryChannels": "Delivery Channels",
+        "inApp": "In-App Notification",
+        "email": "Email",
+        "push": "Push Notification",
+        "send": "Send Notification",
+        "sending": "Sending...",
+        "sendSuccess": "Notification sent successfully"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Configure platform settings and integrations",
+      "tabs": {
+        "system": "System",
+        "notifications": "Notifications",
+        "integrations": "Integrations",
+        "permissions": "Permissions"
+      },
+      "save": "Save Changes",
+      "saving": "Saving...",
+      "reset": "Reset",
+      "saveSuccess": "Settings saved successfully",
+      "system": {
+        "title": "System Settings",
+        "description": "Configure general platform settings",
+        "siteInfo": "Site Information",
+        "siteName": "Site Name",
+        "siteDescription": "Site Description",
+        "maintenance": "Maintenance Mode",
+        "enableMaintenance": "Enable Maintenance Mode",
+        "maintenanceMessage": "Maintenance Message",
+        "userSettings": "User Settings",
+        "allowRegistration": "Allow User Registration",
+        "defaultRole": "Default User Role",
+        "roles": {
+          "user": "User",
+          "publisher": "Publisher",
+          "developer": "Developer"
+        },
+        "sessionTimeout": "Session Timeout",
+        "minutes": "minutes",
+        "appearance": "Appearance",
+        "defaultLanguage": "Default Language",
+        "defaultTheme": "Default Theme",
+        "themes": {
+          "light": "Light",
+          "dark": "Dark",
+          "system": "System Default"
+        },
+        "maxUploadSize": "Maximum Upload Size",
+        "megabytes": "MB",
+        "showPassword": "Show password",
+        "hidePassword": "Hide password"
+      },
+      "notifications": {
+        "title": "Notification Settings",
+        "description": "Configure how notifications are sent to users and administrators",
+        "emailSettings": "Email Settings",
+        "enableEmail": "Enable Email Notifications",
+        "adminEmail": "Admin Email Address",
+        "emailProvider": "Email Provider",
+        "fromName": "From Name",
+        "fromAddress": "From Email Address",
+        "sendTestEmail": "Send Test Email",
+        "testEmailSent": "Test email sent successfully",
+        "events": "Notification Events",
+        "newUser": "New User Registration",
+        "newPurchase": "New Purchase",
+        "newReview": "New Review",
+        "systemErrors": "System Errors",
+        "discordSettings": "Discord Integration",
+        "enableDiscord": "Enable Discord Notifications",
+        "webhookUrl": "Discord Webhook URL"
+      },
+      "integrations": {
+        "title": "Integration Settings",
+        "description": "Configure third-party integrations and APIs",
+        "analytics": "Analytics",
+        "googleAnalyticsId": "Google Analytics ID",
+        "googleAnalyticsHelp": "Enter your Google Analytics tracking ID",
+        "recaptcha": "reCAPTCHA",
+        "recaptchaSiteKey": "Site Key",
+        "recaptchaSecretKey": "Secret Key",
+        "payments": "Payment Processing",
+        "stripePublicKey": "Stripe Public Key",
+        "stripeSecretKey": "Stripe Secret Key",
+        "stripeHelp": "Used for processing credit card payments",
+        "blockchain": "Blockchain",
+        "polygonRpcUrl": "Polygon RPC URL",
+        "ipfsGateway": "IPFS Gateway",
+        "ipfsApiKey": "IPFS API Key",
+        "showSecret": "Show secret",
+        "hideSecret": "Hide secret"
+      },
+      "permissions": {
+        "title": "Role Permissions",
+        "description": "Manage role-based access control for the platform. Configure which roles have access to specific features and actions.",
+        "manageUsers": "Manage Users"
+      },
+      "quickSettings": {
+        "backups": "Database Backups",
+        "lastBackup": "Last backup",
+        "createBackup": "Create Backup",
+        "payments": "Payment Gateway",
+        "paymentStatus": "Status",
+        "configurePayments": "Configure",
+        "domains": "Domain Settings",
+        "primaryDomain": "Primary domain",
+        "manageDomains": "Manage Domains",
+        "notifications": "Notification Channels",
+        "notificationCount": "Active channels",
+        "configureNotifications": "Configure"
+      }
+    },
+    "common": {
+      "adminSpecific": {
+        "loadingData": "Loading data...",
+        "processingRequest": "Processing request...",
+        "success": "Success!",
+        "confirmAction": "Confirm Action",
+        "areYouSure": "Are you sure?",
+        "thisActionCannot": "This action cannot be undone",
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
   }
 }

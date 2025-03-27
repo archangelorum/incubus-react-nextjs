@@ -1,0 +1,945 @@
+{
+    "_metadata": {
+        "version": "1.0.0",
+        "lastUpdated": "2025-03-27",
+        "language": "ar",
+        "languageName": "العربية",
+        "maintainer": "فريق إنكوباس"
+    },
+    "common": {
+        "appName": "إنكوباس",
+        "tagline": "مستقبل توزيع الألعاب",
+        "loading": "جاري التحميل...",
+        "error": "حدث خطأ",
+        "retry": "إعادة المحاولة",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "confirm": "تأكيد",
+        "back": "رجوع",
+        "next": "التالي",
+        "previous": "السابق",
+        "search": "بحث",
+        "filter": "تصفية",
+        "sort": "ترتيب",
+        "all": "الكل",
+        "more": "المزيد",
+        "less": "أقل",
+        "viewAll": "عرض الكل",
+        "seeMore": "رؤية المزيد",
+        "seeLess": "رؤية أقل"
+    },
+    "auth": {
+        "signIn": "تسجيل الدخول",
+        "signUp": "التسجيل",
+        "signOut": "تسجيل الخروج",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "forgotPassword": "نسيت كلمة المرور؟",
+        "resetPassword": "إعادة تعيين كلمة المرور",
+        "createAccount": "إنشاء حساب",
+        "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+        "dontHaveAccount": "ليس لديك حساب؟",
+        "continueWith": "المتابعة باستخدام {{provider}}",
+        "orContinueWith": "أو المتابعة باستخدام",
+        "verifyEmail": "التحقق من البريد الإلكتروني",
+        "checkEmail": "تفقد بريدك الإلكتروني للحصول على رابط التحقق",
+        "welcomeBack": "مرحبًا بعودتك",
+        "welcome": "مرحبًا بك في إنكوباس"
+    },
+    "nav": {
+        "home": "الرئيسية",
+        "games": "الألعاب",
+        "marketplace": "السوق",
+        "library": "مكتبتي",
+        "wallet": "المحفظة",
+        "profile": "الملف الشخصي",
+        "settings": "الإعدادات",
+        "help": "المساعدة والدعم",
+        "admin": "لوحة التحكم الإدارية"
+    },
+    "home": {
+        "featuredGames": "الألعاب المميزة",
+        "newReleases": "الإصدارات الجديدة",
+        "topSellers": "الأكثر مبيعًا",
+        "comingSoon": "قريبًا",
+        "browseByGenre": "تصفح حسب النوع",
+        "browseByTag": "تصفح حسب العلامة",
+        "discoverMore": "اكتشف المزيد من الألعاب"
+    },
+    "games": {
+        "allGames": "جميع الألعاب",
+        "releaseDate": "تاريخ الإصدار",
+        "developer": "المطور",
+        "publisher": "الناشر",
+        "genre": "النوع",
+        "genres": "الأنواع",
+        "tags": "العلامات",
+        "price": "السعر",
+        "free": "مجاني",
+        "owned": "مملوك",
+        "addToCart": "إضافة إلى السلة",
+        "addToWishlist": "إضافة إلى قائمة الرغبات",
+        "removeFromWishlist": "إزالة من قائمة الرغبات",
+        "buyNow": "شراء الآن",
+        "playNow": "العب الآن",
+        "download": "تنزيل",
+        "downloadSize": "حجم التنزيل",
+        "version": "الإصدار",
+        "systemRequirements": "متطلبات النظام",
+        "minimum": "الحد الأدنى",
+        "recommended": "موصى به",
+        "description": "الوصف",
+        "reviews": "التقييمات",
+        "writeReview": "كتابة تقييم",
+        "screenshots": "لقطات الشاشة",
+        "trailer": "المقطع الدعائي",
+        "relatedGames": "ألعاب ذات صلة",
+        "moreFromDeveloper": "المزيد من هذا المطور",
+        "moreFromPublisher": "المزيد من هذا الناشر",
+        "contentRating": "تقييم المحتوى",
+        "releaseStatus": {
+            "released": "تم الإصدار",
+            "earlyAccess": "وصول مبكر",
+            "comingSoon": "قريبًا",
+            "beta": "نسخة تجريبية"
+        }
+    },
+    "marketplace": {
+        "browse": "تصفح السوق",
+        "sell": "بيع عنصر",
+        "buy": "شراء",
+        "listings": "العروض",
+        "myListings": "عروضي",
+        "createListing": "إنشاء عرض",
+        "editListing": "تعديل العرض",
+        "removeListing": "حذف العرض",
+        "listingDetails": "تفاصيل العرض",
+        "price": "السعر",
+        "fees": "الرسوم",
+        "royalties": "الحقوق",
+        "youReceive": "المبلغ المستلم",
+        "expiresAt": "ينتهي في",
+        "seller": "البائع",
+        "buyer": "المشتري",
+        "status": {
+            "active": "نشط",
+            "sold": "مباع",
+            "expired": "منتهي الصلاحية",
+            "cancelled": "ملغى"
+        },
+        "filter": {
+            "gameLicenses": "تراخيص الألعاب",
+            "gameItems": "عناصر الألعاب",
+            "bundles": "الحزم",
+            "priceRange": "نطاق السعر",
+            "sortBy": {
+                "newest": "الأحدث أولاً",
+                "oldest": "الأقدم أولاً",
+                "priceAsc": "السعر: من الأقل إلى الأعلى",
+                "priceDesc": "السعر: من الأعلى إلى الأقل",
+                "popularity": "الشعبية"
+            }
+        }
+    },
+    "wallet": {
+        "myWallet": "محفظتي",
+        "balance": "الرصيد",
+        "addFunds": "إضافة أموال",
+        "withdraw": "سحب",
+        "transactions": "المعاملات",
+        "connectWallet": "ربط المحفظة",
+        "disconnectWallet": "قطع اتصال المحفظة",
+        "createWallet": "إنشاء محفظة",
+        "importWallet": "استيراد محفظة",
+        "walletAddress": "عنوان المحفظة",
+        "copyAddress": "نسخ العنوان",
+        "addressCopied": "تم نسخ العنوان إلى الحافظة",
+        "transactionHistory": "سجل المعاملات",
+        "transactionTypes": {
+            "purchase": "شراء",
+            "sale": "بيع",
+            "transfer": "تحويل",
+            "deposit": "إيداع",
+            "withdrawal": "سحب",
+            "fee": "رسوم",
+            "royalty": "حقوق ملكية",
+            "refund": "استرداد"
+        },
+        "transactionStatus": {
+            "pending": "قيد الانتظار",
+            "confirmed": "مؤكد",
+            "failed": "فشل",
+            "cancelled": "ملغى"
+        }
+    },
+    "library": {
+        "myGames": "ألعابي",
+        "myItems": "عناصري",
+        "recentlyPlayed": "لعبت مؤخرًا",
+        "allGames": "جميع الألعاب",
+        "installed": "مثبتة",
+        "notInstalled": "غير مثبتة",
+        "installGame": "تثبيت اللعبة",
+        "uninstallGame": "إلغاء تثبيت اللعبة",
+        "updateAvailable": "تحديث متوفر",
+        "updateGame": "تحديث اللعبة",
+        "playTime": "وقت اللعب",
+        "lastPlayed": "آخر مرة لعبت",
+        "achievements": "الإنجازات",
+        "friends": "الأصدقاء",
+        "friendsWhoPlay": "الأصدقاء الذين يلعبون هذه اللعبة"
+    },
+    "profile": {
+        "myProfile": "ملفي الشخصي",
+        "editProfile": "تعديل الملف",
+        "username": "اسم المستخدم",
+        "bio": "السيرة الذاتية",
+        "avatar": "الصورة الرمزية",
+        "changeAvatar": "تغيير الصورة الرمزية",
+        "joinDate": "تاريخ الانضمام",
+        "gamesOwned": "الألعاب المملوكة",
+        "itemsOwned": "العناصر المملوكة",
+        "achievements": "الإنجازات",
+        "friends": "الأصدقاء",
+        "addFriend": "إضافة صديق",
+        "removeFriend": "إزالة صديق",
+        "blockUser": "حظر مستخدم",
+        "unblockUser": "إلغاء حظر مستخدم",
+        "activity": "النشاط",
+        "recentActivity": "النشاط الحديث"
+    },
+    "settings": {
+        "title": "الإعدادات",
+        "account": "الحساب",
+        "profile": "الملف الشخصي",
+        "privacy": "الخصوصية",
+        "notifications": "الإشعارات",
+        "language": "اللغة",
+        "theme": {
+            "title": "السمة",
+            "light": "فاتحة",
+            "dark": "داكنة",
+            "system": "النظام"
+        },
+        "security": "الأمان",
+        "twoFactorAuth": "المصادقة الثنائية",
+        "changePassword": "تغيير كلمة المرور",
+        "connectedAccounts": "الحسابات المتصلة",
+        "wallets": "المحافظ",
+        "deleteAccount": "حذف الحساب"
+    },
+    "errors": {
+        "general": "حدث خطأ ما",
+        "notFound": "غير موجود",
+        "unauthorized": "غير مصرح",
+        "forbidden": "ممنوع",
+        "serverError": "خطأ في الخادم",
+        "networkError": "خطأ في الشبكة",
+        "pageNotFound": "الصفحة غير موجودة",
+        "resourceNotFound": "الملف غير موجود",
+        "tryAgain": "يرجى المحاولة مرة أخرى"
+    },
+    "footer": {
+        "about": "عننا",
+        "careers": "الوظائف",
+        "press": "الصحافة",
+        "support": "الدعم",
+        "contact": "اتصل بنا",
+        "terms": "شروط الخدمة",
+        "privacy": "سياسة الخصوصية",
+        "cookies": "سياسة الكوكيز",
+        "copyright": "© {year} إنكوباس. جميع الحقوق محفوظة.",
+        "followUs": "تابعنا"
+    },
+    "admin": {
+        "title": "لوحة التحكم الإدارية",
+        "logout": "تسجيل الخروج",
+        "actions": {
+            "created": "تم الإنشاء",
+            "updated": "تم التحديث",
+            "deleted": "تم الحذف",
+            "published": "تم النشر",
+            "unpublished": "تم إلغاء النشر",
+            "approved": "تمت الموافقة",
+            "rejected": "تم الرفض",
+            "purchased": "تم الشراء",
+            "registered": "تم التسجيل",
+            "logged_in": "تم تسجيل الدخول",
+            "logged_out": "تم تسجيل الخروج",
+            "deposited": "تم الإيداع إلى",
+            "withdrew": "تم السحب من",
+            "system_update": "تم تنفيذ",
+            "reviewed": "تم التقييم",
+            "user_login": "تم تسجيل الدخول إلى",
+            "user_logout": "تم تسجيل الخروج من",
+            "user_created": "تم إنشاء",
+            "user_updated": "تم تحديث",
+            "user_deleted": "تم حذف",
+            "game_created": "تم إنشاء لعبة",
+            "game_updated": "تم تحديث لعبة",
+            "game_deleted": "تم حذف لعبة",
+            "transaction_created": "تم إنشاء معاملة",
+            "settings_updated": "تم تحديث الإعدادات",
+            "permission_granted": "تم منح الإذن لـ",
+            "permission_revoked": "تم سحب الإذن من",
+            "refresh": "تحديث"
+        },
+        "entityTypes": {
+            "user": "مستخدم",
+            "game": "لعبة",
+            "wallet": "محفظة",
+            "transaction": "معاملة",
+            "review": "تقييم",
+            "system": "صيانة النظام",
+            "publisher": "ناشر",
+            "developer": "مطور",
+            "gamelicense": "ترخيص لعبة",
+            "gameversion": "إصدار لعبة",
+            "gameitem": "عنصر لعبة",
+            "organization": "منظمة",
+            "setting": "إعداد",
+            "dispute": "نزاع",
+            "proposal": "اقتراح",
+            "marketplace": "السوق",
+            "escrow": "ضمان",
+            "blockchain": "بلوك تشين",
+            "nftcollection": "مجموعة NFT",
+            "smartcontract": "عقد ذكي",
+            "compliance": "سياسة الامتثال"
+        },
+        "roles": {
+            "admin": "مسؤول",
+            "user": "مستخدم",
+            "publisher": "ناشر",
+            "developer": "مطور",
+            "moderator": "مشرف"
+        },
+        "header": {
+            "notifications": "الإشعارات",
+            "noNewNotifications": "لا توجد إشعارات جديدة",
+            "viewAllNotifications": "عرض جميع الإشعارات",
+            "profile": "ملفك الشخصي",
+            "settings": "الإعدادات",
+            "logout": "تسجيل الخروج",
+            "toggleSidebar": "تبديل الشريط الجانبي",
+            "searchPlaceholder": "بحث...",
+            "darkMode": "التبديل إلى الوضع الداكن",
+            "lightMode": "التبديل إلى الوضع الفاتح"
+        },
+        "navigation": {
+            "dashboard": "لوحة التحكم",
+            "users": "المستخدمون",
+            "moderation": "الإشراف",
+            "monitoring": "المراقبة",
+            "analytics": "التحليلات",
+            "auditLogs": "سجلات التدقيق",
+            "notifications": "الإشعارات",
+            "settings": "الإعدادات"
+        },
+        "sidebar": {
+            "openSidebar": "فتح الشريط الجانبي",
+            "closeSidebar": "إغلاق الشريط الجانبي",
+            "home": "الرئيسية"
+        },
+        "dashboard": {
+            "title": "لوحة التحكم",
+            "subtitle": "نظرة عامة على أداء المنصة والأنشطة",
+            "actions": {
+                "refresh": "تحديث",
+                "refreshing": "جاري التحديث...",
+                "lastUpdated": "آخر تحديث: {time}",
+                "dataUpdated": "تم تحديث بيانات لوحة التحكم"
+            },
+            "metrics": {
+                "users": "إجمالي المستخدمين",
+                "games": "إجمالي الألعاب",
+                "revenue": "إجمالي الإيرادات",
+                "wallets": "المحافظ النشطة",
+                "fromPrevious": "مقارنة بالفترة السابقة",
+                "newThisWeek": "جديد هذا الأسبوع",
+                "totalSales": "إجمالي المبيعات",
+                "transactions": "المعاملات"
+            },
+            "quickLinks": {
+                "manageUsers": "إدارة المستخدمين",
+                "manageUsersDesc": "عرض وإدارة حسابات المستخدمين",
+                "moderateContent": "الإشراف على المحتوى",
+                "moderateContentDesc": "مراجعة المحتوى والموافقة عليه",
+                "viewAnalytics": "عرض التحليلات",
+                "viewAnalyticsDesc": "رؤية مقاييس المنصة التفصيلية",
+                "configureSettings": "تكوين الإعدادات",
+                "configureSettingsDesc": "ضبط إعدادات المنصة"
+            },
+            "recentActivity": "النشاط الأخير",
+            "viewAllActivity": "عرض كل النشاطات"
+        },
+        "activityLog": {
+            "system": "النظام",
+            "action": "تم {action} {entityType}",
+            "actionWithName": "تم {action} {entityType} \"{entityName}\"",
+            "timestamp": "الوقت",
+            "viewDetails": "عرض التفاصيل",
+            "noActivity": "لا يوجد نشاط حديث",
+            "checkBackLater": "ارجع لاحقًا للتحديثات",
+            "justNow": "الآن",
+            "minutesAgo": "قبل {minutes} دقيقة",
+            "hoursAgo": "قبل {hours} ساعة",
+            "daysAgo": "قبل {days} يوم",
+            "daysAgoPlural": "قبل {days} أيام",
+            "relativeTime": {
+                "justNow": "الآن",
+                "minutesAgo": "قبل {minutes} دقيقة",
+                "hoursAgo": "قبل {hours} ساعة",
+                "daysAgo": "قبل {days} يوم",
+                "daysAgoPlural": "قبل {days} أيام"
+            },
+            "entityId": "المعرف",
+            "actionReference": "انظر admin.actions لترجمة الإجراءات",
+            "entityTypeReference": "انظر admin.entityTypes لترجمة أنواع الكيانات"
+        },
+        "users": {
+            "title": "إدارة المستخدمين",
+            "subtitle": "عرض وإدارة حسابات المستخدمين",
+            "search": {
+                "placeholder": "البحث عن مستخدمين بالاسم، البريد، أو المعرف",
+                "search": "بحث",
+                "clear": "مسح",
+                "filterByRole": "تصفية حسب الدور",
+                "noRolesFound": "لا توجد أدوار"
+            },
+            "filters": {
+                "role": "الدور",
+                "status": "الحالة",
+                "dateJoined": "تاريخ الانضمام",
+                "from": "من",
+                "to": "إلى",
+                "apply": "تطبيق",
+                "clear": "مسح الفلاتر"
+            },
+            "table": {
+                "user": "المستخدم",
+                "email": "البريد الإلكتروني",
+                "role": "الدور",
+                "status": "الحالة",
+                "joined": "تاريخ الانضمام",
+                "actions": "الإجراءات",
+                "activity": "آخر نشاط"
+            },
+            "status": {
+                "active": "نشط",
+                "inactive": "غير نشط",
+                "suspended": "معلّق",
+                "pending": "قيد الانتظار"
+            },
+            "roles": {
+                "user": "مستخدم عادي",
+                "admin": "مسؤول"
+            },
+            "actions": {
+                "view": "عرض الملف",
+                "edit": "تعديل المستخدم",
+                "suspend": "تعليق المستخدم",
+                "activate": "تفعيل المستخدم",
+                "delete": "حذف المستخدم",
+                "confirmDelete": "تأكيد الحذف؟",
+                "ban": "حظر المستخدم",
+                "confirmBan": "تأكيد الحظر؟",
+                "unban": "رفع الحظر",
+                "promoteToAdmin": "ترقية إلى مسؤول",
+                "removeAdminRole": "إزالة دور المسؤول",
+                "impersonate": "انتحال الهوية",
+                "createUser": "إنشاء مستخدم",
+                "options": "خيارات المستخدم"
+            },
+            "noUsersFound": "لا توجد نتائج",
+            "tryDifferentFilters": "جرب مصطلحات بحث أو فلاتر مختلفة",
+            "pagination": {
+                "showing": "عرض {from} إلى {to} من {total} مستخدمين",
+                "page": "الصفحة {current} من {total}"
+            }
+        },
+        "moderation": {
+            "title": "الإشراف على المحتوى",
+            "subtitle": "مراجعة وإدارة المحتوى عبر المنصة",
+            "tabs": {
+                "games": "الألعاب",
+                "reviews": "التقييمات",
+                "reports": "البلاغات",
+                "disputes": "النزاعات"
+            },
+            "filters": {
+                "statusLabel": "الحالة",
+                "type": "النوع",
+                "typeLabel": "النوع",
+                "dateSubmitted": "تاريخ الإرسال",
+                "from": "من",
+                "to": "إلى",
+                "apply": "تطبيق",
+                "clear": "مسح الفلاتر",
+                "clearType": "عرض جميع الأنواع",
+                "status": {
+                    "pending": "قيد المراجعة",
+                    "approved": "مقبول",
+                    "rejected": "مرفوض",
+                    "open": "مفتوح",
+                    "underReview": "قيد المراجعة",
+                    "resolved": "تم الحل",
+                    "closed": "مغلق"
+                }
+            },
+            "reviews": {
+                "title": "مراجعة التقييمات",
+                "count": "تقييمات",
+                "noReviews": "لا توجد تقييمات للمراجعة",
+                "allClear": "تمت معالجة جميع التقييمات"
+            },
+            "reports": {
+                "title": "المحتوى المبلغ عنه",
+                "count": "بلاغات",
+                "noReports": "لا توجد بلاغات للمراجعة",
+                "allClear": "تمت معالجة جميع البلاغات",
+                "reporter": "المبلغ",
+                "reported": "المستخدم المبلغ عنه",
+                "relatedTo": "متعلق بـ",
+                "types": {
+                    "spam": "بريد عشوائي",
+                    "inappropriate": "محتوى غير لائق",
+                    "copyright": "انتهاك حقوق النشر",
+                    "abuse": "إساءة/تحرش",
+                    "fraud": "احتيال",
+                    "other": "أخرى",
+                    "content": "مشكلة في المحتوى",
+                    "transaction": "مشكلة في المعاملة",
+                    "user_behavior": "سلوك المستخدم"
+                }
+            },
+            "actions": {
+                "refresh": "تحديث",
+                "view": "عرض التفاصيل",
+                "approve": "موافقة",
+                "reject": "رفض",
+                "flag": "وضع علامة",
+                "delete": "حذف"
+            },
+            "search": {
+                "placeholder": "البحث بالعنوان، المعرف، أو المستخدم",
+                "search": "بحث"
+            },
+            "statusReference": "انظر filters.status لترجمة الحالات",
+            "table": {
+                "item": "العنصر",
+                "submittedBy": "مقدم بواسطة",
+                "dateSubmitted": "تاريخ الإرسال",
+                "status": "الحالة",
+                "actions": "الإجراءات"
+            },
+            "noItemsFound": "لا توجد عناصر",
+            "tryDifferentFilters": "جرب فلاتر مختلفة أو ارجع لاحقًا",
+            "pagination": {
+                "showing": "عرض {from} إلى {to} من {total} عناصر",
+                "page": "الصفحة {current} من {total}"
+            }
+        },
+        "monitoring": {
+            "title": "مراقبة النظام",
+            "subtitle": "مراقبة صحة النظام والأداء",
+            "lastUpdated": "آخر تحديث",
+            "actions": {
+                "refresh": "تحديث",
+                "refreshing": "جاري التحديث...",
+                "dataUpdated": "تم تحديث بيانات النظام"
+            },
+            "server": {
+                "title": "الخادم",
+                "uptime": "وقت التشغيل"
+            },
+            "database": {
+                "title": "قاعدة البيانات",
+                "queries": "الاستعلامات"
+            },
+            "api": {
+                "title": "API",
+                "performance": "أداء API",
+                "requestsPerMinute": "طلبات/دقيقة",
+                "avgResponseTime": "متوسط وقت الاستجابة",
+                "errorRate": "معدل الأخطاء",
+                "topEndpoints": "أهم النقاط الطرفية",
+                "requests": "طلبات",
+                "errors": "أخطاء"
+            },
+            "blockchain": {
+                "title": "بلوك تشين",
+                "syncStatus": {
+                    "synced": "مزامن",
+                    "syncing": "جاري المزامنة",
+                    "failed": "فشل المزامنة"
+                }
+            },
+            "status": {
+                "healthy": "سليم",
+                "warning": "تحذير",
+                "critical": "حرج"
+            },
+            "resources": {
+                "title": "استخدام الموارد",
+                "cpu": "استخدام المعالج",
+                "memory": "استخدام الذاكرة",
+                "disk": "استخدام القرص"
+            },
+            "charts": {
+                "resourceUsage": "استخدام الموارد مع الوقت",
+                "apiPerformance": "أداء API",
+                "noData": "لا توجد بيانات",
+                "series": {
+                    "cpu": "المعالج",
+                    "memory": "الذاكرة",
+                    "requests": "الطلبات",
+                    "responseTime": "وقت الاستجابة"
+                }
+            },
+            "errors": {
+                "title": "سجلات الأخطاء",
+                "viewAll": "عرض جميع السجلات",
+                "source": "المصدر",
+                "occurrences": "التكرارات",
+                "lastSeen": "آخر ظهور",
+                "stackTrace": "تتبع المكدس",
+                "firstSeen": "الظهور الأول",
+                "noErrors": "لا توجد أخطاء",
+                "allClear": "جميع الأنظمة تعمل بسلاسة",
+                "levels": {
+                    "error": "خطأ",
+                    "warning": "تحذير",
+                    "info": "معلومات"
+                }
+            }
+        },
+        "analytics": {
+            "title": "التحليلات",
+            "subtitle": "رؤى مفصلة حول أداء المنصة",
+            "exportData": "تصدير البيانات",
+            "dateRange": {
+                "today": "اليوم",
+                "last7Days": "آخر 7 أيام",
+                "last30Days": "آخر 30 يومًا",
+                "last12Months": "آخر 12 شهرًا",
+                "custom": "نطاق مخصص",
+                "startDate": "تاريخ البداية",
+                "endDate": "تاريخ النهاية",
+                "apply": "تطبيق",
+                "dataUpdated": "تم تحديث البيانات"
+            },
+            "tabs": {
+                "overview": "نظرة عامة",
+                "users": "المستخدمون",
+                "sales": "المبيعات",
+                "games": "الألعاب",
+                "reports": "التقارير"
+            },
+            "metrics": {
+                "totalUsers": "إجمالي المستخدمين",
+                "newUsers": "مستخدمين جدد",
+                "activeUsers": "مستخدمين نشطين",
+                "totalRevenue": "إجمالي الإيرادات",
+                "totalSales": "إجمالي المبيعات",
+                "averageOrderValue": "متوسط قيمة الطلب",
+                "totalGames": "إجمالي الألعاب",
+                "totalDownloads": "إجمالي التنزيلات",
+                "conversionRate": "معدل التحويل",
+                "fromPrevious": "مقارنة بالفترة السابقة"
+            },
+            "users": {
+                "title": "تحليلات المستخدمين",
+                "short": "المستخدمون",
+                "detailedTitle": "تحليلات المستخدمين التفصيلية",
+                "newUsers": "مستخدمين جدد",
+                "activeUsers": "مستخدمين نشطين",
+                "count": "عدد المستخدمين"
+            },
+            "sales": {
+                "title": "تحليلات المبيعات",
+                "short": "المبيعات",
+                "detailedTitle": "تحليلات المبيعات التفصيلية",
+                "revenue": "الإيرادات",
+                "orders": "الطلبات",
+                "amount": "المبلغ",
+                "note": "الإيرادات بالدولار الأمريكي وتشمل جميع الرسوم"
+            },
+            "games": {
+                "title": "تحليلات الألعاب",
+                "detailedTitle": "تحليلات الألعاب التفصيلية",
+                "downloads": "التنزيلات",
+                "playTime": "وقت اللعب",
+                "count": "العدد",
+                "topGenres": "أهم الأنواع",
+                "platformStats": "إحصائيات المنصة"
+            },
+            "topGames": "الألعاب الأفضل أداءً",
+            "topCountries": "أهم الدول",
+            "game": "اللعبة",
+            "revenue": "الإيرادات",
+            "downloads": "التنزيلات",
+            "conversionRate": "معدل التحويل",
+            "country": "الدولة",
+            "reports": {
+                "title": "التقارير",
+                "description": "قم بإنشاء وجدولة تقارير مخصصة لمنصتك",
+                "userActivity": "تقرير نشاط المستخدم",
+                "userActivityDesc": "تقرير مفصل عن تسجيلات المستخدمين وتسجيل الدخول والمشاركة",
+                "salesReport": "تقرير المبيعات",
+                "salesReportDesc": "تحليل مفصل للمبيعات والإيرادات والمعاملات",
+                "gamePerformance": "تقرير أداء الألعاب",
+                "gamePerformanceDesc": "تحليل تنزيلات الألعاب ووقت اللعب والتقييمات",
+                "scheduledReports": "التقارير المجدولة",
+                "scheduledReportsDesc": "إعداد تقارير تلقائية تُرسل إلى بريدك",
+                "customReport": "تقرير مخصص",
+                "customReportDesc": "أنشئ تقريرًا مخصصًا بالمقاييس التي تحتاجها",
+                "generate": "إنشاء تقرير",
+                "manage": "إدارة الجداول",
+                "create": "إنشاء تقرير مخصص"
+            },
+            "charts": {
+                "noData": "لا توجد بيانات",
+                "loading": "جاري تحميل بيانات الرسم...",
+                "loadingTabs": "جاري تحميل الألسنة...",
+                "loadingFilters": "جاري تحميل الفلاتر...",
+                "loadingMetrics": "جاري تحميل المقاييس...",
+                "loadingDateRange": "جاري تحميل محدد النطاق الزمني...",
+                "period": "الفترة",
+                "value": "القيمة",
+                "count": "العدد",
+                "date": "التاريخ",
+                "total": "الإجمالي",
+                "daily": "يومي",
+                "weekly": "أسبوعي",
+                "monthly": "شهري",
+                "yearly": "سنوي",
+                "playTime": "وقت اللعب (ساعات)",
+                "downloads": "التنزيلات",
+                "revenue": "الإيرادات ($)",
+                "sales": "المبيعات"
+            },
+            "export": {
+                "title": "تصدير البيانات",
+                "csv": "تصدير كـ CSV",
+                "json": "تصدير كـ JSON",
+                "pdf": "تصدير كـ PDF",
+                "preparing": "جاري التحضير...",
+                "success": "تم التصدير بنجاح",
+                "error": "فشل التصدير"
+            }
+        },
+        "auditLogs": {
+            "title": "سجلات التدقيق",
+            "subtitle": "تتبع جميع الإجراءات الإدارية على المنصة",
+            "exportLogs": "تصدير السجلات",
+            "search": {
+                "placeholder": "البحث في السجلات بالإجراء، الكيان، أو المستخدم",
+                "search": "بحث"
+            },
+            "filters": {
+                "action": "الإجراء",
+                "entityType": "نوع الكيان",
+                "user": "المستخدم",
+                "dateRange": "النطاق الزمني",
+                "from": "من",
+                "to": "إلى",
+                "apply": "تطبيق",
+                "clear": "مسح الفلاتر"
+            },
+            "table": {
+                "timestamp": "الوقت",
+                "user": "المستخدم",
+                "action": "الإجراء",
+                "entity": "الكيان",
+                "details": "التفاصيل",
+                "system": "النظام",
+                "viewDetails": "عرض التفاصيل",
+                "noDetails": "لا توجد تفاصيل"
+            },
+            "actionsReference": "انظر admin.actions لترجمة الإجراءات",
+            "entityTypesReference": "انظر admin.entityTypes لترجمة أنواع الكيانات",
+            "noLogsFound": "لا توجد سجلات تدقيق",
+            "tryDifferentFilters": "جرب مصطلحات بحث أو فلاتر مختلفة",
+            "pagination": {
+                "showing": "عرض {from} إلى {to} من {total} سجلات",
+                "page": "الصفحة {current} من {total}"
+            }
+        },
+        "notifications": {
+            "title": "الإشعارات",
+            "subtitle": "إدارة إشعارات النظام والاتصالات مع المستخدمين",
+            "tabs": {
+                "notifications": "إشعارات النظام",
+                "send": "إرسال إشعار",
+                "settings": "إعدادات الإشعارات"
+            },
+            "systemNotifications": "إشعارات النظام",
+            "markAllAsRead": "وضع علامة مقروءة للكل",
+            "noNotifications": "لا توجد إشعارات",
+            "allClear": "لا توجد إشعارات جديدة!",
+            "sendNotification": "إرسال إشعار",
+            "notificationSettings": "إعدادات الإشعارات",
+            "channels": "قنوات الإشعارات",
+            "events": "أحداث الإشعارات",
+            "digestSettings": "إعدادات التلخيص",
+            "settings": {
+                "email": "إشعارات البريد الإلكتروني",
+                "push": "إشعارات الدفع",
+                "inApp": "الإشعارات داخل التطبيق",
+                "newUser": "تسجيل مستخدم جديد",
+                "newPurchase": "شراء جديد",
+                "newReview": "تقييم جديد",
+                "systemEvents": "أحداث النظام",
+                "digestFrequency": "تكرار التلخيص",
+                "realtime": "في الوقت الحقيقي",
+                "hourly": "كل ساعة",
+                "daily": "يوميًا",
+                "weekly": "أسبوعيًا",
+                "saveSettings": "حفظ الإعدادات"
+            },
+            "form": {
+                "title": "عنوان الإشعار",
+                "message": "رسالة الإشعار",
+                "type": "نوع الإشعار",
+                "types": {
+                    "info": "معلومات",
+                    "success": "نجاح",
+                    "warning": "تحذير",
+                    "error": "خطأ"
+                },
+                "targetGroup": "المستخدمون المستهدفون",
+                "users": "مستخدمين",
+                "scheduledDate": "الموعد المحدد",
+                "optional": "اختياري",
+                "scheduledDateHelp": "اتركه فارغًا للإرسال الفوري",
+                "deliveryChannels": "قنوات التوصيل",
+                "inApp": "إشعار داخل التطبيق",
+                "email": "البريد الإلكتروني",
+                "push": "إشعار دفع",
+                "send": "إرسال الإشعار",
+                "sending": "جاري الإرسال...",
+                "sendSuccess": "تم إرسال الإشعار بنجاح"
+            }
+        },
+        "settings": {
+            "title": "الإعدادات",
+            "subtitle": "تكوين إعدادات المنصة والتكاملات",
+            "tabs": {
+                "system": "النظام",
+                "notifications": "الإشعارات",
+                "integrations": "التكاملات",
+                "permissions": "الصلاحيات"
+            },
+            "save": "حفظ التغييرات",
+            "saving": "جاري الحفظ...",
+            "reset": "إعادة تعيين",
+            "saveSuccess": "تم حفظ الإعدادات بنجاح",
+            "system": {
+                "title": "إعدادات النظام",
+                "description": "تكوين إعدادات المنصة العامة",
+                "siteInfo": "معلومات الموقع",
+                "siteName": "اسم الموقع",
+                "siteDescription": "وصف الموقع",
+                "maintenance": "وضع الصيانة",
+                "enableMaintenance": "تفعيل وضع الصيانة",
+                "maintenanceMessage": "رسالة الصيانة",
+                "userSettings": "إعدادات المستخدم",
+                "allowRegistration": "السماح بالتسجيل",
+                "defaultRole": "الدور الافتراضي للمستخدم",
+                "roles": {
+                    "user": "مستخدم",
+                    "publisher": "ناشر",
+                    "developer": "مطور"
+                },
+                "sessionTimeout": "مهلة الجلسة",
+                "minutes": "دقائق",
+                "appearance": "المظهر",
+                "defaultLanguage": "اللغة الافتراضية",
+                "defaultTheme": "السمة الافتراضية",
+                "themes": {
+                    "light": "فاتحة",
+                    "dark": "داكنة",
+                    "system": "النظام الافتراضي"
+                },
+                "maxUploadSize": "الحجم الأقصى للتحميل",
+                "megabytes": "ميجابايت",
+                "showPassword": "إظهار كلمة المرور",
+                "hidePassword": "إخفاء كلمة المرور"
+            },
+            "notifications": {
+                "title": "إعدادات الإشعارات",
+                "description": "تكوين كيفية إرسال الإشعارات للمستخدمين والمسؤولين",
+                "emailSettings": "إعدادات البريد الإلكتروني",
+                "enableEmail": "تفعيل إشعارات البريد",
+                "adminEmail": "بريد المسؤول",
+                "emailProvider": "مزود البريد",
+                "fromName": "الاسم المرسل",
+                "fromAddress": "البريد المرسل",
+                "sendTestEmail": "إرسال بريد تجريبي",
+                "testEmailSent": "تم إرسال البريد التجريبي بنجاح",
+                "events": "أحداث الإشعارات",
+                "newUser": "تسجيل مستخدم جديد",
+                "newPurchase": "شراء جديد",
+                "newReview": "تقييم جديد",
+                "systemErrors": "أخطاء النظام",
+                "discordSettings": "تكامل Discord",
+                "enableDiscord": "تفعيل إشعارات Discord",
+                "webhookUrl": "رابط ويب هوك Discord"
+            },
+            "integrations": {
+                "title": "إعدادات التكامل",
+                "description": "تكوين التكاملات الخارجية وواجهات API",
+                "analytics": "التحليلات",
+                "googleAnalyticsId": "معرف جوجل أناليتكس",
+                "googleAnalyticsHelp": "أدخل معرف تتبع جوجل أناليتكس",
+                "recaptcha": "reCAPTCHA",
+                "recaptchaSiteKey": "مفتاح الموقع",
+                "recaptchaSecretKey": "المفتاح السري",
+                "payments": "معالجة الدفع",
+                "stripePublicKey": "المفتاح العام لـ Stripe",
+                "stripeSecretKey": "المفتاح السري لـ Stripe",
+                "stripeHelp": "يُستخدم لمعالجة الدفع بالبطاقات",
+                "blockchain": "بلوك تشين",
+                "polygonRpcUrl": "رابط Polygon RPC",
+                "ipfsGateway": "بوابة IPFS",
+                "ipfsApiKey": "مفتاح IPFS API",
+                "showSecret": "إظهار المفتاح السري",
+                "hideSecret": "إخفاء المفتاح السري"
+            },
+            "permissions": {
+                "title": "صلاحيات الأدوار",
+                "description": "إدارة صلاحيات الوصول بناءً على الأدوار. قم بتكوين الأدوار التي يمكنها الوصول إلى ميزات وإجراءات محددة.",
+                "manageUsers": "إدارة المستخدمين"
+            },
+            "quickSettings": {
+                "backups": "نسخ قاعدة البيانات الاحتياطية",
+                "lastBackup": "آخر نسخة احتياطية",
+                "createBackup": "إنشاء نسخة احتياطية",
+                "payments": "بوابة الدفع",
+                "paymentStatus": "الحالة",
+                "configurePayments": "تكوين",
+                "domains": "إعدادات النطاقات",
+                "primaryDomain": "النطاق الرئيسي",
+                "manageDomains": "إدارة النطاقات",
+                "notifications": "قنوات الإشعارات",
+                "notificationCount": "القنوات النشطة",
+                "configureNotifications": "تكوين"
+            }
+        },
+        "common": {
+            "adminSpecific": {
+                "loadingData": "جاري تحميل البيانات...",
+                "processingRequest": "جاري معالجة الطلب...",
+                "success": "نجاح!",
+                "confirmAction": "تأكيد الإجراء",
+                "areYouSure": "هل أنت متأكد؟",
+                "thisActionCannot": "لا يمكن التراجع عن هذا الإجراء",
+                "yes": "نعم",
+                "no": "لا"
+            }
+        }
+    }
+}

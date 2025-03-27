@@ -1,4 +1,11 @@
 {
+  "_metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-03-27",
+    "language": "fr",
+    "languageName": "Français",
+    "maintainer": "Équipe Incubus"
+  },
   "common": {
     "appName": "Incubus",
     "tagline": "L'Avenir de la Distribution de Jeux",
@@ -6,7 +13,7 @@
     "error": "Une erreur est survenue",
     "retry": "Réessayer",
     "cancel": "Annuler",
-    "save": "Enregistrer",
+    "save": "Sauvegarder",
     "edit": "Modifier",
     "delete": "Supprimer",
     "confirm": "Confirmer",
@@ -19,137 +26,137 @@
     "all": "Tous",
     "more": "Plus",
     "less": "Moins",
-    "viewAll": "Voir Tout",
-    "seeMore": "Voir Plus",
-    "seeLess": "Voir Moins"
+    "viewAll": "Voir tout",
+    "seeMore": "Voir plus",
+    "seeLess": "Voir moins"
   },
   "auth": {
-    "signIn": "Se Connecter",
+    "signIn": "Se connecter",
     "signUp": "S'inscrire",
-    "signOut": "Se Déconnecter",
-    "email": "Email",
-    "password": "Mot de Passe",
-    "forgotPassword": "Mot de Passe Oublié?",
-    "resetPassword": "Réinitialiser le Mot de Passe",
-    "createAccount": "Créer un Compte",
-    "alreadyHaveAccount": "Vous avez déjà un compte?",
-    "dontHaveAccount": "Vous n'avez pas de compte?",
+    "signOut": "Se déconnecter",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "createAccount": "Créer un compte",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "dontHaveAccount": "Pas encore de compte ?",
     "continueWith": "Continuer avec {{provider}}",
     "orContinueWith": "Ou continuer avec",
-    "verifyEmail": "Vérifier l'Email",
-    "checkEmail": "Vérifiez votre email pour un lien de vérification",
-    "welcomeBack": "Bon retour",
+    "verifyEmail": "Vérifier l'e-mail",
+    "checkEmail": "Vérifiez votre e-mail pour le lien de vérification",
+    "welcomeBack": "Content de vous revoir",
     "welcome": "Bienvenue sur Incubus"
   },
   "nav": {
     "home": "Accueil",
     "games": "Jeux",
-    "marketplace": "Marché",
-    "library": "Ma Bibliothèque",
+    "marketplace": "Place de marché",
+    "library": "Ma bibliothèque",
     "wallet": "Portefeuille",
     "profile": "Profil",
     "settings": "Paramètres",
-    "help": "Aide et Support",
-    "admin": "Tableau de Bord Admin"
+    "help": "Aide & Support",
+    "admin": "Tableau de bord Admin"
   },
   "home": {
-    "featuredGames": "Jeux en Vedette",
-    "newReleases": "Nouvelles Sorties",
-    "topSellers": "Meilleures Ventes",
-    "comingSoon": "Bientôt Disponible",
-    "browseByGenre": "Parcourir par Genre",
-    "browseByTag": "Parcourir par Tag",
-    "discoverMore": "Découvrir Plus de Jeux"
+    "featuredGames": "Jeux en vedette",
+    "newReleases": "Nouvelles sorties",
+    "topSellers": "Meilleures ventes",
+    "comingSoon": "Bientôt disponible",
+    "browseByGenre": "Parcourir par genre",
+    "browseByTag": "Parcourir par étiquette",
+    "discoverMore": "Découvrir plus de jeux"
   },
   "games": {
-    "allGames": "Tous les Jeux",
-    "releaseDate": "Date de Sortie",
+    "allGames": "Tous les jeux",
+    "releaseDate": "Date de sortie",
     "developer": "Développeur",
     "publisher": "Éditeur",
     "genre": "Genre",
     "genres": "Genres",
-    "tags": "Tags",
+    "tags": "Étiquettes",
     "price": "Prix",
     "free": "Gratuit",
     "owned": "Possédé",
-    "addToCart": "Ajouter au Panier",
-    "addToWishlist": "Ajouter à la Liste de Souhaits",
-    "removeFromWishlist": "Retirer de la Liste de Souhaits",
-    "buyNow": "Acheter Maintenant",
-    "playNow": "Jouer Maintenant",
+    "addToCart": "Ajouter au panier",
+    "addToWishlist": "Ajouter à la liste de souhaits",
+    "removeFromWishlist": "Retirer de la liste de souhaits",
+    "buyNow": "Acheter maintenant",
+    "playNow": "Jouer maintenant",
     "download": "Télécharger",
-    "downloadSize": "Taille du Téléchargement",
+    "downloadSize": "Taille du téléchargement",
     "version": "Version",
-    "systemRequirements": "Configuration Requise",
-    "minimum": "Minimale",
-    "recommended": "Recommandée",
+    "systemRequirements": "Configuration requise",
+    "minimum": "Minimum",
+    "recommended": "Recommandé",
     "description": "Description",
     "reviews": "Avis",
-    "writeReview": "Écrire un Avis",
-    "screenshots": "Captures d'Écran",
+    "writeReview": "Écrire un avis",
+    "screenshots": "Captures d'écran",
     "trailer": "Bande-annonce",
-    "relatedGames": "Jeux Similaires",
-    "moreFromDeveloper": "Plus de ce Développeur",
-    "moreFromPublisher": "Plus de cet Éditeur",
-    "contentRating": "Classification du Contenu",
+    "relatedGames": "Jeux similaires",
+    "moreFromDeveloper": "Plus de ce développeur",
+    "moreFromPublisher": "Plus de cet éditeur",
+    "contentRating": "Classification",
     "releaseStatus": {
       "released": "Sorti",
-      "earlyAccess": "Accès Anticipé",
-      "comingSoon": "Bientôt Disponible",
+      "earlyAccess": "Accès anticipé",
+      "comingSoon": "Bientôt disponible",
       "beta": "Bêta"
     }
   },
   "marketplace": {
-    "browse": "Parcourir le Marché",
-    "sell": "Vendre un Article",
+    "browse": "Parcourir la place de marché",
+    "sell": "Vendre un objet",
     "buy": "Acheter",
     "listings": "Annonces",
-    "myListings": "Mes Annonces",
-    "createListing": "Créer une Annonce",
-    "editListing": "Modifier l'Annonce",
-    "removeListing": "Supprimer l'Annonce",
-    "listingDetails": "Détails de l'Annonce",
+    "myListings": "Mes annonces",
+    "createListing": "Créer une annonce",
+    "editListing": "Modifier l'annonce",
+    "removeListing": "Supprimer l'annonce",
+    "listingDetails": "Détails de l'annonce",
     "price": "Prix",
     "fees": "Frais",
     "royalties": "Redevances",
-    "youReceive": "Vous Recevez",
+    "youReceive": "Vous recevez",
     "expiresAt": "Expire le",
     "seller": "Vendeur",
     "buyer": "Acheteur",
     "status": {
-      "active": "Active",
+      "active": "Actif",
       "sold": "Vendu",
-      "expired": "Expirée",
-      "cancelled": "Annulée"
+      "expired": "Expiré",
+      "cancelled": "Annulé"
     },
     "filter": {
-      "gameLicenses": "Licences de Jeux",
-      "gameItems": "Articles de Jeux",
-      "bundles": "Packs",
-      "priceRange": "Fourchette de Prix",
+      "gameLicenses": "Licences de jeux",
+      "gameItems": "Objets de jeu",
+      "bundles": "Bundles",
+      "priceRange": "Tranche de prix",
       "sortBy": {
-        "newest": "Plus Récent d'abord",
-        "oldest": "Plus Ancien d'abord",
-        "priceAsc": "Prix: Croissant",
-        "priceDesc": "Prix: Décroissant",
+        "newest": "Plus récent",
+        "oldest": "Plus ancien",
+        "priceAsc": "Prix : croissant",
+        "priceDesc": "Prix : décroissant",
         "popularity": "Popularité"
       }
     }
   },
   "wallet": {
-    "myWallet": "Mon Portefeuille",
+    "myWallet": "Mon portefeuille",
     "balance": "Solde",
-    "addFunds": "Ajouter des Fonds",
+    "addFunds": "Ajouter des fonds",
     "withdraw": "Retirer",
     "transactions": "Transactions",
-    "connectWallet": "Connecter le Portefeuille",
-    "disconnectWallet": "Déconnecter le Portefeuille",
-    "createWallet": "Créer un Portefeuille",
-    "importWallet": "Importer un Portefeuille",
-    "walletAddress": "Adresse du Portefeuille",
-    "copyAddress": "Copier l'Adresse",
+    "connectWallet": "Connecter le portefeuille",
+    "disconnectWallet": "Déconnecter le portefeuille",
+    "createWallet": "Créer un portefeuille",
+    "importWallet": "Importer un portefeuille",
+    "walletAddress": "Adresse du portefeuille",
+    "copyAddress": "Copier l'adresse",
     "addressCopied": "Adresse copiée dans le presse-papiers",
-    "transactionHistory": "Historique des Transactions",
+    "transactionHistory": "Historique des transactions",
     "transactionTypes": {
       "purchase": "Achat",
       "sale": "Vente",
@@ -161,47 +168,47 @@
       "refund": "Remboursement"
     },
     "transactionStatus": {
-      "pending": "En Attente",
-      "confirmed": "Confirmée",
-      "failed": "Échouée",
-      "cancelled": "Annulée"
+      "pending": "En attente",
+      "confirmed": "Confirmé",
+      "failed": "Échec",
+      "cancelled": "Annulé"
     }
   },
   "library": {
-    "myGames": "Mes Jeux",
-    "myItems": "Mes Articles",
-    "recentlyPlayed": "Joués Récemment",
-    "allGames": "Tous les Jeux",
-    "installed": "Installés",
-    "notInstalled": "Non Installés",
-    "installGame": "Installer le Jeu",
-    "uninstallGame": "Désinstaller le Jeu",
-    "updateAvailable": "Mise à Jour Disponible",
-    "updateGame": "Mettre à Jour le Jeu",
-    "playTime": "Temps de Jeu",
-    "lastPlayed": "Dernière Partie",
+    "myGames": "Mes jeux",
+    "myItems": "Mes objets",
+    "recentlyPlayed": "Joué récemment",
+    "allGames": "Tous les jeux",
+    "installed": "Installé",
+    "notInstalled": "Non installé",
+    "installGame": "Installer le jeu",
+    "uninstallGame": "Désinstaller le jeu",
+    "updateAvailable": "Mise à jour disponible",
+    "updateGame": "Mettre à jour le jeu",
+    "playTime": "Temps de jeu",
+    "lastPlayed": "Dernière partie",
     "achievements": "Succès",
     "friends": "Amis",
-    "friendsWhoPlay": "Amis qui jouent à ce jeu"
+    "friendsWhoPlay": "Amis jouant à ce jeu"
   },
   "profile": {
-    "myProfile": "Mon Profil",
-    "editProfile": "Modifier le Profil",
-    "username": "Nom d'Utilisateur",
+    "myProfile": "Mon profil",
+    "editProfile": "Modifier le profil",
+    "username": "Nom d'utilisateur",
     "bio": "Biographie",
     "avatar": "Avatar",
-    "changeAvatar": "Changer d'Avatar",
-    "joinDate": "Date d'Inscription",
-    "gamesOwned": "Jeux Possédés",
-    "itemsOwned": "Articles Possédés",
+    "changeAvatar": "Changer l'avatar",
+    "joinDate": "Date d'inscription",
+    "gamesOwned": "Jeux possédés",
+    "itemsOwned": "Objets possédés",
     "achievements": "Succès",
     "friends": "Amis",
-    "addFriend": "Ajouter un Ami",
-    "removeFriend": "Supprimer un Ami",
-    "blockUser": "Bloquer l'Utilisateur",
-    "unblockUser": "Débloquer l'Utilisateur",
+    "addFriend": "Ajouter un ami",
+    "removeFriend": "Retirer un ami",
+    "blockUser": "Bloquer l'utilisateur",
+    "unblockUser": "Débloquer l'utilisateur",
     "activity": "Activité",
-    "recentActivity": "Activité Récente"
+    "recentActivity": "Activité récente"
   },
   "settings": {
     "title": "Paramètres",
@@ -217,11 +224,11 @@
       "system": "Système"
     },
     "security": "Sécurité",
-    "twoFactorAuth": "Authentification à Deux Facteurs",
-    "changePassword": "Changer le Mot de Passe",
-    "connectedAccounts": "Comptes Connectés",
+    "twoFactorAuth": "Authentification à deux facteurs",
+    "changePassword": "Changer le mot de passe",
+    "connectedAccounts": "Comptes connectés",
     "wallets": "Portefeuilles",
-    "deleteAccount": "Supprimer le Compte"
+    "deleteAccount": "Supprimer le compte"
   },
   "errors": {
     "general": "Quelque chose s'est mal passé",
@@ -235,15 +242,704 @@
     "tryAgain": "Veuillez réessayer"
   },
   "footer": {
-    "about": "À Propos",
+    "about": "À propos",
     "careers": "Carrières",
     "press": "Presse",
     "support": "Support",
     "contact": "Contact",
-    "terms": "Conditions d'Utilisation",
-    "privacy": "Politique de Confidentialité",
-    "cookies": "Politique des Cookies",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "cookies": "Politique des cookies",
     "copyright": "© {year} Incubus. Tous droits réservés.",
     "followUs": "Suivez-nous"
+  },
+  "admin": {
+    "title": "Tableau de bord Admin",
+    "logout": "Déconnexion",
+    "actions": {
+      "created": "a créé",
+      "updated": "a mis à jour",
+      "deleted": "a supprimé",
+      "published": "a publié",
+      "unpublished": "a retiré",
+      "approved": "a approuvé",
+      "rejected": "a rejeté",
+      "purchased": "a acheté",
+      "registered": "s'est inscrit",
+      "logged_in": "s'est connecté",
+      "logged_out": "s'est déconnecté",
+      "deposited": "a déposé dans",
+      "withdrew": "a retiré de",
+      "system_update": "a effectué",
+      "reviewed": "a examiné",
+      "user_login": "s'est connecté à",
+      "user_logout": "s'est déconnecté de",
+      "user_created": "a créé",
+      "user_updated": "a mis à jour",
+      "user_deleted": "a supprimé",
+      "game_created": "a créé",
+      "game_updated": "a mis à jour",
+      "game_deleted": "a supprimé",
+      "transaction_created": "a créé",
+      "settings_updated": "a mis à jour",
+      "permission_granted": "a accordé la permission à",
+      "permission_revoked": "a révoqué la permission de",
+      "refresh": "rafraîchir"
+    },
+    "entityTypes": {
+      "user": "utilisateur",
+      "game": "jeu",
+      "wallet": "portefeuille",
+      "transaction": "transaction",
+      "review": "avis",
+      "system": "maintenance système",
+      "publisher": "éditeur",
+      "developer": "développeur",
+      "gamelicense": "licence de jeu",
+      "gameversion": "version de jeu",
+      "gameitem": "objet de jeu",
+      "organization": "organisation",
+      "setting": "paramètre",
+      "dispute": "litige",
+      "proposal": "proposition",
+      "marketplace": "place de marché",
+      "escrow": "séquestre",
+      "blockchain": "blockchain",
+      "nftcollection": "collection NFT",
+      "smartcontract": "contrat intelligent",
+      "compliance": "politique de conformité"
+    },
+    "roles": {
+      "admin": "Administrateur",
+      "user": "Utilisateur",
+      "publisher": "Éditeur",
+      "developer": "Développeur",
+      "moderator": "Modérateur"
+    },
+    "header": {
+      "notifications": "Notifications",
+      "noNewNotifications": "Aucune nouvelle notification",
+      "viewAllNotifications": "Voir toutes les notifications",
+      "profile": "Votre profil",
+      "settings": "Paramètres",
+      "logout": "Se déconnecter",
+      "toggleSidebar": "Basculer la barre latérale",
+      "searchPlaceholder": "Rechercher...",
+      "darkMode": "Passer en mode sombre",
+      "lightMode": "Passer en mode clair"
+    },
+    "navigation": {
+      "dashboard": "Tableau de bord",
+      "users": "Utilisateurs",
+      "moderation": "Modération",
+      "monitoring": "Surveillance",
+      "analytics": "Analytique",
+      "auditLogs": "Journaux d'audit",
+      "notifications": "Notifications",
+      "settings": "Paramètres"
+    },
+    "sidebar": {
+      "openSidebar": "Ouvrir la barre latérale",
+      "closeSidebar": "Fermer la barre latérale",
+      "home": "Accueil"
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "subtitle": "Aperçu des performances et de l'activité de la plateforme",
+      "actions": {
+        "refresh": "Rafraîchir",
+        "refreshing": "Rafraîchissement...",
+        "lastUpdated": "Dernière mise à jour : {time}",
+        "dataUpdated": "Données du tableau de bord mises à jour"
+      },
+      "metrics": {
+        "users": "Utilisateurs totaux",
+        "games": "Jeux totaux",
+        "revenue": "Revenu total",
+        "wallets": "Portefeuilles actifs",
+        "fromPrevious": "par rapport à la période précédente",
+        "newThisWeek": "nouveaux cette semaine",
+        "totalSales": "ventes totales",
+        "transactions": "transactions"
+      },
+      "quickLinks": {
+        "manageUsers": "Gérer les utilisateurs",
+        "manageUsersDesc": "Voir et gérer les comptes utilisateurs",
+        "moderateContent": "Modérer le contenu",
+        "moderateContentDesc": "Examiner et approuver le contenu",
+        "viewAnalytics": "Voir les analyses",
+        "viewAnalyticsDesc": "Consulter les métriques détaillées",
+        "configureSettings": "Configurer les paramètres",
+        "configureSettingsDesc": "Ajuster la configuration de la plateforme"
+      },
+      "recentActivity": "Activité récente",
+      "viewAllActivity": "Voir toute l'activité"
+    },
+    "activityLog": {
+      "system": "Système",
+      "action": "{action} un(e) {entityType}",
+      "actionWithName": "{action} {entityType} \"{entityName}\"",
+      "timestamp": "Horodatage",
+      "viewDetails": "Voir les détails",
+      "noActivity": "Aucune activité récente",
+      "checkBackLater": "Revenez plus tard pour des mises à jour",
+      "justNow": "À l'instant",
+      "minutesAgo": "il y a {minutes} min",
+      "hoursAgo": "il y a {hours} h",
+      "daysAgo": "il y a {days} jour",
+      "daysAgoPlural": "il y a {days} jours",
+      "relativeTime": {
+        "justNow": "À l'instant",
+        "minutesAgo": "il y a {minutes} min",
+        "hoursAgo": "il y a {hours} h",
+        "daysAgo": "il y a {days} jour",
+        "daysAgoPlural": "il y a {days} jours"
+      },
+      "entityId": "ID",
+      "actionReference": "Voir admin.actions pour les traductions des actions",
+      "entityTypeReference": "Voir admin.entityTypes pour les traductions des types d'entités"
+    },
+    "users": {
+      "title": "Gestion des utilisateurs",
+      "subtitle": "Voir et gérer les comptes utilisateurs",
+      "search": {
+        "placeholder": "Rechercher des utilisateurs par nom, e-mail ou ID",
+        "search": "Rechercher",
+        "clear": "Effacer",
+        "filterByRole": "Filtrer par rôle",
+        "noRolesFound": "Aucun rôle trouvé"
+      },
+      "filters": {
+        "role": "Rôle",
+        "status": "Statut",
+        "dateJoined": "Date d'inscription",
+        "from": "De",
+        "to": "À",
+        "apply": "Appliquer",
+        "clear": "Effacer les filtres"
+      },
+      "table": {
+        "user": "Utilisateur",
+        "email": "E-mail",
+        "role": "Rôle",
+        "status": "Statut",
+        "joined": "Inscrit le",
+        "actions": "Actions",
+        "activity": "Dernière activité"
+      },
+      "status": {
+        "active": "Actif",
+        "inactive": "Inactif",
+        "suspended": "Suspendu",
+        "pending": "En attente"
+      },
+      "roles": {
+        "user": "Utilisateur standard",
+        "admin": "Administrateur"
+      },
+      "actions": {
+        "view": "Voir le profil",
+        "edit": "Modifier l'utilisateur",
+        "suspend": "Suspendre l'utilisateur",
+        "activate": "Activer l'utilisateur",
+        "delete": "Supprimer l'utilisateur",
+        "confirmDelete": "Confirmer la suppression ?",
+        "ban": "Bannir l'utilisateur",
+        "confirmBan": "Confirmer le bannissement ?",
+        "unban": "Débannir l'utilisateur",
+        "promoteToAdmin": "Promouvoir administrateur",
+        "removeAdminRole": "Retirer le rôle admin",
+        "impersonate": "Usurper l'identité",
+        "createUser": "Créer un utilisateur",
+        "options": "Options utilisateur"
+      },
+      "noUsersFound": "Aucun utilisateur trouvé",
+      "tryDifferentFilters": "Essayez d'autres termes de recherche ou filtres",
+      "pagination": {
+        "showing": "Affichage de {from} à {to} sur {total} utilisateurs",
+        "page": "Page {current} sur {total}"
+      }
+    },
+    "moderation": {
+      "title": "Modération de contenu",
+      "subtitle": "Examiner et gérer le contenu sur la plateforme",
+      "tabs": {
+        "games": "Jeux",
+        "reviews": "Avis",
+        "reports": "Signalements",
+        "disputes": "Litiges"
+      },
+      "filters": {
+        "statusLabel": "Statut",
+        "type": "Type",
+        "typeLabel": "Type",
+        "dateSubmitted": "Date de soumission",
+        "from": "De",
+        "to": "À",
+        "apply": "Appliquer",
+        "clear": "Effacer les filtres",
+        "clearType": "Afficher tous les types",
+        "status": {
+          "pending": "En attente",
+          "approved": "Approuvé",
+          "rejected": "Rejeté",
+          "open": "Ouvert",
+          "underReview": "En cours d'examen",
+          "resolved": "Résolu",
+          "closed": "Fermé"
+        }
+      },
+      "reviews": {
+        "title": "Avis à modérer",
+        "count": "avis",
+        "noReviews": "Aucun avis à modérer",
+        "allClear": "Tous les avis ont été traités"
+      },
+      "reports": {
+        "title": "Contenu signalé",
+        "count": "signalements",
+        "noReports": "Aucun signalement à examiner",
+        "allClear": "Tous les signalements ont été traités",
+        "reporter": "Signaleur",
+        "reported": "Utilisateur signalé",
+        "relatedTo": "Lié à",
+        "types": {
+          "spam": "Spam",
+          "inappropriate": "Contenu inapproprié",
+          "copyright": "Violation de copyright",
+          "abuse": "Harcèlement",
+          "fraud": "Fraude",
+          "other": "Autre",
+          "content": "Problème de contenu",
+          "transaction": "Problème de transaction",
+          "user_behavior": "Comportement utilisateur"
+        }
+      },
+      "actions": {
+        "refresh": "Rafraîchir",
+        "view": "Voir les détails",
+        "approve": "Approuver",
+        "reject": "Rejeter",
+        "flag": "Signaler",
+        "delete": "Supprimer"
+      },
+      "search": {
+        "placeholder": "Rechercher par titre, ID ou utilisateur",
+        "search": "Rechercher"
+      },
+      "statusReference": "Voir filters.status pour les traductions des statuts",
+      "table": {
+        "item": "Élément",
+        "submittedBy": "Soumis par",
+        "dateSubmitted": "Date de soumission",
+        "status": "Statut",
+        "actions": "Actions"
+      },
+      "noItemsFound": "Aucun élément trouvé",
+      "tryDifferentFilters": "Essayez d'autres filtres ou revenez plus tard",
+      "pagination": {
+        "showing": "Affichage de {from} à {to} sur {total} éléments",
+        "page": "Page {current} sur {total}"
+      }
+    },
+    "monitoring": {
+      "title": "Surveillance système",
+      "subtitle": "Surveiller la santé et les performances du système",
+      "lastUpdated": "Dernière mise à jour",
+      "actions": {
+        "refresh": "Rafraîchir",
+        "refreshing": "Rafraîchissement...",
+        "dataUpdated": "Données système mises à jour"
+      },
+      "server": {
+        "title": "Serveur",
+        "uptime": "Disponibilité"
+      },
+      "database": {
+        "title": "Base de données",
+        "queries": "Requêtes"
+      },
+      "api": {
+        "title": "API",
+        "performance": "Performance de l'API",
+        "requestsPerMinute": "requêtes/min",
+        "avgResponseTime": "Temps de réponse moyen",
+        "errorRate": "Taux d'erreur",
+        "topEndpoints": "Endpoints populaires",
+        "requests": "requêtes",
+        "errors": "erreurs"
+      },
+      "blockchain": {
+        "title": "Blockchain",
+        "syncStatus": {
+          "synced": "Synchronisé",
+          "syncing": "Synchronisation en cours",
+          "failed": "Échec de synchronisation"
+        }
+      },
+      "status": {
+        "healthy": "Sain",
+        "warning": "Avertissement",
+        "critical": "Critique"
+      },
+      "resources": {
+        "title": "Utilisation des ressources",
+        "cpu": "Utilisation CPU",
+        "memory": "Utilisation mémoire",
+        "disk": "Utilisation du disque"
+      },
+      "charts": {
+        "resourceUsage": "Utilisation des ressources dans le temps",
+        "apiPerformance": "Performance de l'API",
+        "noData": "Aucune donnée disponible",
+        "series": {
+          "cpu": "CPU",
+          "memory": "Mémoire",
+          "requests": "Requêtes",
+          "responseTime": "Temps de réponse"
+        }
+      },
+      "errors": {
+        "title": "Journaux d'erreurs",
+        "viewAll": "Voir tous les journaux",
+        "source": "Source",
+        "occurrences": "Occurrences",
+        "lastSeen": "Dernière occurrence",
+        "stackTrace": "Trace de la pile",
+        "firstSeen": "Première occurrence",
+        "noErrors": "Aucune erreur trouvée",
+        "allClear": "Tous les systèmes fonctionnent correctement",
+        "levels": {
+          "error": "Erreur",
+          "warning": "Avertissement",
+          "info": "Info"
+        }
+      }
+    },
+    "analytics": {
+      "title": "Analytique",
+      "subtitle": "Statistiques détaillées sur les performances de la plateforme",
+      "exportData": "Exporter les données",
+      "dateRange": {
+        "today": "Aujourd'hui",
+        "last7Days": "7 derniers jours",
+        "last30Days": "30 derniers jours",
+        "last12Months": "12 derniers mois",
+        "custom": "Plage personnalisée",
+        "startDate": "Date de début",
+        "endDate": "Date de fin",
+        "apply": "Appliquer",
+        "dataUpdated": "Données mises à jour"
+      },
+      "tabs": {
+        "overview": "Vue d'ensemble",
+        "users": "Utilisateurs",
+        "sales": "Ventes",
+        "games": "Jeux",
+        "reports": "Rapports"
+      },
+      "metrics": {
+        "totalUsers": "Utilisateurs totaux",
+        "newUsers": "Nouveaux utilisateurs",
+        "activeUsers": "Utilisateurs actifs",
+        "totalRevenue": "Revenu total",
+        "totalSales": "Ventes totales",
+        "averageOrderValue": "Valeur moyenne des commandes",
+        "totalGames": "Jeux totaux",
+        "totalDownloads": "Téléchargements totaux",
+        "conversionRate": "Taux de conversion",
+        "fromPrevious": "par rapport à la période précédente"
+      },
+      "users": {
+        "title": "Analytique utilisateurs",
+        "short": "Utilisateurs",
+        "detailedTitle": "Analytique utilisateurs détaillée",
+        "newUsers": "Nouveaux utilisateurs",
+        "activeUsers": "Utilisateurs actifs",
+        "count": "Nombre d'utilisateurs"
+      },
+      "sales": {
+        "title": "Analytique des ventes",
+        "short": "Ventes",
+        "detailedTitle": "Analytique des ventes détaillée",
+        "revenue": "Revenu",
+        "orders": "Commandes",
+        "amount": "Montant",
+        "note": "Le revenu est affiché en USD et inclut tous les frais"
+      },
+      "games": {
+        "title": "Analytique des jeux",
+        "detailedTitle": "Analytique des jeux détaillée",
+        "downloads": "Téléchargements",
+        "playTime": "Temps de jeu",
+        "count": "Nombre",
+        "topGenres": "Genres populaires",
+        "platformStats": "Statistiques des plateformes"
+      },
+      "topGames": "Jeux les plus performants",
+      "topCountries": "Pays les plus actifs",
+      "game": "Jeu",
+      "revenue": "Revenu",
+      "downloads": "Téléchargements",
+      "conversionRate": "Taux de conversion",
+      "country": "Pays",
+      "reports": {
+        "title": "Rapports",
+        "description": "Générez et planifiez des rapports personnalisés",
+        "userActivity": "Rapport d'activité utilisateur",
+        "userActivityDesc": "Détails des inscriptions, connexions et engagement",
+        "salesReport": "Rapport des ventes",
+        "salesReportDesc": "Détails des ventes, revenus et transactions",
+        "gamePerformance": "Rapport de performance des jeux",
+        "gamePerformanceDesc": "Analyse des téléchargements, temps de jeu et avis",
+        "scheduledReports": "Rapports planifiés",
+        "scheduledReportsDesc": "Rapports automatisés envoyés par e-mail",
+        "customReport": "Rapport personnalisé",
+        "customReportDesc": "Créez un rapport avec les métriques souhaitées",
+        "generate": "Générer le rapport",
+        "manage": "Gérer les planifications",
+        "create": "Créer un rapport personnalisé"
+      },
+      "charts": {
+        "noData": "Aucune donnée disponible",
+        "loading": "Chargement des données...",
+        "loadingTabs": "Chargement des onglets...",
+        "loadingFilters": "Chargement des filtres...",
+        "loadingMetrics": "Chargement des métriques...",
+        "loadingDateRange": "Chargement de la sélection de dates...",
+        "period": "Période",
+        "value": "Valeur",
+        "count": "Nombre",
+        "date": "Date",
+        "total": "Total",
+        "daily": "Quotidien",
+        "weekly": "Hebdomadaire",
+        "monthly": "Mensuel",
+        "yearly": "Annuel",
+        "playTime": "Temps de jeu (heures)",
+        "downloads": "Téléchargements",
+        "revenue": "Revenu ($)",
+        "sales": "Ventes"
+      },
+      "export": {
+        "title": "Exporter les données",
+        "csv": "Exporter en CSV",
+        "json": "Exporter en JSON",
+        "pdf": "Exporter en PDF",
+        "preparing": "Préparation de l'export...",
+        "success": "Export réussi",
+        "error": "Échec de l'export"
+      }
+    },
+    "auditLogs": {
+      "title": "Journaux d'audit",
+      "subtitle": "Suivi des actions administratives sur la plateforme",
+      "exportLogs": "Exporter les journaux",
+      "search": {
+        "placeholder": "Rechercher par action, entité ou utilisateur",
+        "search": "Rechercher"
+      },
+      "filters": {
+        "action": "Action",
+        "entityType": "Type d'entité",
+        "user": "Utilisateur",
+        "dateRange": "Plage de dates",
+        "from": "De",
+        "to": "À",
+        "apply": "Appliquer",
+        "clear": "Effacer les filtres"
+      },
+      "table": {
+        "timestamp": "Horodatage",
+        "user": "Utilisateur",
+        "action": "Action",
+        "entity": "Entité",
+        "details": "Détails",
+        "system": "Système",
+        "viewDetails": "Voir les détails",
+        "noDetails": "Aucun détail"
+      },
+      "actionsReference": "Voir admin.actions pour les traductions des actions",
+      "entityTypesReference": "Voir admin.entityTypes pour les traductions des types d'entités",
+      "noLogsFound": "Aucun journal d'audit trouvé",
+      "tryDifferentFilters": "Essayez d'autres termes de recherche ou filtres",
+      "pagination": {
+        "showing": "Affichage de {from} à {to} sur {total} journaux",
+        "page": "Page {current} sur {total}"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Gérer les notifications système et utilisateur",
+      "tabs": {
+        "notifications": "Notifications système",
+        "send": "Envoyer une notification",
+        "settings": "Paramètres des notifications"
+      },
+      "systemNotifications": "Notifications système",
+      "markAllAsRead": "Tout marquer comme lu",
+      "noNotifications": "Aucune notification",
+      "allClear": "Vous êtes à jour !",
+      "sendNotification": "Envoyer une notification",
+      "notificationSettings": "Paramètres des notifications",
+      "channels": "Canaux de notification",
+      "events": "Événements de notification",
+      "digestSettings": "Paramètres de synthèse",
+      "settings": {
+        "email": "Notifications par e-mail",
+        "push": "Notifications push",
+        "inApp": "Notifications dans l'appli",
+        "newUser": "Nouvelle inscription",
+        "newPurchase": "Nouvel achat",
+        "newReview": "Nouvel avis",
+        "systemEvents": "Événements système",
+        "digestFrequency": "Fréquence des synthèses",
+        "realtime": "Temps réel",
+        "hourly": "Horaire",
+        "daily": "Quotidien",
+        "weekly": "Hebdomadaire",
+        "saveSettings": "Enregistrer les paramètres"
+      },
+      "form": {
+        "title": "Titre de la notification",
+        "message": "Message de la notification",
+        "type": "Type de notification",
+        "types": {
+          "info": "Information",
+          "success": "Succès",
+          "warning": "Avertissement",
+          "error": "Erreur"
+        },
+        "targetGroup": "Utilisateurs cibles",
+        "users": "utilisateurs",
+        "scheduledDate": "Date planifiée",
+        "optional": "optionnel",
+        "scheduledDateHelp": "Laissez vide pour envoyer immédiatement",
+        "deliveryChannels": "Canaux de livraison",
+        "inApp": "Notification dans l'appli",
+        "email": "E-mail",
+        "push": "Notification push",
+        "send": "Envoyer la notification",
+        "sending": "Envoi en cours...",
+        "sendSuccess": "Notification envoyée avec succès"
+      }
+    },
+    "settings": {
+      "title": "Paramètres",
+      "subtitle": "Configurer les paramètres et intégrations de la plateforme",
+      "tabs": {
+        "system": "Système",
+        "notifications": "Notifications",
+        "integrations": "Intégrations",
+        "permissions": "Permissions"
+      },
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "reset": "Réinitialiser",
+      "saveSuccess": "Paramètres enregistrés",
+      "system": {
+        "title": "Paramètres système",
+        "description": "Configurer les paramètres généraux",
+        "siteInfo": "Informations du site",
+        "siteName": "Nom du site",
+        "siteDescription": "Description du site",
+        "maintenance": "Mode maintenance",
+        "enableMaintenance": "Activer le mode maintenance",
+        "maintenanceMessage": "Message de maintenance",
+        "userSettings": "Paramètres utilisateur",
+        "allowRegistration": "Autoriser les inscriptions",
+        "defaultRole": "Rôle par défaut",
+        "roles": {
+          "user": "Utilisateur",
+          "publisher": "Éditeur",
+          "developer": "Développeur"
+        },
+        "sessionTimeout": "Délai de session",
+        "minutes": "minutes",
+        "appearance": "Apparence",
+        "defaultLanguage": "Langue par défaut",
+        "defaultTheme": "Thème par défaut",
+        "themes": {
+          "light": "Clair",
+          "dark": "Sombre",
+          "system": "Système"
+        },
+        "maxUploadSize": "Taille maximale de téléchargement",
+        "megabytes": "Mo",
+        "showPassword": "Afficher le mot de passe",
+        "hidePassword": "Masquer le mot de passe"
+      },
+      "notifications": {
+        "title": "Paramètres des notifications",
+        "description": "Configurer l'envoi des notifications",
+        "emailSettings": "Paramètres e-mail",
+        "enableEmail": "Activer les e-mails",
+        "adminEmail": "E-mail admin",
+        "emailProvider": "Fournisseur e-mail",
+        "fromName": "Nom de l'expéditeur",
+        "fromAddress": "Adresse e-mail de l'expéditeur",
+        "sendTestEmail": "Envoyer un e-mail test",
+        "testEmailSent": "E-mail test envoyé",
+        "events": "Événements à notifier",
+        "newUser": "Nouvel utilisateur",
+        "newPurchase": "Nouvel achat",
+        "newReview": "Nouvel avis",
+        "systemErrors": "Erreurs système",
+        "discordSettings": "Intégration Discord",
+        "enableDiscord": "Activer Discord",
+        "webhookUrl": "URL du webhook Discord"
+      },
+      "integrations": {
+        "title": "Intégrations",
+        "description": "Configurer les intégrations tierces",
+        "analytics": "Analytique",
+        "googleAnalyticsId": "ID Google Analytics",
+        "googleAnalyticsHelp": "ID de suivi Google Analytics",
+        "recaptcha": "reCAPTCHA",
+        "recaptchaSiteKey": "Clé du site",
+        "recaptchaSecretKey": "Clé secrète",
+        "payments": "Paiements",
+        "stripePublicKey": "Clé publique Stripe",
+        "stripeSecretKey": "Clé secrète Stripe",
+        "stripeHelp": "Pour les paiements par carte",
+        "blockchain": "Blockchain",
+        "polygonRpcUrl": "URL RPC Polygon",
+        "ipfsGateway": "Passerelle IPFS",
+        "ipfsApiKey": "Clé API IPFS",
+        "showSecret": "Afficher la clé",
+        "hideSecret": "Masquer la clé"
+      },
+      "permissions": {
+        "title": "Permissions",
+        "description": "Gérer les accès basés sur les rôles",
+        "manageUsers": "Gérer les utilisateurs"
+      },
+      "quickSettings": {
+        "backups": "Sauvegardes",
+        "lastBackup": "Dernière sauvegarde",
+        "createBackup": "Créer une sauvegarde",
+        "payments": "Passerelle de paiement",
+        "paymentStatus": "Statut",
+        "configurePayments": "Configurer",
+        "domains": "Domaines",
+        "primaryDomain": "Domaine principal",
+        "manageDomains": "Gérer les domaines",
+        "notifications": "Canaux de notification",
+        "notificationCount": "Canaux actifs",
+        "configureNotifications": "Configurer"
+      }
+    },
+    "common": {
+      "adminSpecific": {
+        "loadingData": "Chargement des données...",
+        "processingRequest": "Traitement de la demande...",
+        "success": "Succès !",
+        "confirmAction": "Confirmer l'action",
+        "areYouSure": "Êtes-vous sûr ?",
+        "thisActionCannot": "Cette action est irréversible",
+        "yes": "Oui",
+        "no": "Non"
+      }
+    }
   }
 }
