@@ -208,7 +208,8 @@
     "blockUser": "Block User",
     "unblockUser": "Unblock User",
     "activity": "Activity",
-    "recentActivity": "Recent Activity"
+    "recentActivity": "Recent Activity",
+    "stats": "Stats"
   },
   "settings": {
     "title": "Settings",
