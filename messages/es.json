@@ -208,7 +208,8 @@
     "blockUser": "Bloquear usuario",
     "unblockUser": "Desbloquear usuario",
     "activity": "Actividad",
-    "recentActivity": "Actividad reciente"
+    "recentActivity": "Actividad reciente",
+    "stats": "Estadísticas"
   },
   "settings": {
     "title": "Configuración",

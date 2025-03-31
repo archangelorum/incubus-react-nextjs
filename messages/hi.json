@@ -208,7 +208,8 @@
         "blockUser": "उपयोगकर्ता ब्लॉक करें",
         "unblockUser": "उपयोगकर्ता अनब्लॉक करें",
         "activity": "गतिविधि",
-        "recentActivity": "हाल की गतिविधि"
+        "recentActivity": "हाल की गतिविधि",
+        "stats": "सांख्यिकी"
     },
     "settings": {
         "title": "सेटिंग्स",

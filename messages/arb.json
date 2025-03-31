@@ -208,7 +208,8 @@
         "blockUser": "حظر مستخدم",
         "unblockUser": "إلغاء حظر مستخدم",
         "activity": "النشاط",
-        "recentActivity": "النشاط الحديث"
+        "recentActivity": "النشاط الحديث",
+        "stats": "إحصائيات"
     },
     "settings": {
         "title": "الإعدادات",

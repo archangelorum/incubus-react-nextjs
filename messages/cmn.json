@@ -208,7 +208,8 @@
         "blockUser": "屏蔽用户",
         "unblockUser": "取消屏蔽",
         "activity": "动态",
-        "recentActivity": "近期动态"
+        "recentActivity": "近期动态",
+        "stats": "统计"
     },
     "settings": {
         "title": "设置",
