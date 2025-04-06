@@ -9,6 +9,7 @@
   "common": {
     "appName": "Incubus",
     "tagline": "The Future of Game Distribution",
+    "description": "Discover, buy, and trade games and in-game items as NFTs on the Polygon blockchain",
     "loading": "Loading...",
     "error": "An error occurred",
     "retry": "Retry",
@@ -66,7 +67,9 @@
     "comingSoon": "Coming Soon",
     "browseByGenre": "Browse by Genre",
     "browseByTag": "Browse by Tag",
-    "discoverMore": "Discover More Games"
+    "discoverMore": "Discover More Games",
+    "readyToJoin": "Ready to Join the Revolution?",
+    "createAccountDesc": "Create an account to start buying, selling, and trading games and in-game items as NFTs on the Polygon blockchain."
   },
   "games": {
     "allGames": "All Games",

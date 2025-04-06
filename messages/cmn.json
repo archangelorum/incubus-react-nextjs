@@ -9,6 +9,7 @@
     "common": {
         "appName": "Incubus",
         "tagline": "游戏发行的未来",
+        "description": "在Polygon区块链上发现、购买和交易游戏及游戏内物品作为NFT",
         "loading": "加载中...",
         "error": "发生错误",
         "retry": "重试",
@@ -66,7 +67,9 @@
         "comingSoon": "即将推出",
         "browseByGenre": "按类型浏览",
         "browseByTag": "按标签浏览",
-        "discoverMore": "探索更多游戏"
+        "discoverMore": "探索更多游戏",
+        "readyToJoin": "准备加入这场革命了吗？",
+        "createAccountDesc": "创建账户，开始在Polygon区块链上购买、出售和交易游戏及游戏内物品NFT"
     },
     "games": {
         "allGames": "全部游戏",
