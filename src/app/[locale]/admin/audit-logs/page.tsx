@@ -231,6 +231,8 @@ function getEntityIcon(entityType: string) {
 
 export default async function AuditLogsPage({ searchParams }: AuditLogsPageProps) {
   const t = await getTranslations('admin');
+
+  searchParams = await searchParams;
   
   // Fetch audit logs
   const { logs, pagination, filters } = await getAuditLogs(searchParams);
@@ -383,6 +385,7 @@ export default async function AuditLogsPage({ searchParams }: AuditLogsPageProps
             <div className="flex items-center space-x-2">
               <Link
                 href={{
+                  pathname: "/admin/audit-logs",
                   query: {
                     ...searchParams,
                     page: Math.max(1, pagination.page - 1)
@@ -408,6 +411,7 @@ export default async function AuditLogsPage({ searchParams }: AuditLogsPageProps
               
               <Link
                 href={{
+                  pathname: "/admin/audit-logs",
                   query: {
                     ...searchParams,
                     page: Math.min(pagination.totalPages, pagination.page + 1)

@@ -87,6 +87,8 @@ async function getPendingReviews(searchParams: ModerationPageProps['searchParams
 }
 
 async function getReportedContent(searchParams: ModerationPageProps['searchParams'] = {}) {
+  searchParams = await searchParams;
+  
   const page = Number(searchParams.page) || 1;
   const skip = (page - 1) * PAGE_SIZE;
   const status = searchParams.status || 'OPEN';
@@ -333,6 +335,7 @@ export default async function ModerationPage({ searchParams }: ModerationPagePro
                     <Link
                       key={i}
                       href={{
+                        pathname: "/admin/moderation",
                         query: {
                           ...searchParams,
                           tab: 'reviews',
@@ -463,6 +466,7 @@ export default async function ModerationPage({ searchParams }: ModerationPagePro
                     <Link
                       key={i}
                       href={{
+                        pathname: "/admin/moderation",
                         query: {
                           ...searchParams,
                           tab: 'reports',

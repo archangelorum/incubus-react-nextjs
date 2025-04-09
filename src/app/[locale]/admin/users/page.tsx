@@ -33,6 +33,8 @@ interface UserListProps {
 }
 
 async function getUsers(searchParams: UserListProps['searchParams'] = {}) {
+  searchParams = await searchParams;
+  
   const page = Number(searchParams.page) || 1;
   const skip = (page - 1) * PAGE_SIZE;
   const query = searchParams.query || '';
@@ -346,6 +348,7 @@ export default async function UsersPage({ searchParams }: UserListProps) {
             <div className="flex items-center space-x-2">
               <Link
                 href={{
+                  pathname: "/admin/users",
                   query: {
                     ...searchParams,
                     page: Math.max(1, pagination.page - 1)
@@ -371,6 +374,7 @@ export default async function UsersPage({ searchParams }: UserListProps) {
               
               <Link
                 href={{
+                  pathname: "/admin/users",
                   query: {
                     ...searchParams,
                     page: Math.min(pagination.totalPages, pagination.page + 1)
