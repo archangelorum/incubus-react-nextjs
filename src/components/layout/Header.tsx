@@ -258,7 +258,7 @@ export function Header() {
                                                     {t('nav.wallet')}
                                                     {isConnected && (
                                                         <span className="ml-auto text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                                                            {activeWallet?.balance.toFixed(2)} SOL
+                                                            {Number(activeWallet?.balance).toFixed(2)} SOL
                                                         </span>
                                                     )}
                                                 </Link>

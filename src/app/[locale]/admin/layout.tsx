@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { auth } from '@/lib/auth';
 import { redirect } from '@/i18n/navigation';
 import { headers } from 'next/headers';
@@ -17,7 +17,6 @@ import {
   X
 } from 'lucide-react';
 import { AdminSidebar } from '@/components/admin/layout/admin-sidebar';
-import { useLocale } from 'next-intl';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -27,6 +26,7 @@ interface AdminLayoutProps {
 }
 
 export default async function AdminLayout({ children, params }: AdminLayoutProps) {
+  const locale = await getLocale();
   const t = await getTranslations('admin');
   
   // Check if user is authenticated and has admin role
@@ -35,7 +35,7 @@ export default async function AdminLayout({ children, params }: AdminLayoutProps
   });
   
   if (!session || !session.user || session.user.role !== 'admin') {
-    redirect( { href: '/', locale: useLocale() });
+    redirect( { href: '/', locale });
   }
   
   const navigationItems = [

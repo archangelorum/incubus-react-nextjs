@@ -1,10 +1,9 @@
 import { Suspense } from 'react';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { auth } from '@/lib/auth';
-import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
-import { Link } from '@/i18n/navigation';
+import { Link, redirect } from '@/i18n/navigation';
 import { 
   Users, 
   Search, 
@@ -102,15 +101,18 @@ async function getUsers(searchParams: UserListProps['searchParams'] = {}) {
 }
 
 export default async function UsersPage({ searchParams }: UserListProps) {
+  const locale = await getLocale();
   const t = await getTranslations('admin');
-  
+
+  searchParams = await searchParams;
+
   // Check if user is authenticated and has admin role
   const session = await auth.api.getSession({
     headers: await headers()
   });
   
   if (!session || !session.user || session.user.role !== 'admin') {
-    redirect('/');
+    redirect({href: "/", locale});
   }
   
   const { users, pagination } = await getUsers(searchParams);
@@ -163,6 +165,7 @@ export default async function UsersPage({ searchParams }: UserListProps) {
                     {t('users.table.user')}
                     <Link 
                       href={{
+                        pathname: "/admin/users",
                         query: {
                           ...searchParams,
                           sortBy: 'name',
@@ -180,6 +183,7 @@ export default async function UsersPage({ searchParams }: UserListProps) {
                     {t('users.table.email')}
                     <Link 
                       href={{
+                        pathname: "/admin/users",
                         query: {
                           ...searchParams,
                           sortBy: 'email',
@@ -197,6 +201,7 @@ export default async function UsersPage({ searchParams }: UserListProps) {
                     {t('users.table.role')}
                     <Link 
                       href={{
+                        pathname: "/admin/users",
                         query: {
                           ...searchParams,
                           sortBy: 'role',
@@ -219,6 +224,7 @@ export default async function UsersPage({ searchParams }: UserListProps) {
                     {t('users.table.joined')}
                     <Link 
                       href={{
+                        pathname: "/admin/users",
                         query: {
                           ...searchParams,
                           sortBy: 'createdAt',

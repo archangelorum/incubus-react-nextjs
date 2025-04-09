@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { Providers } from '@/components/providers';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { StopImpersonationButton } from '@/components/admin/users/stop-impersonation-button';
 
 import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -48,6 +49,7 @@ export default async function LocaleLayout({
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
+            <StopImpersonationButton />
           </div>
         </Providers>
       </body>

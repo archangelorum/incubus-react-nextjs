@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import { useAuth } from '@/components/auth/auth-provider';
 import { 
   MoreHorizontal, 
   Edit, 
@@ -25,6 +26,7 @@ export function UserActionButtons({ userId }: UserActionButtonsProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const t = useTranslations('admin');
+  const { removeUser, banUser, unbanUser, setUserRole } = useAuth();
 
   const handleEdit = () => {
     router.push(`/admin/users/${userId}`);
@@ -39,13 +41,9 @@ export function UserActionButtons({ userId }: UserActionButtonsProps) {
 
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/users/${userId}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete user');
-      }
+      
+      // Use the removeUser function from AuthProvider
+      await removeUser(userId);
 
       // Refresh the page to show updated user list
       router.refresh();
@@ -67,22 +65,14 @@ export function UserActionButtons({ userId }: UserActionButtonsProps) {
 
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/users/${userId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          banned: true,
-          banReason: 'Administrative action',
-          // Ban for 30 days by default
-          banExpires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to ban user');
-      }
+      
+      // Use the banUser function from AuthProvider
+      // Ban for 30 days by default
+      await banUser(
+        userId,
+        'Administrative action',
+        30 * 24 * 60 * 60 // 30 days in seconds
+      );
 
       // Refresh the page to show updated user status
       router.refresh();
@@ -99,21 +89,9 @@ export function UserActionButtons({ userId }: UserActionButtonsProps) {
   const handleUnbanUser = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/users/${userId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          banned: false,
-          banReason: null,
-          banExpires: null,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to unban user');
-      }
+      
+      // Use the unbanUser function from AuthProvider
+      await unbanUser(userId);
 
       // Refresh the page to show updated user status
       router.refresh();
@@ -129,19 +107,9 @@ export function UserActionButtons({ userId }: UserActionButtonsProps) {
   const handlePromoteToAdmin = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/users/${userId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          role: 'admin',
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to promote user to admin');
-      }
+      
+      // Use the setUserRole function from AuthProvider
+      await setUserRole(userId, 'admin');
 
       // Refresh the page to show updated user role
       router.refresh();
@@ -157,19 +125,9 @@ export function UserActionButtons({ userId }: UserActionButtonsProps) {
   const handleRemoveAdminRole = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/users/${userId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          role: null,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to remove admin role');
-      }
+      
+      // Use the setUserRole function from AuthProvider
+      await setUserRole(userId, 'user');
 
       // Refresh the page to show updated user role
       router.refresh();

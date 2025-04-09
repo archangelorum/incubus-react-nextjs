@@ -123,7 +123,7 @@ export function WalletDashboard() {
               </div>
               
               <div className="text-right">
-                <div className="text-2xl font-bold">{activeWallet.balance.toFixed(4)} MATIC</div>
+                <div className="text-2xl font-bold">{Number(activeWallet.balance).toFixed(4)} MATIC</div>
                 <button
                   onClick={() => handleRefreshBalance(activeWallet.id)}
                   disabled={refreshing === activeWallet.id}
@@ -200,7 +200,7 @@ export function WalletDashboard() {
               
               <div className="flex items-center">
                 <div className="text-right mr-4">
-                  <div className="font-bold">{wallet.balance.toFixed(4)} MATIC</div>
+                  <div className="font-bold">{Number(wallet.balance).toFixed(4)} MATIC</div>
                   <div className="text-xs text-muted-foreground">
                     {wallet.type.charAt(0).toUpperCase() + wallet.type.slice(1)}
                   </div>
