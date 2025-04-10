@@ -74,6 +74,66 @@ export function GameFilters({
   const [minPrice, setMinPrice] = useState(currentMinPrice?.toString() || '');
   const [maxPrice, setMaxPrice] = useState(currentMaxPrice?.toString() || '');
   const [featured, setFeatured] = useState(currentFeatured || false);
+  
+  // Current filter states
+  const [selectedGenre, setSelectedGenre] = useState(currentGenre || '');
+  const [selectedTag, setSelectedTag] = useState(currentTag || '');
+  const [selectedPublisher, setSelectedPublisher] = useState(currentPublisher || '');
+
+  // Function to build URL from component state
+  const buildFilterUrl = (overrides: Record<string, string | null> = {}) => {
+    const params = new URLSearchParams();
+    
+    // Add current search term if exists
+    if (searchTerm && !('search' in overrides)) {
+      params.set('search', searchTerm);
+    } else if ('search' in overrides && overrides.search) {
+      params.set('search', overrides.search);
+    }
+    
+    // Add genre if selected
+    if (selectedGenre && !('genre' in overrides)) {
+      params.set('genre', selectedGenre);
+    } else if ('genre' in overrides && overrides.genre) {
+      params.set('genre', overrides.genre);
+    }
+    
+    // Add tag if selected
+    if (selectedTag && !('tag' in overrides)) {
+      params.set('tag', selectedTag);
+    } else if ('tag' in overrides && overrides.tag) {
+      params.set('tag', overrides.tag);
+    }
+    
+    // Add publisher if selected
+    if (selectedPublisher && !('publisher' in overrides)) {
+      params.set('publisher', selectedPublisher);
+    } else if ('publisher' in overrides && overrides.publisher) {
+      params.set('publisher', overrides.publisher);
+    }
+    
+    // Add price range if set
+    if (minPrice && !('minPrice' in overrides)) {
+      params.set('minPrice', minPrice);
+    } else if ('minPrice' in overrides && overrides.minPrice) {
+      params.set('minPrice', overrides.minPrice);
+    }
+    
+    if (maxPrice && !('maxPrice' in overrides)) {
+      params.set('maxPrice', maxPrice);
+    } else if ('maxPrice' in overrides && overrides.maxPrice) {
+      params.set('maxPrice', overrides.maxPrice);
+    }
+    
+    // Add featured flag if true
+    if (featured && !('featured' in overrides)) {
+      params.set('featured', 'true');
+    } else if ('featured' in overrides && overrides.featured) {
+      params.set('featured', overrides.featured);
+    }
+    
+    return `${pathname}?${params.toString()}`;
+  };
 
   const [expandedGenres, setExpandedGenres] = useState(true);
   const [expandedTags, setExpandedTags] = useState(false);
@@ -118,44 +178,19 @@ export function GameFilters({
     e.preventDefault();
 
     if (!searchTerm.trim()) return;
-
-    const params = new URLSearchParams(window.location.search);
-    params.set('search', searchTerm.trim());
-
-    router.push(`${pathname}?${params.toString()}`);
+    
+    router.push(buildFilterUrl({ search: searchTerm.trim() }));
   };
 
   const handlePriceFilter = () => {
-    const params = new URLSearchParams(window.location.search);
-
-    if (minPrice) {
-      params.set('minPrice', minPrice);
-    } else {
-      params.delete('minPrice');
-    }
-
-    if (maxPrice) {
-      params.set('maxPrice', maxPrice);
-    } else {
-      params.delete('maxPrice');
-    }
-
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(buildFilterUrl());
   };
 
   const handleFeaturedToggle = () => {
     const newFeatured = !featured;
     setFeatured(newFeatured);
-
-    const params = new URLSearchParams(window.location.search);
-
-    if (newFeatured) {
-      params.set('featured', 'true');
-    } else {
-      params.delete('featured');
-    }
-
-    router.push(`${pathname}?${params.toString()}`);
+    
+    router.push(buildFilterUrl({ featured: newFeatured ? 'true' : null }));
   };
 
   const clearFilters = () => {
@@ -163,7 +198,10 @@ export function GameFilters({
     setMinPrice('');
     setMaxPrice('');
     setFeatured(false);
-
+    setSelectedGenre('');
+    setSelectedTag('');
+    setSelectedPublisher('');
+    
     router.push(pathname);
   };
 
@@ -212,6 +250,21 @@ export function GameFilters({
             className="w-full px-3 py-2 pl-9 text-sm rounded-md bg-background border border-input focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <Search className="absolute left-2.5 top-2.5 w-4 h-4 text-muted-foreground" />
+          
+          {searchTerm && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearchTerm('');
+                router.push(buildFilterUrl({ search: null }));
+              }}
+              className="absolute right-16 top-2.5 text-muted-foreground hover:text-foreground"
+              aria-label="Clear search"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+          
           <button
             type="submit"
             className="absolute right-2 top-2 text-xs bg-primary/10 text-primary px-2 py-0.5 rounded hover:bg-primary/20 transition-colors"
@@ -313,11 +366,17 @@ export function GameFilters({
             {sortedGenres.map((genre) => (
               <Link
                 key={genre.id}
-                href={`/games?genre=${genre.slug}`}
-                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentGenre === genre.slug
-                  ? 'bg-primary/10 text-primary'
-                  : 'hover:bg-primary/5'
-                  }`}
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedGenre(genre.slug);
+                  router.push(buildFilterUrl({ genre: genre.slug }));
+                }}
+                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
+                  currentGenre === genre.slug || selectedGenre === genre.slug
+                    ? 'bg-primary/10 text-primary'
+                    : 'hover:bg-primary/5'
+                }`}
               >
                 <span>{genre.name}</span>
                 {genre._count && (
@@ -353,11 +412,17 @@ export function GameFilters({
             {sortedTags.slice(0, 20).map((tag) => (
               <Link
                 key={tag.id}
-                href={`/games?tag=${tag.slug}`}
-                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentTag === tag.slug
-                  ? 'bg-primary/10 text-primary'
-                  : 'hover:bg-primary/5'
-                  }`}
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedTag(tag.slug);
+                  router.push(buildFilterUrl({ tag: tag.slug }));
+                }}
+                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
+                  currentTag === tag.slug || selectedTag === tag.slug
+                    ? 'bg-primary/10 text-primary'
+                    : 'hover:bg-primary/5'
+                }`}
               >
                 <span>{tag.name}</span>
                 {tag._count && (
@@ -401,11 +466,17 @@ export function GameFilters({
             {sortedPublishers.map((publisher) => (
               <Link
                 key={publisher.id}
-                href={`/games?publisher=${publisher.slug}`}
-                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${currentPublisher === publisher.slug
-                  ? 'bg-primary/10 text-primary'
-                  : 'hover:bg-primary/5'
-                  }`}
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedPublisher(publisher.slug);
+                  router.push(buildFilterUrl({ publisher: publisher.slug }));
+                }}
+                className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
+                  currentPublisher === publisher.slug || selectedPublisher === publisher.slug
+                    ? 'bg-primary/10 text-primary'
+                    : 'hover:bg-primary/5'
+                }`}
               >
                 <span>{publisher.name}</span>
                 {publisher._count && (

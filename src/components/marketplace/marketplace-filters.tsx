@@ -58,6 +58,59 @@ export function MarketplaceFilters({
   const [minPrice, setMinPrice] = useState(currentMinPrice?.toString() || '');
   const [maxPrice, setMaxPrice] = useState(currentMaxPrice?.toString() || '');
   
+  // Current filter states
+  const [selectedType, setSelectedType] = useState(currentType || '');
+  const [selectedGameId, setSelectedGameId] = useState(currentGameId || '');
+  const [selectedStatus, setSelectedStatus] = useState(currentStatus || 'ACTIVE');
+
+  // Function to build URL from component state
+  const buildFilterUrl = (overrides: Record<string, string | null> = {}) => {
+    const params = new URLSearchParams();
+    
+    // Add current search term if exists
+    if (searchTerm && !('search' in overrides)) {
+      params.set('search', searchTerm);
+    } else if ('search' in overrides && overrides.search) {
+      params.set('search', overrides.search);
+    }
+    
+    // Add type if selected
+    if (selectedType && !('type' in overrides)) {
+      params.set('type', selectedType);
+    } else if ('type' in overrides && overrides.type) {
+      params.set('type', overrides.type);
+    }
+    
+    // Add gameId if selected
+    if (selectedGameId && !('gameId' in overrides)) {
+      params.set('gameId', selectedGameId);
+    } else if ('gameId' in overrides && overrides.gameId) {
+      params.set('gameId', overrides.gameId);
+    }
+    
+    // Add status if selected and not default
+    if (selectedStatus && selectedStatus !== 'ACTIVE' && !('status' in overrides)) {
+      params.set('status', selectedStatus);
+    } else if ('status' in overrides && overrides.status && overrides.status !== 'ACTIVE') {
+      params.set('status', overrides.status);
+    }
+    
+    // Add price range if set
+    if (minPrice && !('minPrice' in overrides)) {
+      params.set('minPrice', minPrice);
+    } else if ('minPrice' in overrides && overrides.minPrice) {
+      params.set('minPrice', overrides.minPrice);
+    }
+    
+    if (maxPrice && !('maxPrice' in overrides)) {
+      params.set('maxPrice', maxPrice);
+    } else if ('maxPrice' in overrides && overrides.maxPrice) {
+      params.set('maxPrice', overrides.maxPrice);
+    }
+    
+    return `${pathname}?${params.toString()}`;
+  };
+  
   const [expandedType, setExpandedType] = useState(true);
   const [expandedGames, setExpandedGames] = useState(true);
   const [expandedStatus, setExpandedStatus] = useState(true);
@@ -92,34 +145,20 @@ export function MarketplaceFilters({
     
     if (!searchTerm.trim()) return;
     
-    const params = new URLSearchParams(window.location.search);
-    params.set('search', searchTerm.trim());
-    
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(buildFilterUrl({ search: searchTerm.trim() }));
   };
 
   const handlePriceFilter = () => {
-    const params = new URLSearchParams(window.location.search);
-    
-    if (minPrice) {
-      params.set('minPrice', minPrice);
-    } else {
-      params.delete('minPrice');
-    }
-    
-    if (maxPrice) {
-      params.set('maxPrice', maxPrice);
-    } else {
-      params.delete('maxPrice');
-    }
-    
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(buildFilterUrl());
   };
 
   const clearFilters = () => {
     setSearchTerm('');
     setMinPrice('');
     setMaxPrice('');
+    setSelectedType('');
+    setSelectedGameId('');
+    setSelectedStatus('ACTIVE');
     
     router.push(pathname);
   };
@@ -156,6 +195,21 @@ export function MarketplaceFilters({
             className="w-full px-3 py-2 pl-9 text-sm rounded-md bg-background border border-input focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <Search className="absolute left-2.5 top-2.5 w-4 h-4 text-muted-foreground" />
+          
+          {searchTerm && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearchTerm('');
+                router.push(buildFilterUrl({ search: null }));
+              }}
+              className="absolute right-16 top-2.5 text-muted-foreground hover:text-foreground"
+              aria-label="Clear search"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+          
           <button
             type="submit"
             className="absolute right-2 top-2 text-xs bg-primary/10 text-primary px-2 py-0.5 rounded hover:bg-primary/20 transition-colors"
@@ -184,40 +238,67 @@ export function MarketplaceFilters({
         
         {expandedType && (
           <div className="mt-2 space-y-1">
+            {/* All Types */}
             <Link
-              href="/marketplace"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedType('');
+                router.push(buildFilterUrl({ type: null }));
+              }}
               className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
-                !currentType
+                !currentType && !selectedType
                   ? 'bg-primary/10 text-primary'
                   : 'hover:bg-primary/5'
               }`}
             >
               <span>All Types</span>
             </Link>
+            
+            {/* Game Licenses */}
             <Link
-              href="/marketplace?type=GAME_LICENSE"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedType('GAME_LICENSE');
+                router.push(buildFilterUrl({ type: 'GAME_LICENSE' }));
+              }}
               className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
-                currentType === 'GAME_LICENSE'
+                currentType === 'GAME_LICENSE' || selectedType === 'GAME_LICENSE'
                   ? 'bg-primary/10 text-primary'
                   : 'hover:bg-primary/5'
               }`}
             >
               <span>Game Licenses</span>
             </Link>
+            
+            {/* Game Items */}
             <Link
-              href="/marketplace?type=GAME_ITEM"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedType('GAME_ITEM');
+                router.push(buildFilterUrl({ type: 'GAME_ITEM' }));
+              }}
               className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
-                currentType === 'GAME_ITEM'
+                currentType === 'GAME_ITEM' || selectedType === 'GAME_ITEM'
                   ? 'bg-primary/10 text-primary'
                   : 'hover:bg-primary/5'
               }`}
             >
               <span>Game Items</span>
             </Link>
+            
+            {/* Bundles */}
             <Link
-              href="/marketplace?type=BUNDLE"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedType('BUNDLE');
+                router.push(buildFilterUrl({ type: 'BUNDLE' }));
+              }}
               className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
-                currentType === 'BUNDLE'
+                currentType === 'BUNDLE' || selectedType === 'BUNDLE'
                   ? 'bg-primary/10 text-primary'
                   : 'hover:bg-primary/5'
               }`}
@@ -247,10 +328,16 @@ export function MarketplaceFilters({
         
         {expandedStatus && (
           <div className="mt-2 space-y-1">
+            {/* Active */}
             <Link
-              href={`/marketplace?status=ACTIVE${currentType ? `&type=${currentType}` : ''}`}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedStatus('ACTIVE');
+                router.push(buildFilterUrl({ status: 'ACTIVE' }));
+              }}
               className={`flex items-center py-1 px-2 text-sm rounded-md transition-colors ${
-                currentStatus === 'ACTIVE'
+                currentStatus === 'ACTIVE' || selectedStatus === 'ACTIVE'
                   ? 'bg-primary/10 text-primary'
                   : 'hover:bg-primary/5'
               }`}
@@ -258,10 +345,17 @@ export function MarketplaceFilters({
               <CheckCircle className="w-3 h-3 mr-2 text-green-500" />
               <span>Active</span>
             </Link>
+            
+            {/* Sold */}
             <Link
-              href={`/marketplace?status=SOLD${currentType ? `&type=${currentType}` : ''}`}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedStatus('SOLD');
+                router.push(buildFilterUrl({ status: 'SOLD' }));
+              }}
               className={`flex items-center py-1 px-2 text-sm rounded-md transition-colors ${
-                currentStatus === 'SOLD'
+                currentStatus === 'SOLD' || selectedStatus === 'SOLD'
                   ? 'bg-primary/10 text-primary'
                   : 'hover:bg-primary/5'
               }`}
@@ -269,10 +363,17 @@ export function MarketplaceFilters({
               <ShoppingCart className="w-3 h-3 mr-2 text-primary" />
               <span>Sold</span>
             </Link>
+            
+            {/* Cancelled */}
             <Link
-              href={`/marketplace?status=CANCELLED${currentType ? `&type=${currentType}` : ''}`}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedStatus('CANCELLED');
+                router.push(buildFilterUrl({ status: 'CANCELLED' }));
+              }}
               className={`flex items-center py-1 px-2 text-sm rounded-md transition-colors ${
-                currentStatus === 'CANCELLED'
+                currentStatus === 'CANCELLED' || selectedStatus === 'CANCELLED'
                   ? 'bg-primary/10 text-primary'
                   : 'hover:bg-primary/5'
               }`}
@@ -280,10 +381,17 @@ export function MarketplaceFilters({
               <XCircle className="w-3 h-3 mr-2 text-destructive" />
               <span>Cancelled</span>
             </Link>
+            
+            {/* Expired */}
             <Link
-              href={`/marketplace?status=EXPIRED${currentType ? `&type=${currentType}` : ''}`}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedStatus('EXPIRED');
+                router.push(buildFilterUrl({ status: 'EXPIRED' }));
+              }}
               className={`flex items-center py-1 px-2 text-sm rounded-md transition-colors ${
-                currentStatus === 'EXPIRED'
+                currentStatus === 'EXPIRED' || selectedStatus === 'EXPIRED'
                   ? 'bg-primary/10 text-primary'
                   : 'hover:bg-primary/5'
               }`}
@@ -374,9 +482,14 @@ export function MarketplaceFilters({
             {games.map((game) => (
               <Link
                 key={game.id}
-                href={`/marketplace?gameId=${game.id}${currentType ? `&type=${currentType}` : ''}`}
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedGameId(game.id);
+                  router.push(buildFilterUrl({ gameId: game.id }));
+                }}
                 className={`flex items-center justify-between py-1 px-2 text-sm rounded-md transition-colors ${
-                  currentGameId === game.id
+                  currentGameId === game.id || selectedGameId === game.id
                     ? 'bg-primary/10 text-primary'
                     : 'hover:bg-primary/5'
                 }`}
