@@ -13,6 +13,7 @@ type User = {
   banReason?: string;
   banExpires?: string | Date;
   impersonatedBy?: string | null;
+  activeOrganizationId?: string | null;
 };
 
 type SignInProviders = "onetap" | "passkey" | "google"
@@ -45,6 +46,30 @@ type AuthContextType = {
   // Admin impersonation
   impersonateUser: (userId: string) => Promise<any>;
   stopImpersonating: () => Promise<any>;
+  
+  // Organization-related functions
+  createOrganization: (data: { name: string; slug: string; logo?: string }) => Promise<any>;
+  listOrganizations: () => Promise<any>;
+  getActiveOrganization: () => Promise<any>;
+  setActiveOrganization: (organizationId: string) => Promise<any>;
+  getFullOrganization: (params?: { organizationId?: string; organizationSlug?: string }) => Promise<any>;
+  updateOrganization: (data: { name?: string; logo?: string; slug?: string; metadata?: any }) => Promise<any>;
+  deleteOrganization: (organizationId: string) => Promise<any>;
+  
+  // Organization members and invitations
+  inviteMember: (data: { email: string; role: string }) => Promise<any>;
+  acceptInvitation: (invitationId: string) => Promise<any>;
+  cancelInvitation: (invitationId: string) => Promise<any>;
+  rejectInvitation: (invitationId: string) => Promise<any>;
+  getInvitation: (invitationId: string) => Promise<any>;
+  removeMember: (memberIdOrEmail: string) => Promise<any>;
+  updateMemberRole: (data: { memberId: string; role: string | string[] }) => Promise<any>;
+  getActiveMember: () => Promise<any>;
+  leaveOrganization: (organizationId: string) => Promise<any>;
+  
+  // Organization permissions
+  checkOrganizationPermission: (permission: any) => Promise<boolean>;
+  checkRolePermission: (params: { permission: any; role: string }) => Promise<boolean>;
 };
 
 const authProviders = {
@@ -56,6 +81,7 @@ const authProviders = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children, initialSession }: { children: React.ReactNode, initialSession?: any }) {
+  // Add organization-related functions
   const [user, setUser] = useState<User | null>(
     initialSession?.user ? {
       id: initialSession.user.id,
@@ -67,6 +93,7 @@ export function AuthProvider({ children, initialSession }: { children: React.Rea
       banReason: initialSession.user.banReason,
       banExpires: initialSession.user.banExpires,
       impersonatedBy: initialSession.session.impersonatedBy,
+      activeOrganizationId: initialSession.session.activeOrganizationId,
     } : null
   );
   const [isLoading, setIsLoading] = useState(!initialSession);
@@ -88,6 +115,7 @@ export function AuthProvider({ children, initialSession }: { children: React.Rea
             banReason: session.user.banReason ? String(session.user.banReason) : undefined,
             banExpires: session.user.banExpires || undefined,
             impersonatedBy: session.session.impersonatedBy,
+            activeOrganizationId: session.session.activeOrganizationId,
           });
         } else {
           setUser(null);
@@ -346,6 +374,7 @@ export function AuthProvider({ children, initialSession }: { children: React.Rea
           banReason: session.user.banReason ? String(session.user.banReason) : undefined,
           banExpires: session.user.banExpires || undefined,
           impersonatedBy: session.session.impersonatedBy,
+          activeOrganizationId: session.session.activeOrganizationId,
         });
       }
       
@@ -356,6 +385,350 @@ export function AuthProvider({ children, initialSession }: { children: React.Rea
       throw err;
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Organization-related functions
+  const createOrganization = async (data: { name: string; slug: string; logo?: string }) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.create(data);
+      return result;
+    } catch (err) {
+      console.error('Error creating organization:', err);
+      setError('Failed to create organization');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const listOrganizations = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // This is a hook, so we can't use it directly in a function
+      // Instead, we'll use the direct API call
+      const result = await authClient.organization.list();
+      return result.data;
+    } catch (err) {
+      console.error('Error listing organizations:', err);
+      setError('Failed to list organizations');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getActiveOrganization = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Create a simple implementation that returns the active organization
+      // based on the user's activeOrganizationId
+      if (user?.activeOrganizationId) {
+        const orgs = await authClient.organization.list();
+        return orgs.data?.find(org => org.id === user.activeOrganizationId) || null;
+      }
+      return null;
+    } catch (err) {
+      console.error('Error getting active organization:', err);
+      setError('Failed to get active organization');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const setActiveOrganization = async (organizationId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.setActive({
+        organizationId
+      });
+      
+      // Update the user state with the new active organization
+      if (user) {
+        setUser({
+          ...user,
+          activeOrganizationId: organizationId
+        });
+      }
+      
+      return result;
+    } catch (err) {
+      console.error('Error setting active organization:', err);
+      setError('Failed to set active organization');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getFullOrganization = async (params?: { organizationId?: string; organizationSlug?: string }) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.getFullOrganization({
+        query: params
+      });
+      return result;
+    } catch (err) {
+      console.error('Error getting organization details:', err);
+      setError('Failed to get organization details');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const updateOrganization = async (data: { name?: string; logo?: string; slug?: string; metadata?: any }) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.update({
+        data
+      });
+      
+      return result;
+    } catch (err) {
+      console.error('Error updating organization:', err);
+      setError('Failed to update organization');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteOrganization = async (organizationId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.delete({
+        organizationId
+      });
+      
+      return result;
+    } catch (err) {
+      console.error('Error deleting organization:', err);
+      setError('Failed to delete organization');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Organization members and invitations
+  const inviteMember = async (data: { email: string; role: string }) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Convert the string role to the expected type
+      const role = data.role as "admin" | "member" | "owner" | "publisher";
+      const result = await authClient.organization.inviteMember({
+        email: data.email,
+        role
+      });
+      return result;
+    } catch (err) {
+      console.error('Error inviting member:', err);
+      setError('Failed to invite member');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const acceptInvitation = async (invitationId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.acceptInvitation({
+        invitationId
+      });
+      
+      return result;
+    } catch (err) {
+      console.error('Error accepting invitation:', err);
+      setError('Failed to accept invitation');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const cancelInvitation = async (invitationId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.cancelInvitation({
+        invitationId
+      });
+      
+      return result;
+    } catch (err) {
+      console.error('Error canceling invitation:', err);
+      setError('Failed to cancel invitation');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const rejectInvitation = async (invitationId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.rejectInvitation({
+        invitationId
+      });
+      
+      return result;
+    } catch (err) {
+      console.error('Error rejecting invitation:', err);
+      setError('Failed to reject invitation');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getInvitation = async (invitationId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.getInvitation({
+        query: {
+          id: invitationId
+        }
+      });
+      
+      return result;
+    } catch (err) {
+      console.error('Error getting invitation:', err);
+      setError('Failed to get invitation');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const removeMember = async (memberIdOrEmail: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.removeMember({
+        memberIdOrEmail
+      });
+      
+      return result;
+    } catch (err) {
+      console.error('Error removing member:', err);
+      setError('Failed to remove member');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const updateMemberRole = async (data: { memberId: string; role: string | string[] }) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Convert the role to the expected type
+      const role = data.role as "admin" | "member" | "owner" | "publisher" | ("admin" | "member" | "owner" | "publisher")[];
+      const result = await authClient.organization.updateMemberRole({
+        memberId: data.memberId,
+        role
+      });
+      return result;
+    } catch (err) {
+      console.error('Error updating member role:', err);
+      setError('Failed to update member role');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getActiveMember = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.getActiveMember();
+      return result;
+    } catch (err) {
+      console.error('Error getting active member:', err);
+      setError('Failed to get active member');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const leaveOrganization = async (organizationId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await authClient.organization.leave({
+        organizationId
+      });
+      
+      return result;
+    } catch (err) {
+      console.error('Error leaving organization:', err);
+      setError('Failed to leave organization');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Organization permissions
+  const checkOrganizationPermission = async (permission: any) => {
+    try {
+      if (!user) return false;
+      
+      const result = await authClient.organization.hasPermission({
+        permission
+      });
+      
+      return !!result;
+    } catch (err) {
+      console.error('Error checking organization permission:', err);
+      return false;
+    }
+  };
+
+  const checkRolePermission = async (params: { permission: any; role: string }) => {
+    try {
+      // Convert the role to the expected type
+      const role = params.role as "admin" | "member" | "owner" | "publisher";
+      const result = authClient.organization.checkRolePermission({
+        permission: params.permission,
+        role
+      });
+      return !!result;
+    } catch (err) {
+      console.error('Error checking role permission:', err);
+      return false;
     }
   };
 
@@ -379,6 +752,7 @@ export function AuthProvider({ children, initialSession }: { children: React.Rea
           banReason: session.user.banReason ? String(session.user.banReason) : undefined,
           banExpires: session.user.banExpires || undefined,
           impersonatedBy: undefined,
+          activeOrganizationId: session.session.activeOrganizationId,
         });
       }
       
@@ -422,6 +796,30 @@ export function AuthProvider({ children, initialSession }: { children: React.Rea
         // Admin impersonation
         impersonateUser,
         stopImpersonating,
+        
+        // Organization-related functions
+        createOrganization,
+        listOrganizations,
+        getActiveOrganization,
+        setActiveOrganization,
+        getFullOrganization,
+        updateOrganization,
+        deleteOrganization,
+        
+        // Organization members and invitations
+        inviteMember,
+        acceptInvitation,
+        cancelInvitation,
+        rejectInvitation,
+        getInvitation,
+        removeMember,
+        updateMemberRole,
+        getActiveMember,
+        leaveOrganization,
+        
+        // Organization permissions
+        checkOrganizationPermission,
+        checkRolePermission,
       }}
     >
       {children}

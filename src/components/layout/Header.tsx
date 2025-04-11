@@ -20,7 +20,8 @@ import {
     Globe,
     Wallet,
     Library,
-    ChevronDown
+    ChevronDown,
+    Building2
 } from 'lucide-react';
 import { routing } from '@/i18n/routing';
 
@@ -264,6 +265,15 @@ export function Header() {
                                                 </Link>
 
                                                 <Link
+                                                    href="/organizations"
+                                                    className="flex items-center px-4 py-2 text-sm hover:bg-primary/5"
+                                                    onClick={() => setIsUserMenuOpen(false)}
+                                                >
+                                                    <Building2 className="w-4 h-4 mr-2" />
+                                                    Organizations
+                                                </Link>
+
+                                                <Link
                                                     href="/settings"
                                                     className="flex items-center px-4 py-2 text-sm hover:bg-primary/5"
                                                     onClick={() => setIsUserMenuOpen(false)}
@@ -379,6 +389,13 @@ export function Header() {
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         {t('nav.profile')}
+                                    </Link>
+                                    <Link
+                                        href="/organizations"
+                                        className={`px-2 py-2 rounded-md ${isActive('/organizations') ? 'bg-primary/10 text-primary' : 'hover:bg-primary/5'}`}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        Organizations
                                     </Link>
                                 </>
                             )}
