@@ -99,7 +99,7 @@ export function WalletConnect() {
               className={`p-4 rounded-lg border ${
                 isConnected 
                   ? 'border-primary/50 bg-primary/5' 
-                  : 'border-border hover:border-primary/30 hover:bg-accent transition-colors'
+                  : 'border-[hsl(var(--border))] hover:border-primary/30 hover:bg-accent transition-colors'
               }`}
             >
               <div className="flex items-center justify-between">

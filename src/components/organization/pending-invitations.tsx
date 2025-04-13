@@ -86,7 +86,7 @@ export function PendingInvitations() {
 
   return (
     <div>
-      <div className="p-6 border-b border-border">
+      <div className="p-6 border-b border-[hsl(var(--border))]">
         <h3 className="text-lg font-semibold flex items-center">
           <Inbox className="w-5 h-5 mr-2 text-primary" />
           Pending Invitations
@@ -142,7 +142,7 @@ export function PendingInvitations() {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handleAcceptInvitation(invitation.id)}
-                      className="p-2 text-green-600 bg-green-50 dark:bg-green-900/20 rounded-full hover:bg-green-100 dark:hover:bg-green-900/30 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 transition-colors"
+                      className="p-2 text-green-600 bg-green-50 dark:bg-green-900/20 rounded-full hover:bg-green-100 dark:hover:bg-green-900/30 focus:outline-hidden focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 transition-colors"
                       disabled={isLoading}
                       title="Accept"
                     >
@@ -150,7 +150,7 @@ export function PendingInvitations() {
                     </button>
                     <button
                       onClick={() => handleRejectInvitation(invitation.id)}
-                      className="p-2 text-destructive bg-destructive/10 rounded-full hover:bg-destructive/20 focus:outline-none focus:ring-2 focus:ring-destructive focus:ring-offset-2 disabled:opacity-50 transition-colors"
+                      className="p-2 text-destructive bg-destructive/10 rounded-full hover:bg-destructive/20 focus:outline-hidden focus:ring-2 focus:ring-destructive focus:ring-offset-2 disabled:opacity-50 transition-colors"
                       disabled={isLoading}
                       title="Reject"
                     >

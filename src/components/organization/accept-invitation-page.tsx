@@ -95,7 +95,7 @@ export function AcceptInvitationPage({ invitationId }: { invitationId: string })
             </p>
             <button
               onClick={() => auth.signIn('google')}
-              className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Sign In
             </button>
@@ -131,7 +131,7 @@ export function AcceptInvitationPage({ invitationId }: { invitationId: string })
             </p>
             <button
               onClick={() => router.push('/organizations')}
-              className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Go to Organizations
             </button>
@@ -177,14 +177,14 @@ export function AcceptInvitationPage({ invitationId }: { invitationId: string })
           <div className="flex space-x-4">
             <button
               onClick={handleAcceptInvitation}
-              className="flex-1 px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
+              className="flex-1 px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-hidden focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
               disabled={isAccepting}
             >
               {isAccepting ? 'Accepting...' : 'Accept Invitation'}
             </button>
             <button
               onClick={handleRejectInvitation}
-              className="flex-1 px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50"
+              className="flex-1 px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50"
               disabled={isAccepting}
             >
               {isAccepting ? 'Rejecting...' : 'Reject'}

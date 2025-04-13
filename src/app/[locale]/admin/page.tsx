@@ -194,7 +194,7 @@ export default async function AdminDashboardPage() {
       {/* Metrics Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Users Metric */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.metrics.users')}</p>
@@ -220,7 +220,7 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Games Metric */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.metrics.games')}</p>
@@ -246,7 +246,7 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Sales Metric */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.metrics.revenue')}</p>
@@ -272,7 +272,7 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Wallets Metric */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.metrics.wallets')}</p>
@@ -302,7 +302,7 @@ export default async function AdminDashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Link
           href="/admin/users"
-          className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <h3 className="font-medium">{t('dashboard.quickLinks.manageUsers')}</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -312,7 +312,7 @@ export default async function AdminDashboardPage() {
         
         <Link
           href="/admin/moderation"
-          className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <h3 className="font-medium">{t('dashboard.quickLinks.moderateContent')}</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -322,7 +322,7 @@ export default async function AdminDashboardPage() {
         
         <Link
           href="/admin/analytics"
-          className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <h3 className="font-medium">{t('dashboard.quickLinks.viewAnalytics')}</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -332,7 +332,7 @@ export default async function AdminDashboardPage() {
         
         <Link
           href="/admin/settings"
-          className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <h3 className="font-medium">{t('dashboard.quickLinks.configureSettings')}</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -342,7 +342,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
           <h2 className="text-lg font-semibold">{t('dashboard.recentActivity')}</h2>
           <Link 

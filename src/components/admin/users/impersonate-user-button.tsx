@@ -57,7 +57,7 @@ export function ImpersonateUserButton({ userId, userName }: ImpersonateUserButto
           isConfirming
             ? 'text-white bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500'
             : 'text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
-        } focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors`}
+        } focus:outline-hidden focus:ring-2 focus:ring-offset-2 transition-colors`}
       >
         {isLoading ? (
           <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin mr-2"></div>

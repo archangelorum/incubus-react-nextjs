@@ -101,7 +101,7 @@ export function AnalyticsMetricsGrid({ metrics }: AnalyticsMetricsGridProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {metricCards.map((card, index) => (
-        <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{card.title}</p>

@@ -136,7 +136,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                             className="object-cover opacity-30"
                             priority
                         />
-                        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+                        <div className="absolute inset-0 bg-linear-to-b from-background/80 via-background/60 to-background" />
                     </div>
                 )}
 

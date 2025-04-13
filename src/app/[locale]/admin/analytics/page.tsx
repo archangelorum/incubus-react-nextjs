@@ -289,7 +289,7 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
       </div>
 
       {/* Date Range Selector */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
         <Suspense fallback={<div>Loading date range selector...</div>}>
           <AnalyticsDateRange 
             activePeriod={period} 
@@ -315,14 +315,14 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
           
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
               <h2 className="text-lg font-semibold mb-4">{t('analytics.users.title')}</h2>
               <Suspense fallback={<div className="h-80 flex items-center justify-center">Loading chart...</div>}>
                 <UserAnalyticsChart data={analyticsData.userChartData} />
               </Suspense>
             </div>
             
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
               <h2 className="text-lg font-semibold mb-4">{t('analytics.sales.title')}</h2>
               <Suspense fallback={<div className="h-80 flex items-center justify-center">Loading chart...</div>}>
                 <SalesAnalyticsChart data={analyticsData.salesChartData} />
@@ -331,7 +331,7 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
           </div>
           
           {/* Top Games */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-lg font-semibold">{t('analytics.topGames')}</h2>
             </div>
@@ -364,7 +364,7 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
           </div>
           
           {/* Top Countries */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-lg font-semibold">{t('analytics.topCountries')}</h2>
             </div>
@@ -396,7 +396,7 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
 
       {activeTab === 'users' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
             <h2 className="text-lg font-semibold mb-4">{t('analytics.users.detailedTitle')}</h2>
             <Suspense fallback={<div className="h-80 flex items-center justify-center">Loading chart...</div>}>
               <UserAnalyticsChart data={analyticsData.userChartData} />
@@ -409,7 +409,7 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
 
       {activeTab === 'sales' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
             <h2 className="text-lg font-semibold mb-4">{t('analytics.sales.detailedTitle')}</h2>
             <Suspense fallback={<div className="h-80 flex items-center justify-center">Loading chart...</div>}>
               <SalesAnalyticsChart data={analyticsData.salesChartData} />
@@ -422,7 +422,7 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
 
       {activeTab === 'games' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
             <h2 className="text-lg font-semibold mb-4">{t('analytics.games.detailedTitle')}</h2>
             <Suspense fallback={<div className="h-80 flex items-center justify-center">Loading chart...</div>}>
               <GameAnalyticsChart data={analyticsData.gameChartData} />
@@ -434,7 +434,7 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
       )}
 
       {activeTab === 'reports' && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
           <h2 className="text-lg font-semibold mb-4">{t('analytics.reports.title')}</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
             {t('analytics.reports.description')}

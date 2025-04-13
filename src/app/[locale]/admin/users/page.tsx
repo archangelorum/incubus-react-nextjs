@@ -146,7 +146,7 @@ export default async function UsersPage({ searchParams }: UserListProps) {
       </div>
 
       {/* Search and filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
         <Suspense fallback={<div>Loading search form...</div>}>
           <UserSearchForm 
             currentQuery={searchParams?.query || ''} 
@@ -157,7 +157,7 @@ export default async function UsersPage({ searchParams }: UserListProps) {
       </div>
 
       {/* Users table */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
             <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700">

@@ -40,7 +40,7 @@ export function OrganizationSwitcher() {
       <button
         type="button"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="inline-flex items-center justify-center rounded-md border border-border px-4 py-2 bg-background text-sm font-medium hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
+        className="inline-flex items-center justify-center rounded-md border border-[hsl(var(--border))] px-4 py-2 bg-background text-sm font-medium hover:bg-accent/10 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
         id="organization-menu"
         aria-expanded={isDropdownOpen}
         aria-haspopup="true"
@@ -69,7 +69,7 @@ export function OrganizationSwitcher() {
       </button>
 
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-card border border-border z-50">
+        <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-card border border-[hsl(var(--border))] z-50">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="organization-menu">
             {organizations.length === 0 ? (
               <div className="px-4 py-2 text-sm text-muted-foreground">No organizations found</div>
@@ -98,7 +98,7 @@ export function OrganizationSwitcher() {
                 </button>
               ))
             )}
-            <div className="border-t border-border mt-1 pt-1">
+            <div className="border-t border-[hsl(var(--border))] mt-1 pt-1">
               <button
                 onClick={() => {
                   setIsCreateModalOpen(true);
@@ -116,9 +116,9 @@ export function OrganizationSwitcher() {
       )}
 
       {isCreateModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs">
           <div className="flex items-center justify-center min-h-screen p-4">
-            <div className="bg-card rounded-lg shadow-xl overflow-hidden w-full max-w-md border border-border">
+            <div className="bg-card rounded-lg shadow-xl overflow-hidden w-full max-w-md border border-[hsl(var(--border))]">
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-foreground mb-4">
                   Create New Organization
@@ -133,7 +133,7 @@ export function OrganizationSwitcher() {
               <div className="bg-muted px-6 py-4 flex justify-end">
                 <button
                   type="button"
-                  className="px-4 py-2 rounded-md border border-border bg-background text-foreground hover:bg-accent/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
+                  className="px-4 py-2 rounded-md border border-[hsl(var(--border))] bg-background text-foreground hover:bg-accent/5 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
                   onClick={() => setIsCreateModalOpen(false)}
                 >
                   Cancel

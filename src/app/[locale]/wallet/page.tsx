@@ -20,7 +20,7 @@ export default function WalletPage() {
           {/* Wallet Dashboard */}
           <div className="lg:col-span-2">
             <div className="bg-card rounded-lg shadow-md overflow-hidden">
-              <div className="p-6 border-b border-border">
+              <div className="p-6 border-b border-[hsl(var(--border))]">
                 <div className="flex items-center">
                   <Wallet className="w-5 h-5 mr-2 text-primary" />
                   <h2 className="text-xl font-semibold">Wallet Dashboard</h2>
@@ -34,7 +34,7 @@ export default function WalletPage() {
             
             {/* Transactions */}
             <div className="bg-card rounded-lg shadow-md overflow-hidden mt-6">
-              <div className="p-6 border-b border-border">
+              <div className="p-6 border-b border-[hsl(var(--border))]">
                 <div className="flex items-center">
                   <History className="w-5 h-5 mr-2 text-primary" />
                   <h2 className="text-xl font-semibold">Transaction History</h2>
@@ -51,7 +51,7 @@ export default function WalletPage() {
           <div className="space-y-6">
             {/* Connect Wallet */}
             <div className="bg-card rounded-lg shadow-md overflow-hidden">
-              <div className="p-6 border-b border-border">
+              <div className="p-6 border-b border-[hsl(var(--border))]">
                 <div className="flex items-center">
                   <CreditCard className="w-5 h-5 mr-2 text-primary" />
                   <h2 className="text-xl font-semibold">Connect Wallet</h2>
@@ -65,7 +65,7 @@ export default function WalletPage() {
             
             {/* Quick Actions */}
             <div className="bg-card rounded-lg shadow-md overflow-hidden">
-              <div className="p-6 border-b border-border">
+              <div className="p-6 border-b border-[hsl(var(--border))]">
                 <div className="flex items-center">
                   <ArrowUpDown className="w-5 h-5 mr-2 text-primary" />
                   <h2 className="text-xl font-semibold">Quick Actions</h2>
@@ -93,7 +93,7 @@ export default function WalletPage() {
             
             {/* Resources */}
             <div className="bg-card rounded-lg shadow-md overflow-hidden">
-              <div className="p-6 border-b border-border">
+              <div className="p-6 border-b border-[hsl(var(--border))]">
                 <h2 className="text-xl font-semibold">Resources</h2>
               </div>
               

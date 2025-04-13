@@ -262,7 +262,7 @@ export function WalletTransactions() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border">
+                <tr className="border-b border-[hsl(var(--border))]">
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Type</th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Amount</th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Status</th>
@@ -272,7 +272,7 @@ export function WalletTransactions() {
               </thead>
               <tbody>
                 {transactions.map((transaction) => (
-                  <tr key={transaction.id} className="border-b border-border hover:bg-accent/50 transition-colors">
+                  <tr key={transaction.id} className="border-b border-[hsl(var(--border))] hover:bg-accent/50 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center">
                         <div className="mr-2">

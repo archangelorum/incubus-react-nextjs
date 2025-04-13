@@ -110,7 +110,7 @@ export function ProfileAchievements({ userId }: ProfileAchievementsProps) {
           {achievements.map(achievement => (
             <div 
               key={achievement.id} 
-              className="border border-border rounded-lg p-4 flex items-start"
+              className="border border-[hsl(var(--border))] rounded-lg p-4 flex items-start"
             >
               <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 ${achievement.rarity === 'legendary' ? 'bg-amber-100 dark:bg-amber-900' : 'bg-primary/10'}`}>
                 {getIconComponent(achievement.icon, 'w-5 h-5 text-primary')}

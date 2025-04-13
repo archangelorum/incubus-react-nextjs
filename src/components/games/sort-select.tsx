@@ -25,7 +25,7 @@ export function SortSelect({ currentSort, currentOrder }: SortSelectProps) {
     <div className="flex items-center">
       <SlidersHorizontal className="w-4 h-4 mr-2" />
       <select
-        className="bg-transparent text-sm border-none focus:outline-none focus:ring-0"
+        className="bg-transparent text-sm border-none focus:outline-hidden focus:ring-0"
         defaultValue={`${currentSort}-${currentOrder}`}
         onChange={handleSortChange}
       >

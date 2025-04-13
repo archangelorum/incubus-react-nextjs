@@ -82,7 +82,7 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
       <div className="flex items-center gap-4">
         <Link
           href="/admin/users"
-          className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-xs text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           {t('users.backToList')}
@@ -92,7 +92,7 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* User Profile Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
           <div className="p-6">
             <div className="flex items-center">
               <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden mr-4">
@@ -209,7 +209,7 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
         </div>
         
         {/* User Sessions */}
-        <div className="md:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="md:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
           <Suspense fallback={<div>Loading sessions...</div>}>
             <UserSessions userId={params.id} />
           </Suspense>

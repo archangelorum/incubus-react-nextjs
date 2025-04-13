@@ -143,7 +143,7 @@ export function UserSessions({ userId }: UserSessionsProps) {
     return (
       <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4 mb-4">
         <div className="flex">
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <XCircle className="h-5 w-5 text-red-400" aria-hidden="true" />
           </div>
           <div className="ml-3">
@@ -151,7 +151,7 @@ export function UserSessions({ userId }: UserSessionsProps) {
             <div className="mt-2">
               <button
                 onClick={fetchSessions}
-                className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-red-700 dark:text-red-200 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-red-700 dark:text-red-200 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               >
                 <RefreshCw className="w-3 h-3 mr-1" />
                 {t('users.sessions.retry')}
@@ -177,20 +177,20 @@ export function UserSessions({ userId }: UserSessionsProps) {
         <h3 className="text-lg font-medium">{t('users.sessions.title')}</h3>
         <button
           onClick={handleRevokeAllSessions}
-          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
         >
           <XCircle className="w-3 h-3 mr-1" />
           {t('users.sessions.revokeAll')}
         </button>
       </div>
       
-      <div className="bg-white dark:bg-gray-800 shadow overflow-hidden rounded-md">
+      <div className="bg-white dark:bg-gray-800 shadow-sm overflow-hidden rounded-md">
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {sessions.map((session) => (
             <li key={session.id} className="px-6 py-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0 bg-gray-100 dark:bg-gray-700 rounded-full p-2">
+                  <div className="shrink-0 bg-gray-100 dark:bg-gray-700 rounded-full p-2">
                     {getDeviceIcon(session.userAgent)}
                   </div>
                   <div className="ml-4">
@@ -220,7 +220,7 @@ export function UserSessions({ userId }: UserSessionsProps) {
                   </div>
                   <button
                     onClick={() => handleRevokeSession(session.token)}
-                    className="inline-flex items-center p-1.5 border border-transparent rounded-full text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-500 dark:hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex items-center p-1.5 border border-transparent rounded-full text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-500 dark:hover:text-gray-400 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     title={t('users.sessions.revoke')}
                   >
                     <XCircle className="w-4 h-4" />

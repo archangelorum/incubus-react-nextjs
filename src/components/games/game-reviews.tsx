@@ -245,7 +245,7 @@ export function GameReviews({ gameId }: GameReviewsProps) {
         
         {/* Write Review Form */}
         {isAuthenticated && showWriteReview && (
-          <div className="mt-6 border-t border-border pt-6">
+          <div className="mt-6 border-t border-[hsl(var(--border))] pt-6">
             <h4 className="text-lg font-semibold mb-4">Write Your Review</h4>
             <form onSubmit={handleSubmitReview}>
               <div className="mb-4">
@@ -256,7 +256,7 @@ export function GameReviews({ gameId }: GameReviewsProps) {
                       key={star}
                       type="button"
                       onClick={() => setRating(star)}
-                      className="p-1 focus:outline-none focus:ring-1 focus:ring-primary rounded"
+                      className="p-1 focus:outline-hidden focus:ring-1 focus:ring-primary rounded"
                     >
                       <Star
                         className={`w-6 h-6 ${
@@ -274,7 +274,7 @@ export function GameReviews({ gameId }: GameReviewsProps) {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3 py-2 rounded-md bg-background border border-input focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full px-3 py-2 rounded-md bg-background border border-input focus:outline-hidden focus:ring-1 focus:ring-primary"
                   placeholder="Summarize your experience (optional)"
                 />
               </div>
@@ -284,7 +284,7 @@ export function GameReviews({ gameId }: GameReviewsProps) {
                 <textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="w-full px-3 py-2 rounded-md bg-background border border-input focus:outline-none focus:ring-1 focus:ring-primary min-h-[100px]"
+                  className="w-full px-3 py-2 rounded-md bg-background border border-input focus:outline-hidden focus:ring-1 focus:ring-primary min-h-[100px]"
                   placeholder="Share your thoughts about this game (optional)"
                 />
               </div>
@@ -356,7 +356,7 @@ export function GameReviews({ gameId }: GameReviewsProps) {
             <div key={review.id} className="bg-card rounded-lg p-6">
               <div className="flex justify-between">
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full overflow-hidden bg-muted flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full overflow-hidden bg-muted shrink-0">
                     {review.user.image ? (
                       <Image
                         src={review.user.image}

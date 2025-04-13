@@ -65,7 +65,7 @@ export function InviteMemberForm({ onSuccess }: { onSuccess?: () => void }) {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          className="w-full px-3 py-2 border border-[hsl(var(--border))] rounded-md bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
           placeholder="colleague@example.com"
           required
           disabled={isLoading}
@@ -80,7 +80,7 @@ export function InviteMemberForm({ onSuccess }: { onSuccess?: () => void }) {
           id="role"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          className="w-full px-3 py-2 border border-[hsl(var(--border))] rounded-md bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
           disabled={isLoading}
         >
           <option value="member">Member</option>
@@ -89,7 +89,7 @@ export function InviteMemberForm({ onSuccess }: { onSuccess?: () => void }) {
         </select>
         
         <div className="mt-3 p-3 bg-primary/5 rounded-md border border-primary/10 flex">
-          <Info className="w-5 h-5 text-primary mr-2 flex-shrink-0" />
+          <Info className="w-5 h-5 text-primary mr-2 shrink-0" />
           <p className="text-xs text-muted-foreground">
             {role === 'admin' && 'Admins can manage members and organization settings, including inviting new members and changing roles.'}
             {role === 'member' && 'Members can view and contribute to the organization but cannot manage members or change organization settings.'}
@@ -100,7 +100,7 @@ export function InviteMemberForm({ onSuccess }: { onSuccess?: () => void }) {
       
       <button
         type="submit"
-        className="w-full px-4 py-2 text-primary-foreground bg-primary rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-colors"
+        className="w-full px-4 py-2 text-primary-foreground bg-primary rounded-md hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-colors"
         disabled={isLoading || !email}
       >
         {isLoading ? 'Sending Invitation...' : 'Send Invitation'}

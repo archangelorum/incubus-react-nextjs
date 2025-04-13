@@ -146,7 +146,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
       </Suspense>
 
       {/* Content based on active tab */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
         {activeTab === 'system' && systemSettings && (
           <Suspense fallback={<div className="p-6">Loading system settings...</div>}>
             <SystemSettingsForm initialSettings={systemSettings} />
@@ -191,7 +191,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
 
       {/* Quick Settings Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-full">
               <Database className="w-5 h-5 text-blue-500" />
@@ -208,7 +208,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           </button>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-green-100 dark:bg-green-900/20 rounded-full">
               <CreditCard className="w-5 h-5 text-green-500" />
@@ -225,7 +225,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           </button>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-full">
               <Globe className="w-5 h-5 text-purple-500" />
@@ -242,7 +242,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           </button>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-yellow-100 dark:bg-yellow-900/20 rounded-full">
               <Bell className="w-5 h-5 text-yellow-500" />

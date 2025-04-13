@@ -51,7 +51,7 @@ export function SettingsTabs({ activeTab }: SettingsTabsProps) {
   ];
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
       <div className="border-b border-gray-200 dark:border-gray-700">
         <nav className="flex -mb-px overflow-x-auto" aria-label="Tabs">
           {tabs.map((tab) => (

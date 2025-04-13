@@ -255,7 +255,7 @@ export default async function AuditLogsPage({ searchParams }: AuditLogsPageProps
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
         <Suspense fallback={<div>Loading filters...</div>}>
           <AuditLogFilters 
             actionTypes={filters.actionTypes}
@@ -274,7 +274,7 @@ export default async function AuditLogsPage({ searchParams }: AuditLogsPageProps
       </div>
 
       {/* Audit Logs Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
             <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700">

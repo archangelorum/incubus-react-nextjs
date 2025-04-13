@@ -48,7 +48,7 @@ export function OrganizationDetails() {
   
   return (
     <div>
-      <div className="p-6 border-b border-border">
+      <div className="p-6 border-b border-[hsl(var(--border))]">
         <div className="flex items-center space-x-4">
           {activeOrganization.logo ? (
             <img
@@ -68,7 +68,7 @@ export function OrganizationDetails() {
         </div>
       </div>
       
-      <div className="border-b border-border">
+      <div className="border-b border-[hsl(var(--border))]">
         <nav className="flex">
           <button
             onClick={() => setActiveTab('members')}

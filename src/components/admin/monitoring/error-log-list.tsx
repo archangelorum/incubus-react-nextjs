@@ -81,7 +81,7 @@ export function ErrorLogList({ logs }: ErrorLogListProps) {
               onClick={() => toggleExpanded(log.id)}
             >
               <div className="flex items-start space-x-3">
-                <div className="flex-shrink-0 mt-0.5">
+                <div className="shrink-0 mt-0.5">
                   {getLevelIcon(log.level)}
                 </div>
                 <div>

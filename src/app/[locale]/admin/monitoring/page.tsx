@@ -228,7 +228,7 @@ export default async function MonitoringPage() {
 
       {/* System Status Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('monitoring.server.title')}</p>
@@ -247,7 +247,7 @@ export default async function MonitoringPage() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('monitoring.database.title')}</p>
@@ -266,7 +266,7 @@ export default async function MonitoringPage() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('monitoring.api.title')}</p>
@@ -285,7 +285,7 @@ export default async function MonitoringPage() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('monitoring.blockchain.title')}</p>
@@ -308,7 +308,7 @@ export default async function MonitoringPage() {
       {/* Resource Usage */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* CPU & Memory Usage */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
             <h2 className="text-lg font-semibold">{t('monitoring.resources.title')}</h2>
           </div>
@@ -379,7 +379,7 @@ export default async function MonitoringPage() {
         </div>
         
         {/* API Performance */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
             <h2 className="text-lg font-semibold">{t('monitoring.api.performance')}</h2>
           </div>
@@ -444,7 +444,7 @@ export default async function MonitoringPage() {
       </div>
 
       {/* Error Logs */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
           <h2 className="text-lg font-semibold">{t('monitoring.errors.title')}</h2>
           <Link 

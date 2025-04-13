@@ -172,7 +172,7 @@ export function WalletDashboard() {
               className={`rounded-lg p-4 flex items-center justify-between ${
                 activeWallet?.id === wallet.id 
                   ? 'bg-primary/5 border border-primary/20' 
-                  : 'bg-card hover:bg-accent transition-colors border border-border'
+                  : 'bg-card hover:bg-accent transition-colors border border-[hsl(var(--border))]'
               }`}
             >
               <div className="flex items-center">

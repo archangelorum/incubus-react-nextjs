@@ -17,13 +17,13 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border mt-16">
+    <footer className="bg-card border-t border-[hsl(var(--border))] mt-16">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-linear-to-r from-primary to-purple-500 bg-clip-text text-transparent">
                 Incubus
               </span>
             </Link>
@@ -202,7 +202,7 @@ export function Footer() {
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="flex-1 px-3 py-2 text-sm rounded-l-md bg-background border border-r-0 border-input focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="flex-1 px-3 py-2 text-sm rounded-l-md bg-background border border-r-0 border-input focus:outline-hidden focus:ring-1 focus:ring-primary"
                 />
                 <button
                   type="button"
@@ -216,7 +216,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-12 pt-6 border-t border-[hsl(var(--border))] flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
             {t('footer.copyright', { year: currentYear })}
           </p>

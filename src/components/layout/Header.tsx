@@ -97,7 +97,7 @@ export function Header() {
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">
-                        <span className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+                        <span className="text-2xl font-bold bg-linear-to-r from-primary to-purple-500 bg-clip-text text-transparent">
                             Incubus
                         </span>
                     </Link>
@@ -227,7 +227,7 @@ export function Header() {
                                             onClick={(e) => e.stopPropagation()}
                                         >
                                             <div className="py-1">
-                                                <div className="px-4 py-2 border-b border-border">
+                                                <div className="px-4 py-2 border-b border-[hsl(var(--border))]">
                                                     <p className="text-sm font-medium">{user?.name}</p>
                                                     <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
                                                 </div>
@@ -342,7 +342,7 @@ export function Header() {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-                <div className="md:hidden bg-background border-t border-border">
+                <div className="md:hidden bg-background border-t border-[hsl(var(--border))]">
                     <div className="container mx-auto px-4 py-4">
                         <nav className="flex flex-col space-y-4">
                             <Link
@@ -400,7 +400,7 @@ export function Header() {
                                 </>
                             )}
 
-                            <div className="pt-2 border-t border-border flex items-center justify-between">
+                            <div className="pt-2 border-t border-[hsl(var(--border))] flex items-center justify-between">
                                 <div className="flex items-center space-x-2">
                                     <button
                                         onClick={toggleTheme}
@@ -423,7 +423,7 @@ export function Header() {
                                             { pathname, params },
                                             { locale: e.target.value }
                                         )}
-                                        className="bg-transparent border border-border rounded-md text-sm p-1"
+                                        className="bg-transparent border border-[hsl(var(--border))] rounded-md text-sm p-1"
                                     >
                                         {routing.locales.map((cur) => (
                                             <option key={cur} value={cur}>

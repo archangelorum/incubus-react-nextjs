@@ -31,7 +31,7 @@ export default async function MarketplacePage({
     <div className="pt-24 pb-16">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
-        <div className="bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg p-8 mb-8">
+        <div className="bg-linear-to-r from-primary/20 to-secondary/20 rounded-lg p-8 mb-8">
           <div className="max-w-2xl">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
               NFT Marketplace

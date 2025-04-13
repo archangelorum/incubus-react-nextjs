@@ -112,7 +112,7 @@ export function GenreList() {
             />
           </div>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
             <h3 className="text-white font-semibold text-lg group-hover:text-primary transition-colors">
               {genre.name}
             </h3>

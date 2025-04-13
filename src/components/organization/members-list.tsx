@@ -104,7 +104,7 @@ export function MembersList() {
             <div className="h-16 bg-primary/10 rounded"></div>
           </div>
         ) : members.length === 0 ? (
-          <div className="text-center py-6 bg-muted/30 rounded-md border border-border">
+          <div className="text-center py-6 bg-muted/30 rounded-md border border-[hsl(var(--border))]">
             <p className="text-muted-foreground">No members found.</p>
           </div>
         ) : (
@@ -153,7 +153,7 @@ export function MembersList() {
                       </button>
                       
                       {expandedMemberId === member.id && (
-                        <div className="absolute right-0 mt-2 w-48 bg-card rounded-md shadow-lg z-10 border border-border overflow-hidden">
+                        <div className="absolute right-0 mt-2 w-48 bg-card rounded-md shadow-lg z-10 border border-[hsl(var(--border))] overflow-hidden">
                           <div className="py-1">
                             <button
                               onClick={() => handleUpdateRole(member.id, 'admin')}
@@ -185,7 +185,7 @@ export function MembersList() {
                               <Gamepad2 className="w-4 h-4 mr-2 text-green-500" />
                               Make Publisher
                             </button>
-                            <div className="border-t border-border my-1"></div>
+                            <div className="border-t border-[hsl(var(--border))] my-1"></div>
                             <button
                               onClick={() => handleRemoveMember(member.id, member.user.name)}
                               className="flex items-center w-full text-left px-4 py-2 text-sm text-destructive hover:bg-destructive/5 transition-colors"
@@ -238,7 +238,7 @@ export function MembersList() {
                       </button>
                       
                       {expandedInvitationId === invitation.id && (
-                        <div className="absolute right-0 mt-2 w-48 bg-card rounded-md shadow-lg z-10 border border-border overflow-hidden">
+                        <div className="absolute right-0 mt-2 w-48 bg-card rounded-md shadow-lg z-10 border border-[hsl(var(--border))] overflow-hidden">
                           <div className="py-1">
                             <button
                               onClick={() => handleCancelInvitation(invitation.id, invitation.email)}

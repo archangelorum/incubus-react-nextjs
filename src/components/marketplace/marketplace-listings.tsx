@@ -6,16 +6,19 @@ import Image from 'next/image';
 import { useAuth } from '@/components/auth/auth-provider';
 import { useWallet } from '@/components/wallet/wallet-provider';
 import { useTranslations } from 'next-intl';
-import { 
-  Tag, 
-  ShoppingCart, 
-  Clock, 
-  User, 
-  AlertCircle, 
-  CheckCircle, 
-  XCircle, 
-  Calendar 
+import {
+  Tag,
+  ShoppingCart,
+  Clock,
+  User,
+  AlertCircle,
+  CheckCircle,
+  XCircle,
+  Calendar
 } from 'lucide-react';
+import { MarketplaceItemCard } from '@/components/marketplace/marketplace-item-card';
+import { Button } from '@/components/ui/button';
+import { Pagination } from '@/components/ui/pagination';
 
 type Listing = {
   id: string;
@@ -273,165 +276,93 @@ export function MarketplaceListings({ query }: MarketplaceListingsProps) {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {listings.map((listing) => (
-          <div key={listing.id} className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-            <div className="relative h-48 overflow-hidden">
-              {listing.type === 'GAME_LICENSE' && listing.game?.coverImage ? (
-                <Image
-                  src={listing.game.coverImage.path}
-                  alt={listing.game.title}
-                  fill
-                  className="object-cover"
-                />
-              ) : listing.type === 'GAME_ITEM' && listing.item?.image ? (
-                <Image
-                  src={listing.item.image.path}
-                  alt={listing.item.name}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="w-full h-full bg-muted flex items-center justify-center">
-                  <Tag className="w-8 h-8 text-muted-foreground" />
-                </div>
-              )}
-              
-              {/* Type Badge */}
-              <div className="absolute top-2 left-2">
-                <span className="text-xs bg-black/80 text-white px-2 py-1 rounded">
-                  {listing.type === 'GAME_LICENSE' ? 'Game License' : 
-                   listing.type === 'GAME_ITEM' ? 'Game Item' : 'Bundle'}
-                </span>
-              </div>
-              
-              {/* Status Badge */}
-              <div className="absolute top-2 right-2">
-                {getStatusBadge(listing.status)}
-              </div>
-            </div>
-            
-            <div className="p-4">
-              <h3 className="font-semibold text-lg mb-1">
-                {listing.type === 'GAME_LICENSE' && listing.game
-                  ? listing.game.title
-                  : listing.type === 'GAME_ITEM' && listing.item
-                  ? listing.item.name
-                  : 'Bundle'}
-              </h3>
-              
-              {listing.type === 'GAME_ITEM' && listing.item && (
-                <div className="mb-2">
-                  {getRarityBadge(listing.item.rarity)}
-                  {listing.game && (
-                    <Link 
-                      href={`/games/${listing.game.slug}`}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors ml-2"
-                    >
-                      {listing.game.title}
+        {listings.map((listing) => {
+          // Determine the type for the marketplace item card
+          const itemType = listing.type === 'GAME_LICENSE'
+            ? 'game'
+            : listing.type === 'GAME_ITEM'
+              ? 'item'
+              : 'bundle';
+          
+          // Determine the rarity for items
+          const rarity = listing.type === 'GAME_ITEM' && listing.item?.rarity
+            ? listing.item.rarity.toLowerCase() as 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary'
+            : 'common';
+          
+          // Get the image path
+          const imagePath = listing.type === 'GAME_LICENSE' && listing.game?.coverImage
+            ? listing.game.coverImage.path
+            : listing.type === 'GAME_ITEM' && listing.item?.image
+              ? listing.item.image.path
+              : 'https://via.placeholder.com/300x300';
+          
+          // Get the title
+          const title = listing.type === 'GAME_LICENSE' && listing.game
+            ? listing.game.title
+            : listing.type === 'GAME_ITEM' && listing.item
+              ? listing.item.name
+              : 'Bundle';
+          
+          // Get the slug for the link
+          const slug = listing.type === 'GAME_LICENSE' && listing.game
+            ? listing.game.slug
+            : `listings/${listing.id}`;
+          
+          // Get the game info if available
+          const game = listing.game
+            ? {
+                name: listing.game.title,
+                slug: listing.game.slug
+              }
+            : undefined;
+          
+          return (
+            <div key={listing.id} className="relative">
+              {listing.status !== 'ACTIVE' && (
+                <div className="absolute inset-0 bg-background/80 backdrop-blur-xs z-10 flex items-center justify-center rounded-lg">
+                  <div className="text-center p-4">
+                    {getStatusBadge(listing.status)}
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      This item is no longer available for purchase
+                    </p>
+                    <Link href={`/marketplace/listings/${listing.id}`}>
+                      <Button variant="secondary" size="sm" className="mt-3">
+                        View Details
+                      </Button>
                     </Link>
-                  )}
+                  </div>
                 </div>
               )}
               
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center">
-                  <User className="w-4 h-4 text-muted-foreground mr-1" />
-                  <span className="text-sm text-muted-foreground">
-                    {listing.seller.name}
-                  </span>
-                </div>
-                
-                <div className="flex items-center">
-                  <Clock className="w-4 h-4 text-muted-foreground mr-1" />
-                  <span className="text-xs text-muted-foreground">
-                    {new Date(listing.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-              </div>
-              
-              {listing.expiresAt && (
-                <div className="flex items-center mb-3 text-sm">
-                  <Calendar className="w-4 h-4 text-muted-foreground mr-1" />
-                  <span className="text-muted-foreground">
-                    Expires: {new Date(listing.expiresAt).toLocaleDateString()}
-                  </span>
-                </div>
-              )}
-              
-              <div className="flex items-center justify-between mt-4">
-                <div className="text-xl font-bold flex items-center">
-                  <Image
-                    src="/polygon-logo.svg"
-                    alt="Polygon"
-                    width={20}
-                    height={20}
-                    className="mr-1"
-                  />
-                  {Number(listing.price).toFixed(2)}
-                </div>
-                
-                {listing.status === 'ACTIVE' ? (
-                  <button
-                    onClick={() => handlePurchase(listing.id)}
-                    disabled={!isAuthenticated || !isConnected}
-                    className="px-3 py-1.5 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Buy Now
-                  </button>
-                ) : (
-                  <Link
-                    href={`/marketplace/listings/${listing.id}`}
-                    className="px-3 py-1.5 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors"
-                  >
-                    View Details
-                  </Link>
-                )}
-              </div>
+              <MarketplaceItemCard
+                id={listing.id}
+                title={title}
+                slug={slug}
+                image={imagePath}
+                price={listing.price}
+                seller={{
+                  name: listing.seller.name,
+                  slug: `sellers/${listing.sellerId}`,
+                  verified: false
+                }}
+                rarity={rarity}
+                type={itemType as any}
+                game={game}
+              />
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center mt-8">
-          <nav className="flex items-center space-x-2">
-            <button
-              onClick={() => setPage(p => Math.max(p - 1, 1))}
-              disabled={page === 1}
-              className="p-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground disabled:opacity-50"
-              aria-label="Previous page"
-            >
-              Previous
-            </button>
-            
-            <div className="flex items-center space-x-1">
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setPage(i + 1)}
-                  className={`w-8 h-8 rounded-md ${
-                    page === i + 1
-                      ? 'bg-primary text-primary-foreground'
-                      : 'border border-input bg-background hover:bg-accent hover:text-accent-foreground'
-                  }`}
-                  aria-label={`Page ${i + 1}`}
-                  aria-current={page === i + 1 ? 'page' : undefined}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
-            
-            <button
-              onClick={() => setPage(p => Math.min(p + 1, totalPages))}
-              disabled={page === totalPages}
-              className="p-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground disabled:opacity-50"
-              aria-label="Next page"
-            >
-              Next
-            </button>
-          </nav>
+        <div className="mt-8">
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            siblingCount={1}
+          />
         </div>
       )}
     </div>

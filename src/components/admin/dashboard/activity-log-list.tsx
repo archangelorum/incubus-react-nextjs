@@ -110,7 +110,7 @@ export function ActivityLogList({ logs }: ActivityLogListProps) {
               onClick={() => toggleExpanded(log.id)}
             >
               <div className="flex items-start space-x-3">
-                <div className="flex-shrink-0 mt-0.5">
+                <div className="shrink-0 mt-0.5">
                   {log.user ? (
                     <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
                       {log.user.image ? (

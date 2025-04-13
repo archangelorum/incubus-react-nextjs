@@ -169,7 +169,7 @@ export default async function NotificationsPage({ searchParams }: NotificationsP
       </div>
 
       {/* Tabs */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
         <div className="border-b border-gray-200 dark:border-gray-700">
           <nav className="flex -mb-px" aria-label="Tabs">
             <Link
@@ -214,7 +214,7 @@ export default async function NotificationsPage({ searchParams }: NotificationsP
 
       {/* Content based on active tab */}
       {activeTab === 'notifications' && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
           <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
             <h2 className="text-lg font-semibold">{t('notifications.systemNotifications')}</h2>
             <button className="text-sm text-primary hover:underline">
@@ -229,7 +229,7 @@ export default async function NotificationsPage({ searchParams }: NotificationsP
                   className={`p-4 ${notification.isRead ? '' : 'bg-primary/5'}`}
                 >
                   <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 mt-0.5">
+                    <div className="shrink-0 mt-0.5">
                       {getNotificationIcon(notification.type)}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -262,7 +262,7 @@ export default async function NotificationsPage({ searchParams }: NotificationsP
       )}
 
       {activeTab === 'send' && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
           <h2 className="text-lg font-semibold mb-4">{t('notifications.sendNotification')}</h2>
           <Suspense fallback={<div>Loading notification form...</div>}>
             <NotificationForm userGroups={userGroups} />
@@ -271,7 +271,7 @@ export default async function NotificationsPage({ searchParams }: NotificationsP
       )}
 
       {activeTab === 'settings' && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
           <h2 className="text-lg font-semibold mb-4">{t('notifications.notificationSettings')}</h2>
           <div className="space-y-6">
             <div>

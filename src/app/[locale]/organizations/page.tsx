@@ -10,7 +10,7 @@ export default async function OrganizationsPage() {
   return (
     <div className="pt-24">
       {/* Header section with gradient background */}
-      <div className="bg-gradient-to-r from-primary/20 to-secondary/20 py-12">
+      <div className="bg-linear-to-r from-primary/20 to-secondary/20 py-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div className="flex items-center">
@@ -29,12 +29,12 @@ export default async function OrganizationsPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-card rounded-lg shadow-sm border border-border overflow-hidden">
+            <div className="bg-card rounded-lg shadow-xs border border-[hsl(var(--border))] overflow-hidden">
               <OrganizationDetails />
             </div>
           </div>
           <div>
-            <div className="bg-card rounded-lg shadow-sm border border-border overflow-hidden">
+            <div className="bg-card rounded-lg shadow-xs border border-[hsl(var(--border))] overflow-hidden">
               <PendingInvitations />
             </div>
           </div>

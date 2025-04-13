@@ -114,7 +114,7 @@ export function OrganizationSettings() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+            className="w-full px-3 py-2 border border-[hsl(var(--border))] rounded-md bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
             placeholder="Game Studio Name"
             required
             disabled={isLoading || !canUpdateOrg}
@@ -131,7 +131,7 @@ export function OrganizationSettings() {
             type="text"
             value={slug}
             onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}
-            className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+            className="w-full px-3 py-2 border border-[hsl(var(--border))] rounded-md bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
             placeholder="game-studio-name"
             required
             disabled={isLoading || !canUpdateOrg}
@@ -151,7 +151,7 @@ export function OrganizationSettings() {
             type="url"
             value={logo}
             onChange={(e) => setLogo(e.target.value)}
-            className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+            className="w-full px-3 py-2 border border-[hsl(var(--border))] rounded-md bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
             placeholder="https://example.com/logo.png"
             disabled={isLoading || !canUpdateOrg}
           />
@@ -160,7 +160,7 @@ export function OrganizationSettings() {
         {canUpdateOrg && (
           <button
             type="submit"
-            className="px-4 py-2 text-primary-foreground bg-primary rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 text-primary-foreground bg-primary rounded-md hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-colors"
             disabled={isLoading || !name || !slug}
           >
             {isLoading ? 'Saving...' : 'Save Changes'}
@@ -169,7 +169,7 @@ export function OrganizationSettings() {
       </form>
       
       {canDeleteOrg && (
-        <div className="border-t border-border pt-6">
+        <div className="border-t border-[hsl(var(--border))] pt-6">
           <h3 className="text-lg font-medium text-destructive flex items-center mb-4">
             <AlertTriangle className="w-5 h-5 mr-2" />
             Danger Zone
@@ -183,18 +183,18 @@ export function OrganizationSettings() {
           <button
             type="button"
             onClick={() => setIsDeleteModalOpen(true)}
-            className="px-4 py-2 text-destructive-foreground bg-destructive rounded-md hover:bg-destructive/90 focus:outline-none focus:ring-2 focus:ring-destructive focus:ring-offset-2 transition-colors"
+            className="px-4 py-2 text-destructive-foreground bg-destructive rounded-md hover:bg-destructive/90 focus:outline-hidden focus:ring-2 focus:ring-destructive focus:ring-offset-2 transition-colors"
           >
             Delete Organization
           </button>
           
           {isDeleteModalOpen && (
-            <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs">
               <div className="flex items-center justify-center min-h-screen p-4">
-                <div className="bg-card rounded-lg shadow-xl overflow-hidden w-full max-w-md border border-border">
+                <div className="bg-card rounded-lg shadow-xl overflow-hidden w-full max-w-md border border-[hsl(var(--border))]">
                   <div className="p-6">
                     <div className="flex items-start">
-                      <div className="flex-shrink-0 bg-destructive/10 rounded-full p-2">
+                      <div className="shrink-0 bg-destructive/10 rounded-full p-2">
                         <AlertTriangle className="h-6 w-6 text-destructive" />
                       </div>
                       <div className="ml-4">
@@ -212,7 +212,7 @@ export function OrganizationSettings() {
                             <input
                               type="text"
                               id="confirm"
-                              className="mt-1 block w-full border border-border rounded-md bg-background text-foreground py-2 px-3 focus:outline-none focus:ring-2 focus:ring-destructive focus:border-destructive"
+                              className="mt-1 block w-full border border-[hsl(var(--border))] rounded-md bg-background text-foreground py-2 px-3 focus:outline-hidden focus:ring-2 focus:ring-destructive focus:border-destructive"
                               value={deleteConfirmation}
                               onChange={(e) => setDeleteConfirmation(e.target.value)}
                             />
@@ -224,7 +224,7 @@ export function OrganizationSettings() {
                   <div className="bg-muted px-6 py-4 flex justify-end space-x-3">
                     <button
                       type="button"
-                      className="px-4 py-2 rounded-md border border-border bg-background text-foreground hover:bg-accent/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
+                      className="px-4 py-2 rounded-md border border-[hsl(var(--border))] bg-background text-foreground hover:bg-accent/5 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
                       onClick={() => {
                         setIsDeleteModalOpen(false);
                         setDeleteConfirmation('');
@@ -234,7 +234,7 @@ export function OrganizationSettings() {
                     </button>
                     <button
                       type="button"
-                      className="px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90 focus:outline-none focus:ring-2 focus:ring-destructive focus:ring-offset-2 disabled:opacity-50 transition-colors"
+                      className="px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90 focus:outline-hidden focus:ring-2 focus:ring-destructive focus:ring-offset-2 disabled:opacity-50 transition-colors"
                       onClick={handleDelete}
                       disabled={deleteConfirmation !== activeOrganization.name || isLoading}
                     >

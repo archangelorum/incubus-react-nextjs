@@ -192,7 +192,7 @@ export function MarketplaceFilters({
             placeholder={t('common.search')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-3 py-2 pl-9 text-sm rounded-md bg-background border border-input focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full px-3 py-2 pl-9 text-sm rounded-md bg-background border border-input focus:outline-hidden focus:ring-1 focus:ring-primary"
           />
           <Search className="absolute left-2.5 top-2.5 w-4 h-4 text-muted-foreground" />
           
@@ -435,7 +435,7 @@ export function MarketplaceFilters({
                 placeholder="Min"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="w-full px-3 py-1.5 text-sm rounded-md bg-background border border-input focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full px-3 py-1.5 text-sm rounded-md bg-background border border-input focus:outline-hidden focus:ring-1 focus:ring-primary"
                 min="0"
                 step="0.01"
               />
@@ -445,7 +445,7 @@ export function MarketplaceFilters({
                 placeholder="Max"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-full px-3 py-1.5 text-sm rounded-md bg-background border border-input focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full px-3 py-1.5 text-sm rounded-md bg-background border border-input focus:outline-hidden focus:ring-1 focus:ring-primary"
                 min="0"
                 step="0.01"
               />

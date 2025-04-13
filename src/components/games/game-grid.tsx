@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image';
 import { Star, ShoppingCart, Heart } from 'lucide-react';
+import { GameCard } from '@/components/games/game-card';
 import { useTranslations } from 'next-intl';
 
 type Game = {
@@ -158,133 +159,17 @@ export function GameGrid({ query, showFilters = false }: GameGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {games.map((game) => (
-        <div 
-          key={game.id} 
-          className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-        >
-          <Link href={`/games/${game.slug}`} className="block relative">
-            <div className="relative h-48 overflow-hidden">
-              {game.coverImage ? (
-                <Image
-                  src={game.coverImage.path}
-                  alt={game.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              ) : (
-                <div className="w-full h-full bg-muted flex items-center justify-center">
-                  <span className="text-muted-foreground">No image</span>
-                </div>
-              )}
-              
-              {/* Price tag */}
-              <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-sm">
-                {game.discountPrice ? (
-                  <div className="flex items-center space-x-2">
-                    <span className="line-through text-muted-foreground text-xs flex items-center">
-                      <Image
-                        src="/polygon-logo.svg"
-                        alt="Polygon"
-                        width={10}
-                        height={10}
-                        className="mr-0.5 opacity-70"
-                      />
-                      {Number(game.basePrice).toFixed(2)}
-                    </span>
-                    <span className="text-green-500 flex items-center">
-                      <Image
-                        src="/polygon-logo.svg"
-                        alt="Polygon"
-                        width={12}
-                        height={12}
-                        className="mr-0.5"
-                      />
-                      {Number(game.discountPrice).toFixed(2)}
-                    </span>
-                  </div>
-                ) : (
-                  <span className="flex items-center">
-                    <Image
-                      src="/polygon-logo.svg"
-                      alt="Polygon"
-                      width={12}
-                      height={12}
-                      className="mr-0.5"
-                    />
-                    {Number(game.basePrice).toFixed(2)}
-                  </span>
-                )}
-              </div>
-            </div>
-          </Link>
-          
-          <div className="p-4">
-            <Link href={`/games/${game.slug}`} className="block">
-              <h3 className="font-semibold text-lg mb-1 line-clamp-1 group-hover:text-primary transition-colors">
-                {game.title}
-              </h3>
-            </Link>
-            
-            <Link 
-              href={`/publishers/${game.publisher.slug}`}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              {game.publisher.name}
-            </Link>
-            
-            <div className="flex items-center justify-between mt-2">
-              <div className="flex items-center">
-                <Star className="w-4 h-4 text-yellow-500 mr-1" />
-                <span className="text-sm">
-                  {game._count.reviews > 0 
-                    ? `${(4 + Math.random()).toFixed(1)}` 
-                    : 'N/A'}
-                </span>
-              </div>
-              
-              <div className="flex items-center space-x-1">
-                <button 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleWishlist(game.id);
-                  }}
-                  className="p-1.5 rounded-full hover:bg-primary/10 transition-colors"
-                  aria-label={wishlist.has(game.id) ? 'Remove from wishlist' : 'Add to wishlist'}
-                >
-                  <Heart 
-                    className={`w-4 h-4 ${
-                      wishlist.has(game.id) 
-                        ? 'fill-red-500 text-red-500' 
-                        : 'text-muted-foreground'
-                    }`} 
-                  />
-                </button>
-                
-                <Link 
-                  href={`/games/${game.slug}/buy`}
-                  className="p-1.5 rounded-full hover:bg-primary/10 transition-colors"
-                  aria-label="Buy game"
-                >
-                  <ShoppingCart className="w-4 h-4 text-muted-foreground" />
-                </Link>
-              </div>
-            </div>
-            
-            {game.genres.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-1">
-                {game.genres.slice(0, 2).map((genre) => (
-                  <Link
-                    key={genre.id}
-                    href={`/games?genre=${genre.slug}`}
-                    className="px-2 py-0.5 bg-secondary/10 text-secondary-foreground text-xs rounded hover:bg-secondary/20 transition-colors"
-                  >
-                    {genre.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        <GameCard
+          key={game.id}
+          id={game.id}
+          title={game.title}
+          slug={game.slug}
+          coverImage={game.coverImage?.path || 'https://via.placeholder.com/300x169'}
+          price={game.basePrice}
+          discountPrice={game.discountPrice}
+          genres={game.genres}
+          isOwned={false}
+        />
       ))}
     </div>
   );

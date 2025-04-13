@@ -213,7 +213,7 @@ export default async function ModerationPage({ searchParams }: ModerationPagePro
       {/* Content based on active tab */}
       {activeTab === 'reviews' && reviewsData && (
         <div className="space-y-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
             <Suspense fallback={<div>Loading filters...</div>}>
               <ModerationFilters 
                 type="reviews"
@@ -222,7 +222,7 @@ export default async function ModerationPage({ searchParams }: ModerationPagePro
             </Suspense>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-lg font-semibold">
                 {t('moderation.reviews.title')} 
@@ -360,7 +360,7 @@ export default async function ModerationPage({ searchParams }: ModerationPagePro
 
       {activeTab === 'reports' && reportsData && (
         <div className="space-y-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
             <Suspense fallback={<div>Loading filters...</div>}>
               <ModerationFilters 
                 type="reports"
@@ -371,7 +371,7 @@ export default async function ModerationPage({ searchParams }: ModerationPagePro
             </Suspense>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-lg font-semibold">
                 {t('moderation.reports.title')} 

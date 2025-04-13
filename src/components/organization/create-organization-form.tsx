@@ -53,7 +53,7 @@ export function CreateOrganizationForm({ onSuccess }: { onSuccess?: () => void }
           type="text"
           value={name}
           onChange={handleNameChange}
-          className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          className="w-full px-3 py-2 border border-[hsl(var(--border))] rounded-md bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
           placeholder="Game Studio Name"
           required
           disabled={isLoading}
@@ -69,7 +69,7 @@ export function CreateOrganizationForm({ onSuccess }: { onSuccess?: () => void }
           type="text"
           value={slug}
           onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}
-          className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          className="w-full px-3 py-2 border border-[hsl(var(--border))] rounded-md bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
           placeholder="game-studio-name"
           required
           disabled={isLoading}
@@ -88,7 +88,7 @@ export function CreateOrganizationForm({ onSuccess }: { onSuccess?: () => void }
           type="url"
           value={logo}
           onChange={(e) => setLogo(e.target.value)}
-          className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          className="w-full px-3 py-2 border border-[hsl(var(--border))] rounded-md bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
           placeholder="https://example.com/logo.png"
           disabled={isLoading}
         />
@@ -96,7 +96,7 @@ export function CreateOrganizationForm({ onSuccess }: { onSuccess?: () => void }
       
       <button
         type="submit"
-        className="w-full px-4 py-2 text-primary-foreground bg-primary rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-colors"
+        className="w-full px-4 py-2 text-primary-foreground bg-primary rounded-md hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-colors"
         disabled={isLoading || !name || !slug}
       >
         {isLoading ? 'Creating...' : 'Create Organization'}
