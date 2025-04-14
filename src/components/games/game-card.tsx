@@ -31,7 +31,7 @@ export function GameCard({
   const discountPercentage = discountPrice ? Math.round(((price - discountPrice) / price) * 100) : 0
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:translate-y-[-4px]">
+    <Card data-testid="game-card" className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:translate-y-[-4px]">
       <div className="relative aspect-16/9 overflow-hidden">
         <img
           src={coverImage || 'https://via.placeholder.com/300x169'}

@@ -42,9 +42,30 @@
   - [Telepítési Eljárások](#telepítési-eljárások)
     - [Fejlesztői környezet beállítása](#fejlesztői-környezet-beállítása)
   - [Tesztelési Módszertan](#tesztelési-módszertan)
-    - [Egységtesztek](#egységtesztek)
-    - [Integrációs tesztek](#integrációs-tesztek)
     - [E2E tesztek](#e2e-tesztek)
+  - [Incubus Platform Tesztdokumentáció](#incubus-platform-tesztdokumentáció)
+    - [Manuális Tesztek](#manuális-tesztek)
+      - [1. Alapvető Navigációs Teszt](#1-alapvető-navigációs-teszt)
+      - [2. Játék Részletek Ellenőrzése](#2-játék-részletek-ellenőrzése)
+      - [3. Játék Szűrési Teszt](#3-játék-szűrési-teszt)
+      - [4. Játék Keresési Teszt](#4-játék-keresési-teszt)
+      - [5. Piactér Böngészési Teszt](#5-piactér-böngészési-teszt)
+      - [6. Nyelvváltási Teszt](#6-nyelvváltási-teszt)
+      - [7. Reszponzív Dizájn Teszt](#7-reszponzív-dizájn-teszt)
+      - [8. Hibaoldal Teszt](#8-hibaoldal-teszt)
+      - [9. Oldalbetöltési Indikátorok Teszt](#9-oldalbetöltési-indikátorok-teszt)
+      - [10. Alapvető Akadálymentességi Teszt](#10-alapvető-akadálymentességi-teszt)
+    - [Automatizált Tesztek](#automatizált-tesztek)
+      - [1. Játéklista Oldal Navigáció és Szűrés](#1-játéklista-oldal-navigáció-és-szűrés)
+      - [2. Játék Részletező Oldal Tartalom Ellenőrzése](#2-játék-részletező-oldal-tartalom-ellenőrzése)
+      - [3. Piactér Funkcionalitás Tesztelése](#3-piactér-funkcionalitás-tesztelése)
+      - [4. Navigáció és Útválasztás Ellenőrzése](#4-navigáció-és-útválasztás-ellenőrzése)
+      - [5. API Végpont Tesztelés](#5-api-végpont-tesztelés)
+      - [6. Akadálymentességi Megfelelőség Tesztelése](#6-akadálymentességi-megfelelőség-tesztelése)
+      - [7. Hibakezelés és Szélsőséges Esetek](#7-hibakezelés-és-szélsőséges-esetek)
+      - [8. Teljesítmény Tesztelés](#8-teljesítmény-tesztelés)
+      - [9. UI Komponens Tesztelés](#9-ui-komponens-tesztelés)
+      - [10. Nemzetköziesítés Tesztelése](#10-nemzetköziesítés-tesztelése)
   - [Felhasználói Folyamatok](#felhasználói-folyamatok)
     - [Felhasználói regisztráció és bejelentkezés](#felhasználói-regisztráció-és-bejelentkezés)
     - [Játékvásárlás](#játékvásárlás)
@@ -272,7 +293,6 @@ Az Incubus platform frontend technológiai stackje:
    - Polygon blockchain interakciók
 
 7. **Egyéb könyvtárak**:
-   - `clsx` és `tailwind-merge`: CSS osztályok kezelése
    - `lucide-react`: Ikonok
    - `sonner`: Értesítések
 
@@ -353,8 +373,6 @@ Az Incubus platform adatbázis technológiái:
 
 5. **Indexelés**: Teljesítmény optimalizált indexek a gyakori lekérdezésekhez.
 
-**Kódrészlet: Prisma séma részlet (játék és NFT modellek)**
-
 **Adatbázis séma leírása: Játék és Játéklicenc modellek**
 
 Az Incubus platform adatbázis sémája a Prisma ORM segítségével van definiálva, amely típusbiztos adatbázis-hozzáférést biztosít. A két legfontosabb modell a játékokhoz kapcsolódóan:
@@ -401,8 +419,6 @@ Az Incubus platform blockchain integrációs technológiái:
 4. **Web3 könyvtárak**: Web3.js és ethers.js a blockchain interakciókhoz.
 
 5. **Wallet kapcsolódás**: MetaMask, WalletConnect és más pénztárca integrációk.
-
-**Kódrészlet: Blockchain tranzakció kezelés**
 
 **Blockchain tranzakció kezelés folyamata**
 
@@ -706,94 +722,6 @@ Az Incubus platform frontend állapotkezelése a React Context API-ra épül, am
 
 4. **Állapot perzisztencia**: A `localStorage` és `sessionStorage` használata a felhasználói beállítások és munkamenet adatok perzisztálására.
 
-**Kódrészlet: Pénztárca Context Provider**
-
-```tsx
-// src/components/wallet/wallet-provider.tsx (részlet)
-'use client';
-
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useAuth } from '@/components/auth/auth-provider';
-
-type WalletContextType = {
-  wallets: WalletInfo[];
-  activeWallet: WalletInfo | null;
-  isConnecting: boolean;
-  isConnected: boolean;
-  error: string | null;
-  connectWallet: (type: WalletType) => Promise<void>;
-  disconnectWallet: (walletId: string) => Promise<void>;
-  setActiveWallet: (walletId: string) => void;
-  refreshBalance: (walletId: string) => Promise<void>;
-  sendTransaction: (to: string, amount: number) => Promise<string>;
-};
-
-const WalletContext = createContext<WalletContextType | undefined>(undefined);
-
-export function WalletProvider({ children }: { children: React.ReactNode }) {
-  const { user, isAuthenticated } = useAuth();
-  const [wallets, setWallets] = useState<WalletInfo[]>([]);
-  const [activeWallet, setActiveWallet] = useState<WalletInfo | null>(null);
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  // Fetch user wallets when authenticated
-  useEffect(() => {
-    const fetchWallets = async () => {
-      if (isAuthenticated && user) {
-        try {
-          const response = await fetch(`/api/wallets?userId=${user.id}`);
-          if (!response.ok) throw new Error('Failed to fetch wallets');
-          
-          const data = await response.json();
-          setWallets(data.data || []);
-          
-          // Set active wallet to default or first wallet
-          const defaultWallet = data.data.find((w: WalletInfo) => w.isDefault) || data.data[0] || null;
-          setActiveWallet(defaultWallet);
-        } catch (err) {
-          console.error('Error fetching wallets:', err);
-          setError('Failed to load wallets');
-        }
-      } else {
-        // Reset state when not authenticated
-        setWallets([]);
-        setActiveWallet(null);
-      }
-    };
-
-    fetchWallets();
-  }, [isAuthenticated, user]);
-
-  // ... további implementáció ...
-
-  return (
-    <WalletContext.Provider value={{
-      wallets,
-      activeWallet,
-      isConnecting,
-      isConnected: !!activeWallet,
-      error,
-      connectWallet,
-      disconnectWallet,
-      setActiveWallet: changeActiveWallet,
-      refreshBalance,
-      sendTransaction,
-    }}>
-      {children}
-    </WalletContext.Provider>
-  );
-}
-
-export function useWallet() {
-  const context = useContext(WalletContext);
-  if (context === undefined) {
-    throw new Error('useWallet must be used within a WalletProvider');
-  }
-  return context;
-}
-```
-
 ### Szerver oldali állapotkezelés
 
 Az Incubus platform szerver oldali állapotkezelése a Next.js API Routes és a Prisma ORM köré épül. A fő állapotkezelési megoldások:
@@ -807,51 +735,6 @@ Az Incubus platform szerver oldali állapotkezelése a Next.js API Routes és a 
 4. **Állapot validáció**: A `zod` könyvtár használata a bejövő kérések validálására.
 
 5. **Hibakezelés**: Strukturált hibaüzenetek és állapotkódok a kliensek számára.
-
-**Kódrészlet: API végpont a pénztárcák lekérdezéséhez**
-
-```typescript
-// src/app/api/wallets/route.ts (részlet)
-import { NextRequest } from "next/server";
-import { prisma } from "@/lib/prisma";
-import { authenticateRequest } from "../utils/auth";
-import {
-  successResponse,
-  errorResponse,
-  paginatedResponse
-} from "../utils/response";
-
-export async function GET(req: NextRequest) {
-  try {
-    // Authenticate request
-    const session = await authenticateRequest(req);
-    if (session instanceof Response) return session;
-
-    // Get user ID from query or session
-    const url = new URL(req.url);
-    const userId = url.searchParams.get("userId") || session.user.id;
-    
-    // Check if user has permission to view wallets
-    if (userId !== session.user.id && session.user.role !== "admin") {
-      return errorResponse("Unauthorized", 403);
-    }
-    
-    // Fetch wallets with pagination
-    const [wallets, total] = await Promise.all([
-      prisma.wallet.findMany({
-        where: { userId },
-        // ... további lekérdezési opciók ...
-      }),
-      prisma.wallet.count({ where: { userId } })
-    ]);
-
-    return paginatedResponse(wallets, page, limit, total);
-  } catch (error) {
-    console.error("Error fetching wallets:", error);
-    return errorResponse("Failed to fetch wallets", 500);
-  }
-}
-```
 
 ---
 
@@ -1005,63 +888,12 @@ Az Incubus platform fejlesztői környezetének beállítása a következő lép
 
 ## Tesztelési Módszertan
 
-### Egységtesztek
-
-Az Incubus platform egységtesztelési stratégiája a következő elveket és gyakorlatokat követi:
-
-1. **Tesztelési keretrendszer**:
-   - Jest: JavaScript tesztelési keretrendszer
-   - React Testing Library: React komponensek teszteléséhez
-   - Prisma Jest: Adatbázis műveletek teszteléséhez
-
-2. **Tesztelési megközelítés**:
-   - Izolált tesztek: Minden egység (függvény, komponens) izoláltan tesztelése
-   - Mock-ok és stub-ok használata a függőségek helyettesítésére
-   - Tiszta tesztkörnyezet minden teszt előtt
-
-3. **Tesztelési területek**:
-   - Utility függvények
-   - React komponensek
-   - API végpontok
-   - Adatbázis műveletek
-   - Validációs logika
-
-4. **Kód lefedettség**:
-   - Minimum 80% kód lefedettség
-   - Kritikus komponensek 100% lefedettsége
-   - Lefedettségi jelentések generálása
-
-### Integrációs tesztek
-
-Az Incubus platform integrációs tesztelési stratégiája a következő elveket és gyakorlatokat követi:
-
-1. **Tesztelési keretrendszer**:
-   - Jest: Alap tesztelési keretrendszer
-   - Supertest: HTTP kérések teszteléséhez
-   - Test konténerek: Adatbázis és egyéb szolgáltatások izolált teszteléséhez
-
-2. **Tesztelési megközelítés**:
-   - Komponensek közötti interakciók tesztelése
-   - Valós adatbázis használata (teszt környezetben)
-   - API végpontok teljes flow tesztelése
-
-3. **Tesztelési területek**:
-   - API végpontok és adatbázis interakciók
-   - Autentikáció és engedélyezés
-
-4. **Tesztadatok**:
-   - Teszt adatbázis inicializálása ismert állapottal
-   - Teszt adatok generálása és tisztítása
-   - Migráció tesztelése
-
 ### E2E tesztek
 
 Az Incubus platform end-to-end (E2E) tesztelési stratégiája a következő elveket és gyakorlatokat követi:
 
 1. **Tesztelési keretrendszer**:
-   - Cypress: Modern E2E tesztelési keretrendszer
-   - Playwright: Alternatív E2E tesztelési keretrendszer
-   - Percy: Vizuális regressziós tesztelés
+   - Playwright: Modern E2E tesztelési keretrendszer
 
 2. **Tesztelési megközelítés**:
    - Valós felhasználói folyamatok szimulálása
@@ -1069,13 +901,362 @@ Az Incubus platform end-to-end (E2E) tesztelési stratégiája a következő elv
    - Kritikus üzleti folyamatok prioritizálása
 
 3. **Tesztelési területek**:
-   - Felhasználói regisztráció és bejelentkezés
    - Játék böngészés és vásárlás
    - Piactér használat
 
 4. **Tesztelési környezet**:
    - Izolált teszt környezet
    - Előre feltöltött teszt adatok
+
+## Incubus Platform Tesztdokumentáció
+
+### Manuális Tesztek
+
+#### 1. Alapvető Navigációs Teszt
+
+**Cél**: Ellenőrizni, hogy a felhasználók navigálhatnak a platform fő részei között.
+
+**Lépések**:
+1. Nyissa meg az Incubus platform kezdőlapját
+2. Kattintson a Játékok linkre a navigációs menüben
+3. Ellenőrizze, hogy a Játékok oldal betöltődik
+4. Kattintson a Piactér linkre
+5. Ellenőrizze, hogy a Piactér oldal betöltődik
+6. Kattintson a Profil linkre (ha elérhető)
+7. Ellenőrizze, hogy a Profil oldal betöltődik
+
+**Várt eredmények**: Minden oldalnak helyesen, hibák nélkül kell betöltődnie.
+
+---
+
+#### 2. Játék Részletek Ellenőrzése
+
+**Cél**: Ellenőrizni, hogy a játék részletező oldalak a megfelelő információkat jelenítik meg.
+
+**Lépések**:
+1. Navigáljon a Játékok oldalra
+2. Kattintson bármelyik játékkártyára
+3. Ellenőrizze, hogy a játék részletező oldal betöltődik
+4. Ellenőrizze, hogy a játék címe megjelenik
+5. Ellenőrizze, hogy a játék ára megjelenik
+6. Ellenőrizze, hogy a játék leírása megjelenik
+7. Ellenőrizze, hogy legalább egy képernyőkép látható
+
+**Várt eredmények**: Minden játékinformációnak helyesen kell megjelennie.
+
+---
+
+#### 3. Játék Szűrési Teszt
+
+**Cél**: Ellenőrizni, hogy a játékszűrés helyesen működik.
+
+**Lépések**:
+1. Navigáljon a Játékok oldalra
+2. Válasszon egy műfaj szűrőt az oldalsávból
+3. Ellenőrizze, hogy a játéklista frissül
+4. Válasszon egy másik műfaj szűrőt
+5. Ellenőrizze, hogy a játéklista ismét frissül
+
+**Várt eredmények**: A játéklistának a kiválasztott szűrők alapján kell frissülnie.
+
+---
+
+#### 4. Játék Keresési Teszt
+
+**Cél**: Ellenőrizni, hogy a keresési funkció helyesen működik.
+
+**Lépések**:
+1. Navigáljon a Játékok oldalra
+2. Keresse meg a keresési mezőt
+3. Írjon be egy keresési kifejezést
+4. Nyomja meg az Enter billentyűt
+5. Ellenőrizze, hogy a keresési eredmények megjelennek
+
+**Várt eredmények**: A keresési eredményeknek meg kell egyezniük a keresési kifejezéssel.
+
+---
+
+#### 5. Piactér Böngészési Teszt
+
+**Cél**: Ellenőrizni, hogy a piactér elemei böngészhetők.
+
+**Lépések**:
+1. Navigáljon a Piactér oldalra
+2. Ellenőrizze, hogy a piactér elemei megjelennek
+3. Kattintson bármelyik piactér elemre
+4. Ellenőrizze, hogy az elem részletező oldala betöltődik
+
+**Várt eredmények**: A piactér elemeknek megjeleníthetőnek és kattinthatónak kell lenniük.
+
+---
+
+#### 6. Nyelvváltási Teszt
+
+**Cél**: Ellenőrizni, hogy a nyelvváltás helyesen működik.
+
+**Lépések**:
+1. Navigáljon a kezdőlapra
+2. Keresse meg a nyelvválasztót
+3. Váltson egy másik nyelvre
+4. Ellenőrizze, hogy a felhasználói felület szövege a kiválasztott nyelvre változik
+
+**Várt eredmények**: A felhasználói felület szövegének a kiválasztott nyelvre kell változnia.
+
+---
+
+#### 7. Reszponzív Dizájn Teszt
+
+**Cél**: Ellenőrizni, hogy az oldal különböző képernyőméreteken működik.
+
+**Lépések**:
+1. Nyissa meg az Incubus platformot asztali böngészőben
+2. Méretezze át a böngészőablakot tablet méretűre
+3. Ellenőrizze, hogy az elrendezés helyesen igazodik
+4. Méretezze át a böngészőablakot mobil méretűre
+5. Ellenőrizze, hogy az elrendezés helyesen igazodik
+
+**Várt eredmények**: Az elrendezésnek alkalmazkodnia kell a különböző képernyőméretekhez.
+
+---
+
+#### 8. Hibaoldal Teszt
+
+**Cél**: Ellenőrizni, hogy a hibaoldalak helyesen jelennek meg.
+
+**Lépések**:
+1. Navigáljon egy nem létező URL-re (pl. /en/non-existent-page)
+2. Ellenőrizze, hogy egy 404-es hibaoldal jelenik meg
+3. Ellenőrizze, hogy a hibaoldalon vannak navigációs lehetőségek az érvényes oldalakra való visszatéréshez
+
+**Várt eredmények**: A hibaoldalnak navigációs lehetőségekkel kell megjelennie.
+
+---
+
+#### 9. Oldalbetöltési Indikátorok Teszt
+
+**Cél**: Ellenőrizni, hogy a betöltési indikátorok megjelennek az oldalváltások során.
+
+**Lépések**:
+1. Navigáljon a Játékok oldalra
+2. Figyelje meg, hogy megjelennek-e betöltési indikátorok az oldal betöltése közben
+3. Kattintson egy játékra a részletező oldalra navigáláshoz
+4. Figyelje meg, hogy megjelennek-e betöltési indikátorok az átmenet során
+
+**Várt eredmények**: A betöltési indikátoroknak láthatónak kell lenniük az oldalváltások során.
+
+---
+
+#### 10. Alapvető Akadálymentességi Teszt
+
+**Cél**: Ellenőrizni az alapvető akadálymentességi funkciókat.
+
+**Lépések**:
+1. Navigáljon a kezdőlapra
+2. Próbáljon csak billentyűzettel navigálni az oldalon (Tab, Enter, Space)
+3. Ellenőrizze, hogy a fókuszindikátorok láthatóak-e tabozáskor
+4. Ellenőrizze, hogy a képeknek van-e alt szövege (az oldal vizsgálatával ellenőrizhető)
+
+**Várt eredmények**: Az alapvető billentyűzetes navigációnak működnie kell, és a fókusznak láthatónak kell lennie.
+
+### Automatizált Tesztek
+
+#### 1. Játéklista Oldal Navigáció és Szűrés
+
+**Cél**: Ellenőrizni, hogy a játéklista oldal helyesen jelenik meg és a szűrés a várt módon működik.
+
+**Teszt fájl**: `games-listing.spec.ts`
+
+**Fő tesztesetek**:
+- Ellenőrizni, hogy a játékkártyák rács elrendezésben jelennek meg
+- Tesztelni a műfaj szűrési funkcionalitást
+- Tesztelni az árszűrési funkcionalitást
+- Ellenőrizni, hogy a rendezési opciók helyesen működnek
+- Tesztelni a keresési funkcionalitást
+- Ellenőrizni, hogy a lapozás helyesen működik
+
+**Prioritás**: Magas
+
+---
+
+#### 2. Játék Részletező Oldal Tartalom Ellenőrzése
+
+**Cél**: Ellenőrizni, hogy a játék részletező oldalak minden szükséges információt helyesen jelenítenek meg.
+
+**Teszt fájl**: `game-detail.spec.ts`
+
+**Fő tesztesetek**:
+- Ellenőrizni a játék címének és alapvető információinak megjelenítését
+- Tesztelni a képernyőkép galéria funkcionalitását
+- Ellenőrizni, hogy az értékelések szekció helyesen jelenik meg
+- Tesztelni a kapcsolódó játékok szekciót
+- Ellenőrizni, hogy a "Vásárlás" gomb helyesen működik
+- Tesztelni a rendszerkövetelmények megjelenítését
+
+**Prioritás**: Magas
+
+---
+
+#### 3. Piactér Funkcionalitás Tesztelése
+
+**Cél**: Ellenőrizni, hogy a piactér helyesen jeleníti meg az elemeket, és a szűrés/rendezés a várt módon működik.
+
+**Teszt fájl**: `marketplace.spec.ts`
+
+**Fő tesztesetek**:
+- Ellenőrizni, hogy a piactér listázások helyesen jelennek meg
+- Tesztelni a szűrési funkcionalitást
+- Tesztelni a rendezési opciókat
+- Ellenőrizni az elem részletekre való navigációt
+- Tesztelni az árszűrési funkcionalitást
+- Tesztelni a keresési funkcionalitást
+- Ellenőrizni, hogy a lapozás helyesen működik
+- Tesztelni a reszponzív dizájnt különböző képernyőméreteken
+
+**Prioritás**: Közepes
+
+---
+
+#### 4. Navigáció és Útválasztás Ellenőrzése
+
+**Cél**: Ellenőrizni, hogy az oldalak közötti navigáció helyesen működik és az URL struktúra megmarad.
+
+**Teszt fájl**: `navigation.spec.ts`
+
+**Fő tesztesetek**:
+- Ellenőrizni az alapértelmezett nyelvi átirányítást
+- Tesztelni az oldalak közötti navigációt a nyelvi beállítás megőrzésével
+- Ellenőrizni a különböző nyelvek kezelését
+- Tesztelni a 404-es oldal kezelését
+- Ellenőrizni a játék részletező oldalra való navigációt
+
+**Prioritás**: Magas
+
+---
+
+#### 5. API Végpont Tesztelés
+
+**Cél**: Ellenőrizni, hogy az API végpontok helyes adatokat adnak vissza és megfelelően kezelik a hibákat.
+
+**Teszt fájl**: `api.spec.ts`
+
+**Fő tesztesetek**:
+- Tesztelni a GET /api/games végpontot
+- Ellenőrizni a szűrési és rendezési paramétereket
+- Tesztelni a specifikus játék lekérését
+- Ellenőrizni a hibakezelést érvénytelen azonosítók esetén
+- Tesztelni a műfaj, címke és kiadó végpontokat
+- Ellenőrizni a piactér API funkcionalitását
+- Tesztelni a hibakezelést érvénytelen végpontok esetén
+- Ellenőrizni a sebességkorlátozást és gyorsítótárazást
+
+**Prioritás**: Magas
+
+---
+
+#### 6. Akadálymentességi Megfelelőség Tesztelése
+
+**Cél**: Ellenőrizni, hogy a platform megfelel az akadálymentességi szabványoknak.
+
+**Teszt fájl**: `accessibility.spec.ts`
+
+**Fő tesztesetek**:
+- Tesztelni az akadálymentességi hibákat a kezdőlapon
+- Ellenőrizni a játékok oldal akadálymentességét
+- Tesztelni a játék részletező oldal akadálymentességét
+- Ellenőrizni a piactér akadálymentességét
+- Tesztelni a billentyűzetes navigációt
+- Ellenőrizni a fókuszkezelést a modális ablakoknál
+- Tesztelni a képek alt szövegét
+- Ellenőrizni az ARIA attribútumokat
+- Tesztelni a színkontrasztot
+- Ellenőrizni a billentyűzetes felhasználók számára készült átugrási linkeket
+
+**Prioritás**: Magas
+
+---
+
+#### 7. Hibakezelés és Szélsőséges Esetek
+
+**Cél**: Ellenőrizni, hogy a platform elegánsan kezeli a hibákat és szélsőséges eseteket.
+
+**Teszt fájl**: `error-handling.spec.ts`
+
+**Fő tesztesetek**:
+- Tesztelni a 404-es oldal kezelését
+- Ellenőrizni a betöltési állapotokat a játékrácsnál
+- Tesztelni az üres keresési eredmények kezelését
+- Ellenőrizni a böngésző előre/hátra navigációját
+- Tesztelni az oldal frissítési állapot megőrzését
+- Ellenőrizni az érvénytelen URL paraméterek kezelését
+- Tesztelni a szélsőséges képernyőméreteket
+- Ellenőrizni a gyors navigáció kezelését
+- Tesztelni a hálózati hibák kezelését
+- Ellenőrizni a lassú hálózati kapcsolat kezelését
+
+**Prioritás**: Közepes
+
+---
+
+#### 8. Teljesítmény Tesztelés
+
+**Cél**: Ellenőrizni, hogy a platform az elfogadható paramétereken belül teljesít.
+
+**Teszt fájl**: `performance.spec.ts`
+
+**Fő tesztesetek**:
+- Mérni a kezdőlap betöltési idejét
+- Tesztelni a játékok oldal betöltési idejét
+- Ellenőrizni a játék részletező oldal betöltési idejét
+- Tesztelni a játékrács renderelési hatékonyságát
+- Mérni az Első Tartalmi Festést (First Contentful Paint)
+- Ellenőrizni a Legnagyobb Tartalmi Festést (Largest Contentful Paint)
+- Tesztelni a Kumulatív Elrendezési Eltolódást (Cumulative Layout Shift)
+- Mérni az Interaktivitásig Eltelt Időt (Time to Interactive)
+- Ellenőrizni a felhasználói interakciókra adott válaszidőt
+- Tesztelni a többszörös gyors interakciók kezelését
+
+**Prioritás**: Közepes
+
+---
+
+#### 9. UI Komponens Tesztelés
+
+**Cél**: Ellenőrizni, hogy az UI komponensek helyesen működnek a platformon.
+
+**Teszt fájl**: `ui-components.spec.ts`
+
+**Fő tesztesetek**:
+- Tesztelni a játékkártya komponens megjelenítését
+- Ellenőrizni a kedvezmények megjelenítését a játékkártyákon
+- Tesztelni a lapozási komponens funkcionalitását
+- Ellenőrizni a fejléc és lábléc navigációt
+- Tesztelni a reszponzív dizájnt mobil eszközökön
+- Ellenőrizni a tablet elrendezés adaptációját
+- Tesztelni az asztali elrendezés optimalizációját
+
+**Prioritás**: Alacsony
+
+---
+
+#### 10. Nemzetköziesítés Tesztelése
+
+**Cél**: Ellenőrizni, hogy a platform helyesen kezeli a különböző nyelveket és területi beállításokat.
+
+**Teszt fájl**: `internationalization.spec.ts`
+
+**Fő tesztesetek**:
+- Tesztelni az alapértelmezett nyelvre való átirányítást
+- Ellenőrizni, hogy a nyelvváltás megőrzi az aktuális oldalt
+- Tesztelni a tartalom betöltését különböző nyelveken
+- Ellenőrizni az URL konzisztenciáját a különböző nyelvek között
+- Tesztelni a dátum lokalizációt
+- Ellenőrizni az árformátum lokalizációt
+- Tesztelni a navigációs elemek fordítását
+- Ellenőrizni a jobbról balra olvasó nyelvek támogatását
+- Tesztelni a nyelvi kezelést az API kérésekben
+- Ellenőrizni a hiányzó fordítások esetén alkalmazott tartalékot
+
+**Prioritás**: Közepes
 
 ---
 
@@ -1089,7 +1270,7 @@ Az Incubus platform felhasználói regisztrációs és bejelentkezési folyamata
    - Google fiókkal történő bejelentkezés
    - Közösségi fiók adatainak szinkronizálása
 
-2. **Passkey alapú hitelesítés**: (todo)
+2. **Passkey alapú hitelesítés**:
    - Passkey regisztráció (WebAuthn)
    - Passkey használata bejelentkezéshez
    - Passkey kezelés (hozzáadás, törlés)
@@ -1098,11 +1279,6 @@ Az Incubus platform felhasználói regisztrációs és bejelentkezési folyamata
    - 2FA beállítása (TOTP)
    - 2FA használata bejelentkezéskor
    - Biztonsági kódok generálása vészhelyzet esetére
-
-4. **Jelszó kezelés**: (todo)
-   - Jelszó visszaállítás
-   - Jelszó módosítás
-   - Jelszó erősség ellenőrzés
 
 **Folyamatábra: Felhasználói regisztráció**
 
@@ -1286,9 +1462,7 @@ Az Incubus platform adminisztrációs folyamatai a következő területeket fedi
 ### Támogatott nyelvek
 
 Az Incubus platform a következő nyelveket támogatja:
-   - Magyar (hu)
    - Angol (en)
-   - Német (de)
    - Francia (fr)
    - Spanyol (es)
    - Hindi (hi)
@@ -1368,7 +1542,7 @@ Az Incubus platform lokalizációs stratégiája a következő területekre fók
    - Funkcionális tesztek
    - Nyelv-specifikus tesztek
 
-A platform a Next.js keretrendszer nemzetköziesítési képességeit használja, amely lehetővé teszi az URL-ek lokalizálását és a megfelelő fordítási fájlok betöltését a felhasználó nyelvi beállításai alapján. Az URL-ekben a nyelvi kód prefixként jelenik meg (pl. `/hu/games`, `/en/games`), ami lehetővé teszi a keresőmotorok számára a különböző nyelvi verziók megfelelő indexelését.
+A platform a Next.js keretrendszer nemzetköziesítési képességeit használja, amely lehetővé teszi az URL-ek lokalizálását és a megfelelő fordítási fájlok betöltését a felhasználó nyelvi beállításai alapján. Az URL-ekben a nyelvi kód prefixként jelenik meg (pl. `/cmn/games`, `/en/games`), ami lehetővé teszi a keresőmotorok számára a különböző nyelvi verziók megfelelő indexelését.
 
 A felhasználói felületen egy nyelvválasztó komponens teszi lehetővé a felhasználók számára a nyelv egyszerű váltását. A kiválasztott nyelv a böngészőben tárolódik, így a felhasználó következő látogatásakor automatikusan betöltődik a preferált nyelv. Emellett a rendszer képes automatikusan felismerni a felhasználó böngészőjének nyelvi beállításait, és ennek megfelelően ajánlani a megfelelő nyelvet.
 

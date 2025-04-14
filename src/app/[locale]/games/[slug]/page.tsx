@@ -164,7 +164,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                             <div className="mt-4 space-y-3">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <span className="text-2xl font-bold flex items-center">
+                                        <span data-testid="game-price" className="text-2xl font-bold flex items-center">
                                             <Image
                                                 src="/polygon-logo.svg"
                                                 alt="Polygon"
@@ -280,7 +280,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
 
                         {/* Game Details */}
                         <div className="flex-1">
-                            <h1 className="text-3xl md:text-4xl font-bold mb-2">{game.title}</h1>
+                            <h1 data-testid="game-title" className="text-3xl md:text-4xl font-bold mb-2">{game.title}</h1>
 
                             <div className="flex items-center space-x-4 mb-4">
                                 <div className="flex items-center">
@@ -330,7 +330,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                             </div>
 
                             {/* Description */}
-                            <div className="prose prose-sm dark:prose-invert max-w-none mb-8">
+                            <div data-testid="game-description" className="prose prose-sm dark:prose-invert max-w-none mb-8">
                                 <p className="text-lg mb-4">{game.shortDescription}</p>
                                 <div dangerouslySetInnerHTML={{ __html: game.description }} />
                             </div>

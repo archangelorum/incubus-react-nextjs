@@ -102,6 +102,8 @@ export function GameReviews({ gameId }: GameReviewsProps) {
     
     try {
       setSubmitting(true);
+
+      console.log(`/api/games/${gameId}/reviews`);
       
       const response = await fetch(`/api/games/${gameId}/reviews`, {
         method: 'POST',

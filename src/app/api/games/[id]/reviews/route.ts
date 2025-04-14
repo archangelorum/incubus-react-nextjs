@@ -148,6 +148,7 @@ export async function POST(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  params = await params;
   try {
     // Validate ID parameter
     const validatedParams = validateParams(params, gameIdSchema);
@@ -160,7 +161,7 @@ export async function POST(
     // Validate request body
     const validatedData = await validateBody(req, createGameReviewSchema);
     if (validatedData instanceof Response) return validatedData;
-
+    
     // Check if game exists
     const game = await prisma.game.findUnique({
       where: { id: params.id }
@@ -179,7 +180,6 @@ export async function POST(
         }
       }
     });
-
     if (existingReview) {
       return errorResponse("You have already submitted a review for this game", 409);
     }

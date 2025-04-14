@@ -22,6 +22,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  params = await params;
   try {
     // Validate ID parameter
     const validatedParams = validateParams(params, gameIdSchema);

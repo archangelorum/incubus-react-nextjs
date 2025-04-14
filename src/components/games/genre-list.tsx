@@ -16,25 +16,25 @@ type Genre = {
 };
 
 const genreImages: Record<string, string> = {
-  'action': '/genres/action.jpg',
-  'adventure': '/genres/adventure.jpg',
-  'rpg': '/genres/rpg.jpg',
-  'strategy': '/genres/strategy.jpg',
-  'simulation': '/genres/simulation.jpg',
-  'sports': '/genres/sports.jpg',
-  'racing': '/genres/racing.jpg',
-  'puzzle': '/genres/puzzle.jpg',
-  'shooter': '/genres/shooter.jpg',
-  'platformer': '/genres/platformer.jpg',
-  'horror': '/genres/horror.jpg',
-  'fighting': '/genres/fighting.jpg',
-  'mmo': '/genres/mmo.jpg',
-  'card': '/genres/card.jpg',
-  'indie': '/genres/indie.jpg',
+  'action': 'action.jpg',
+  'adventure': 'adventure.jpg',
+  'rpg': 'rpg.jpg',
+  'strategy': 'strategy.jpg',
+  'simulation': 'simulation.jpg',
+  'sports': 'sports.jpg',
+  'racing': 'racing.jpg',
+  'puzzle': 'puzzle.jpg',
+  'shooter': 'shooter.jpg',
+  'platformer': 'platformer.jpg',
+  'horror': 'horror.jpg',
+  'fighting': 'fighting.jpg',
+  'mmo': 'mmo.jpg',
+  'card': 'card.jpg',
+  'indie': 'indie.jpg',
 };
 
 // Fallback image for genres without a specific image
-const fallbackGenreImage = '/genres/default.jpg';
+const fallbackGenreImage = 'default.jpg';
 
 export function GenreList() {
   const t = useTranslations();
@@ -66,7 +66,7 @@ export function GenreList() {
   }, []);
 
   const getGenreImage = (slug: string): string => {
-    return genreImages[slug.toLowerCase()] || fallbackGenreImage;
+    return `/storage/games/genres/${genreImages[slug.toLowerCase()] || fallbackGenreImage}`;
   };
 
   if (loading) {
