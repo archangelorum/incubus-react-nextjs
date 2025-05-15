@@ -37,7 +37,7 @@ import {
   ShardConfig,
   CompliancePolicy,
   $Enums,
-} from '@prisma/client'
+} from '../src/lib/generated/prisma'
 import { Decimal, JsonValue } from '@prisma/client/runtime/library'
 import { randomUUID } from 'crypto'
 
